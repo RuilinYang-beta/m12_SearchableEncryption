@@ -1,0 +1,16 @@
+{
+  "name": "searchableencryptionvis",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "buffer-xor": "^2.0.2",
+    "electron": "^13.0.1"
+  }
+}
