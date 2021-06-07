@@ -1,0 +1,88 @@
+:root {
+    --height:  25px;
+    --bWidth:  100px;
+    --sWidth:  50px;
+}
+
+.block {
+    border-style: groove;
+    border-radius: 10%;
+    /*text alignment within div*/
+    text-align: center;
+    vertical-align: middle;
+    /*  margin-top: 10px;
+      margin-bottom: 10px;*/
+}
+
+.block-trans {
+    /*later rm these two*/
+    /*  border-style: dotted;
+      border-color: gainsboro;  */
+    border-style: none;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.big {
+    height: var(--height);
+    width: var(--bWidth);
+    line-height: var(--height);
+}
+
+.small {
+    height: var(--height);
+    width: var(--sWidth);
+    line-height: var(--height);
+}
+
+.xs {
+    height: 25px;
+    width: 25px;
+    line-height: 25px;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.arrow {
+    font-size: 30px;
+}
+
+ul {
+    height: 100%;
+    width:  80px;
+    overflow: auto;
+    margin: 0;
+    padding: 0;
+
+    border: 2px solid #ccc;
+}
+
+li {
+    height: 25px;
+    border-bottom: 1px solid #ccc;
+}
+
+li:nth-child(even) {
+    background: #f8f8f8;
+}
+
+textarea {
+    height: 100%;
+    width: 220px;
+}
+
+div>p {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+    border-style: dotted;
+    border-color: gainsboro;
+}
+
+div>button {
+    margin: 0 auto;
+    display: block;
+}

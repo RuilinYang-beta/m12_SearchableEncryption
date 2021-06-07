@@ -5,7 +5,7 @@ const fs = require('fs');
 const crypto = require('crypto');
 const assert = require('assert');
 const xor = require('buffer-xor');  // do to bitwise xor on two buffers
-const {createPreEncryption, createPRNG, createSmallF, createBigF} = require('./utils');
+const {createPreEncryption, createPRNG, createSmallF, createBigF} = require('./primitives');
 
 let password = "userChosenPassword"; // later let user choose password
 const files = ['sample.txt', 'sample2.txt', 'sample3.txt']; 		    // later let user choose file
@@ -135,7 +135,10 @@ const computeCis = (Xis, Tis) => {
  */
 const computeQueryTerms = (searchTerm) => {
     let W = Buffer.from(searchTerm, 'utf-8');
-    // TODO:
+    // for now, the search term must be 16 byte,
+    // and it should be a clear cut of a block
+    assert(W.length === 16);
+
     let X = E.encrypt(W).Xi[0];
     let L = X.slice(0, X.length / 2);
     // console.log(`W: ${W};`);
@@ -150,14 +153,17 @@ const computeQueryTerms = (searchTerm) => {
  */
 const search = (Cis, X, k) => {
     let toReturn = [];
-    for (let Ci of Cis) { // each Ci is an array of 16 byte blocks
+    // each Ci is cipher text of a document, an array of 16 byte blocks
+    for (let Ci of Cis) {
+        // each ci is a block of the cipher text
         for (let ci of Ci) {
             // console.log(`ci: ${ci}`);
             // p for "potentially be"
             let pTi = xor(ci, X);
             // console.log(`pTi: ${pTi}`);
-            let pSi = pTi.slice(0, pTi.length/2);
+            let pSi = pTi.slice(0, pTi.length / 2);
             // console.log(`pTi: ${pTi}; pSi: ${pSi}`);
+            // the init vector of F should be shared between client and server
             let pFi = F.encrypt(k, pSi);
             if (pFi.compare(pTi.slice(pTi.length/2, pTi.length)) === 0){
                 toReturn.push(Ci);
@@ -203,5 +209,3 @@ const {X, k} = computeQueryTerms('aaaaaaaaaaaaaaa ');
 const searchRes = search(Cis, X, k);
 console.log('================searchRes');
 console.log(searchRes);
-
-

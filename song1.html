@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="song.css">
+</head>
+
+<body>
+<h2>(1) Initialization and pre-encryption</h2>
+
+<!-- 1st row -->
+<div class="flex-container">
+    <!-- primitives -->
+    <div style="border-style: dotted;border-color: gainsboro;">
+        <div class="block xs">E</div>
+        <div class="block xs">G</div>
+        <div class="block xs">f</div>
+        <div class="block xs">F</div>
+    </div>
+
+    <!-- file, password -->
+    <div style="border-style: dotted;border-color: gainsboro;margin-left: 20px;margin-right: 20px;padding: 10px;width: 400px;">
+        <!-- choose file -->
+        <div>
+            <label>Select multiple files from your system:</label>
+            <br>
+            <input type="file" id="fileinput" multiple style="margin: 10px;" />
+        </div>
+        <!-- password -->
+        <div>
+            <label>Choose a password (>=8 characters).<br>It will be used to generate cryptographically strong password for each of E, G, f, F together with a random salt.</label>
+            <br>
+            <input minlength="8" required style="margin: 10px">
+        </div>
+
+        <!-- confirm -->
+        <div>
+            <button type="button" style="margin-top:15px">Confirm</button>
+        </div>
+    </div>
+
+    <!-- image -->
+    <div style="border-style: dotted;border-color: gainsboro;">
+        <!-- Wi -->
+        <div class="block big">
+            W<sub>i</sub>
+        </div>
+
+        <!-- down arrow -->
+        <div class="block-trans big arrow">
+            &darr;
+        </div>
+
+        <!-- Xi -->
+        <div class="block big">
+            X<sub>i</sub>
+        </div>
+
+        <!-- two arrows -->
+        <div class="flex-container">
+            <div class="block-trans small arrow">
+                &swarr;
+            </div>
+
+            <div class="block-trans small arrow">
+                &searr;
+            </div>
+        </div>
+
+        <!-- Li, Ri, arr to xor -->
+        <div class="flex-container">
+            <div class="block small">
+                L<sub>i</sub>
+            </div>
+
+            <div class="block small">
+                R<sub>i</sub>
+            </div>
+
+            <div class="block-trans small arrow">
+                &#10549;
+            </div>
+        </div>
+
+        <!-- empty, xor, and Ci -->
+        <div class="flex-container">
+            <div class="block-trans big"></div>
+            <div class="block-trans small"
+                 style="text-align:right;font-size:25px;width: 55px;">
+                ⊕
+            </div>
+
+            <div class="block-trans small arrow">
+                &rarr;
+            </div>
+
+            <div class="block big">
+                C<sub>i</sub>
+            </div>
+        </div>
+
+        <!-- Si, Fk(Si), and ne arrow -->
+        <div class="flex-container">
+            <div class="block small">
+                S<sub>i</sub>
+            </div>
+
+            <div class="block small">
+                F<sub>k<sub>i</sub></sub>(S<sub>i</sub>)
+            </div>
+
+            <div class="block-trans small arrow" style="">
+                &#10548;
+            </div>
+        </div>
+
+        <!-- formula about ki -->
+        <div>
+            where k<sub>i</sub> = f<sub>k'</sub>(L<sub>i</sub>)
+        </div>
+    </div>
+</div>
+
+
+<!-- 2nd row -->
+<div class="flex-container" style="margin-top: 10px;height: 250px;">
+
+    <!-- chosen files -->
+    <div>
+        <p>files</p>
+        <ul style="border-style: dotted;border-color: gainsboro;">
+
+        </ul>
+    </div>
+
+
+    <!-- three text areas -->
+    <div class="flex-container">
+        <div>
+            <p>plain</p>
+            <textarea disabled>this is text area for plain</textarea>
+        </div>
+
+        <div>
+            <p>hex</p>
+            <textarea disabled>this is text area for hex</textarea>
+        </div>
+
+        <div>
+            <p>pre-encrypted</p>
+            <textarea style="height: 220px;" disabled>this is text area for pre-encrypted</textarea>
+            <button type="button">Pre encrypt</button>
+        </div>
+    </div>
+</div>
+
+<script src="song1.js"></script>
+</body>

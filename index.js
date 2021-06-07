@@ -1,5 +1,5 @@
-const electron = require('electron');
-const { app, BrowserWindow, Menu, ipcMain } = electron;
+const index = require('electron');
+const { app, BrowserWindow, Menu, ipcMain } = index;
 
 let mainWindow;
 // these settings enables html to have access to node API
@@ -11,6 +11,8 @@ const preferences = {
 
 app.on('ready', () => {
     mainWindow = new BrowserWindow({
+        width: 900,
+        height: 700,
         webPreferences: preferences
     });
     mainWindow.loadURL(`file://${__dirname}/index.html`);
@@ -50,6 +52,7 @@ const menuTemplate = [
                 label: 'Song et al(2000)',
                 click() {
                     // TODO
+                    mainWindow.loadURL(`file://${__dirname}/song1.html`);
                     console.log('TODO');
                 }
             }

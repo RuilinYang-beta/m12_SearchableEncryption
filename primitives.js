@@ -11,9 +11,9 @@ const file = 'sample.txt'; 		    // later let user choose file
  * Use userChosenPassword and a random salt to derive a key, use the key to construct a pre-encryption cipher,
  * built on aes-128-ecb.
  * @return: an obj of two functions and a key:
- *          function encrypt: take the data buffer to encrypt and return the encrypted
+ *          function encrypt: take the data buffer to encrypt and return the encrypted in two formats(stream / block-sized)
  *          function decrypt: take the data buffer to decrypt and return the decrypted
- *          key: a computational-expensive derived key
+ *          key: a computationally-expensive derived key
  */
 const createPreEncryption = (userChosenPassword) => {
     const algo = 'aes-128-ecb';  // key: 128 bits; block: 128 bits;
