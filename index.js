@@ -11,6 +11,7 @@ const preferences = {
 
 app.on('ready', () => {
     mainWindow = new BrowserWindow({
+        backgroundColor: '#FFF', // keep white when dev tool is open
         width: 900,
         height: 700,
         webPreferences: preferences

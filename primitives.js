@@ -1,13 +1,13 @@
-const crypto = require('crypto');
-const fs = require('fs');
+// const crypto = require('crypto');
+// const fs = require('fs');
 
-// ===========================================================================
+// ======================================================================
 // ............... 1. pre-encryption built on aes-128-ecb ...............
-// ===========================================================================
-let password = "userChosenPassword"; // later let user choose password
-const file = 'sample.txt'; 		    // later let user choose file
+// ======================================================================
+// let password = "userChosenPassword"; // later let user choose password
+// const file = 'sample.txt'; 		    // later let user choose file
 
-/*
+/**
  * Use userChosenPassword and a random salt to derive a key, use the key to construct a pre-encryption cipher,
  * built on aes-128-ecb.
  * @return: an obj of two functions and a key:
@@ -21,24 +21,24 @@ const createPreEncryption = (userChosenPassword) => {
     const key = crypto.scryptSync(userChosenPassword, salt, 16);
 
     const encrypt = (dataBuf) => {
-            const cipher = crypto.createCipheriv(algo, key, '');  // ecb mode doesn't have an iv
-            const encrypted = cipher.update(dataBuf);
-            const Xi_stream = Buffer.concat([encrypted, cipher.final()]);
-            // split stream into an arr of small buffers of 16 bytes each
-            let start = 0;
-            let Xi = [];
-            while (start + 16 <= Xi_stream.length) {
-                Xi.push(Xi_stream.slice(start, start + 16));
-                start += 16;
-            }
-            return {Xi_stream, Xi};
+        const cipher = crypto.createCipheriv(algo, key, '');  // ecb mode doesn't have an iv
+        const encrypted = cipher.update(dataBuf);
+        const Xi_stream = Buffer.concat([encrypted, cipher.final()]);
+        // split stream into an arr of small buffers of 16 bytes each
+        let start = 0;
+        let Xi = [];
+        while (start + 16 <= Xi_stream.length) {
+            Xi.push(Xi_stream.slice(start, start + 16));
+            start += 16;
+        }
+        return {Xi_stream, Xi};
     };
 
     const decrypt = (dataBuf) => {
-            const decipher = crypto.createDecipheriv(algo, key, '');
-            const decrypted = decipher.update(dataBuf);
-            const result = Buffer.concat([decrypted, decipher.final()]);
-            return result;
+        const decipher = crypto.createDecipheriv(algo, key, '');
+        const decrypted = decipher.update(dataBuf);
+        const result = Buffer.concat([decrypted, decipher.final()]);
+        return result;
     };
     // return an obj of two functions and the derived key
     return({encrypt, decrypt, key});
@@ -92,7 +92,7 @@ const encDec = (data, cryptoAlgo, isFilePath=true) => {
 // need PRG to generate S/128*64 = S/2 bits
 // where num of blocks is the same as the encrypted file, but each block only has 64 bits
 
-/*
+/**
  * Use userChosenPassword and a random salt to derive a key, use the key to construct a pseudorandom generator,
  * built on aes-128-ctr.
  * @return: an obj of one function and a key:
@@ -149,7 +149,7 @@ const createPRNG = (userChosenPassword) => {
 // block size is 64 bits, key size can be 32~448 bits, here we choose key size 64 bits.
 
 // ............... 3.1 smallF ...............
-/*
+/**
  * Use userChosenPassword and a random salt to derive a key, use the key to construct a pseudorandom function.
  * @return: an obj of two functions and a key:
  *          function encrypt: take the data buffer to encrypt and return the encrypted
@@ -196,7 +196,8 @@ const createSmallF = (userChosenPassword) => {
 //     .catch((err) => console.log(err));
 
 // ............... 3.2 bigF ...............
-/* unlike the previous functions,
+/**
+ * Unlike the previous functions,
  * big F don't need to go through the computational-costly key derivation process
  * instead, each time F is used, a computed key is passed to createBigG function.
  * The returned object has an encrypt method that does encryption.
@@ -230,4 +231,4 @@ const createBigF = (iv) => {  // remember to pass it a 64bit iv
 // });
 
 
-module.exports = {createPreEncryption, createPRNG, createSmallF, createBigF, encDec};
+// module.exports = {createPreEncryption, createPRNG, createSmallF, createBigF, encDec};

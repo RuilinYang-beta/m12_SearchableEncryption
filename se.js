@@ -1,21 +1,14 @@
 /*
  * This file contains codes related to searchable encryption scheme.
  */
-const fs = require('fs');
-const crypto = require('crypto');
-const assert = require('assert');
-const xor = require('buffer-xor');  // do to bitwise xor on two buffers
-const {createPreEncryption, createPRNG, createSmallF, createBigF} = require('./primitives');
+// const fs = require('fs');
+// const crypto = require('crypto');
+// const assert = require('assert');
+// const xor = require('buffer-xor');  // do to bitwise xor on two buffers
+// const {createPreEncryption, createPRNG, createSmallF, createBigF} = require('./primitives');
 
-let password = "userChosenPassword"; // later let user choose password
-const files = ['sample.txt', 'sample2.txt', 'sample3.txt']; 		    // later let user choose file
-
-// init E, G, f
-let E;
-let G;
-let f;
-let F;
-const F_iv = crypto.randomBytes(8);
+// let password = "userChosenPassword"; // later let user choose password
+// const files = ['./sampleFiles/sample.txt', './sampleFiles/sample2.txt', './sampleFiles/sample3.txt']; 		    // later let user choose file
 
 
 // a helper function
@@ -42,15 +35,31 @@ const initPrimitives = (password) => {
 
 // preEncryption on `files` using primitive E
 const computeXis = (files) => {
-    const Xi_streams = [];
-    const Xis = [];
-    files.forEach(filePath => {
-            let data = fs.readFileSync(filePath);
-            let {Xi_stream, Xi} = E.encrypt(data);
-            Xi_streams.push(Xi_stream);
-            Xis.push(Xi);
-        });
-    return {Xi_streams, Xis};
+    // assume of format {fileName: fileContent, ...}
+    let Wis = files;
+    let Xis_stream = {};
+    let Xis = {};
+
+    // fn for file name
+    for (let fn in Wis) {
+        let {Xi_stream, Xi} = E.encrypt(Wis[fn])
+        Xis_stream[fn] = Xi_stream;
+        Xis[fn] = Xi;
+    }
+
+    // Xis_stream: {fileName: preEncryptedStream, ...}
+    // Xis: {fileName: [arr_of_preEncrypted_blocks], ... }
+    return {Xis_stream, Xis};
+
+    // const Xi_streams = [];
+    // const Xis = [];
+    // files.forEach(filePath => {
+    //         let data = fs.readFileSync(filePath);
+    //         let {Xi_stream, Xi} = E.encrypt(data);
+    //         Xi_streams.push(Xi_stream);
+    //         Xis.push(Xi);
+    //     });
+    // return {Xi_streams, Xis};
 }
 
 const genSis = (Xi_streams) => {
@@ -174,38 +183,43 @@ const search = (Cis, X, k) => {
     return toReturn;
 }
 
-initPrimitives(password);
-const {Xi_streams, Xis} = computeXis(files);
-const Sis = genSis(Xi_streams);
-const Kis = computeKis(Xis);
-const Fis = computeFis(Kis, Sis);
-const Tis = computeTis(Sis, Fis);
-const Cis = computeCis(Xis, Tis);
 
-console.log(Xis.map(e => e.length));
-console.log(Sis.map(e => e.length));
-console.log(Kis.map(e => e.length));
-console.log(Fis.map(e => e.length));
-console.log(Tis.map(e => e.length));
-console.log(Cis.map(e => e.length));
-console.log('================Xis');
-console.log(Xi_streams);
-console.log(Xis);
-console.log('================Sis');
-console.log(Sis);
-console.log('================Kis');
-console.log(Kis);
-console.log('================Fis');
-console.log(Fis);
-console.log('================Tis');
-console.log(Tis);
-console.log('================Cis');
-console.log(Cis);
+// // sample usage
+// initPrimitives(password);
+// const {Xi_streams, Xis} = computeXis(files);
+// const Sis = genSis(Xi_streams);
+// const Kis = computeKis(Xis);
+// const Fis = computeFis(Kis, Sis);
+// const Tis = computeTis(Sis, Fis);
+// const Cis = computeCis(Xis, Tis);
+//
+// console.log(Xis.map(e => e.length));
+// console.log(Sis.map(e => e.length));
+// console.log(Kis.map(e => e.length));
+// console.log(Fis.map(e => e.length));
+// console.log(Tis.map(e => e.length));
+// console.log(Cis.map(e => e.length));
+// console.log('================Xis');
+// console.log(Xi_streams);
+// console.log(Xis);
+// console.log('================Sis');
+// console.log(Sis);
+// console.log('================Kis');
+// console.log(Kis);
+// console.log('================Fis');
+// console.log(Fis);
+// console.log('================Tis');
+// console.log(Tis);
+// console.log('================Cis');
+// console.log(Cis);
+//
+// const {X, k} = computeQueryTerms('aaaaaaaaaaaaaaa ');
+// // console.log(X);
+// // console.log(k);
+//
+// const searchRes = search(Cis, X, k);
+// console.log('================searchRes');
+// console.log(searchRes);
 
-const {X, k} = computeQueryTerms('aaaaaaaaaaaaaaa ');
-// console.log(X);
-// console.log(k);
 
-const searchRes = search(Cis, X, k);
-console.log('================searchRes');
-console.log(searchRes);
+// module.exports = {initPrimitives};
