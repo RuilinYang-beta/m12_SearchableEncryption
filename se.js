@@ -1,15 +1,21 @@
-/*
+// comment them when run in Electron, they will be imported in globalModules.js
+const fs = require('fs');
+const crypto = require('crypto');
+const assert = require('assert');
+const xor = require('buffer-xor');  // do to bitwise xor on two buffers
+const {createPreEnc, createFilenameEnc, createPRNG, createSmallF, createBigF} = require('./primitives');
+
+/**
  * This file contains codes related to searchable encryption scheme.
+ * Naming convention:
+ * - Wi:
+ *      the words of a file [word1, word2, ...] where each word is a block
+ * - Wis:
+ *      the words across all files: {file1: [words_of_file1], ...}
  */
-// const fs = require('fs');
-// const crypto = require('crypto');
-// const assert = require('assert');
-// const xor = require('buffer-xor');  // do to bitwise xor on two buffers
-// const {createPreEncryption, createPRNG, createSmallF, createBigF} = require('./primitives');
 
 // let password = "userChosenPassword"; // later let user choose password
-// const files = ['./sampleFiles/sample.txt', './sampleFiles/sample2.txt', './sampleFiles/sample3.txt']; 		    // later let user choose file
-
+// const files = ['./sampleFiles/sample.txt', './sampleFiles/sample2.txt', './sampleFiles/sample3.txt'];
 
 // a helper function
 const computeSanity = (arr1, arr2) => {
@@ -26,17 +32,17 @@ const computeSanity = (arr1, arr2) => {
 
 // instantiate primitives
 const initPrimitives = (password) => {
-    E = createPreEncryption(password);
-    G = createPRNG(password);
+    E = createPreEnc(password);
+    e = createFilenameEnc(password);
+    Gs = createPRNG(password);
     f = createSmallF(password);
-    F = createBigF(F_iv);
+    F = createBigF();
     return ;
 }
 
 // preEncryption on `files` using primitive E
-const computeXis = (files) => {
-    // assume of format {fileName: fileContent, ...}
-    let Wis = files;
+const computeXis = (Wis) => {
+    // Wis is of format {fileName: fileContentString, ...}
     let Xis_stream = {};
     let Xis = {};
 
@@ -47,8 +53,8 @@ const computeXis = (files) => {
         Xis[fn] = Xi;
     }
 
-    // Xis_stream: {fileName: preEncryptedStream, ...}
-    // Xis: {fileName: [arr_of_preEncrypted_blocks], ... }
+    // Xis_stream: {fileName: preEncryptedBigBuffer, ...}
+    // Xis: {fileName: [preEncrypted_blocks_Buffers], ... }
     return {Xis_stream, Xis};
 
     // const Xi_streams = [];
@@ -62,10 +68,12 @@ const computeXis = (files) => {
     // return {Xi_streams, Xis};
 }
 
+// now Xi_streams is an array of big buffers
+// needs to turn it into an obj of {name: buffer}
 const genSis = (Xi_streams) => {
     const Sis = [];
     Xi_streams.forEach( Xi_stream => {
-        let si = G.gen(Xi_stream.length / 2);
+        let si = Gs.gen(Xi_stream.length / 2);
         Sis.push(si);
     });
     return Sis;
@@ -223,3 +231,19 @@ const search = (Cis, X, k) => {
 
 
 // module.exports = {initPrimitives};
+
+initPrimitives('password');
+const {Xis_stream, Xis} = computeXis({'file1':'this is contenet 1 and its content is long', 'file2': 'content2'});
+console.log(`you are here ${Xis_stream}`);
+// console.log(Xis_stream);
+console.log(Xis['file1']);
+
+// to display them with visual block boundary aid
+let toShow = '';
+Xis['file1'].forEach( e => {
+    toShow += '[';
+    toShow += e.toString('hex');
+    toShow += '], ';
+})
+
+console.log(toShow);
