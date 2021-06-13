@@ -1,11 +1,9 @@
-// const {initPrimitives} = require('./se');
 
 // =========================================
 // ............... functions ...............
 // =========================================
-/**
- * When user click "Choose Files", clear any existing traces of files.
- */
+
+// When user click "Choose Files", clear any existing traces of files.
 function clearFileArea() {
     plains = {};  // clear any existing values
     let fileList = document.querySelector('#fileList');
@@ -16,10 +14,8 @@ function clearFileArea() {
     }
 }
 
-/**
- *
- * @param plains
- */
+
+// Takes the `plains` and populate a few areas on the page.
 const writeFileArea = (plains) => {
     let fileNames = Object.keys(plains);
     // populate fileList
@@ -46,13 +42,14 @@ const writeFileArea = (plains) => {
         // populate pre-encrypted area if it exists
         if (Xis_stream[selectedFileName] !== undefined) {
             let preEncContent = Xis_stream[selectedFileName];
-            $('#preEncArea').html(preEncContent.toString('hex'));
+            $('#XiArea').html(preEncContent.toString('hex'));
         }
     })
 
     // make the first file selected
     $('ul li').first().click();
 }
+
 
 const readFileAsText = (file) => {
     return new Promise(function(resolve,reject){
@@ -122,7 +119,7 @@ $('#confirmButton').click(function() {
     let pswd = $('#password').val();
     if (pswd.length > 0) {
         initPrimitives(pswd);
-        $('#passwordNotice').html('Password used to initialize primitives. <br>Hover on E, G, f, F to see their keys. Now you can pre encrypt.');
+        $('#passwordNotice').html('Password used to initialize primitives. <br>Hover on E, Gs, f, F to see their keys. Now you can pre encrypt.');
     }
 
     // TODO: when hover, there should be a tooltip showing the key for each primitives
@@ -138,11 +135,11 @@ $('#confirmButton').click(function() {
     $('#confirmButton').prop('disabled', true);
 
     // enable "pre encrypt"
-    $('#preEncButton').prop('disabled', false);
+    $('#XiButton').prop('disabled', false);
 })
 
 
-$('#preEncButton').click( function () {
+$('#XiButton').click( function () {
     // compute pre-encrypt cipher
     let result = computeXis(plains);
     Xis_stream = result.Xis_stream;
@@ -150,7 +147,7 @@ $('#preEncButton').click( function () {
 
     // populate the pre-encrypted area with the cipher of the selected file
     let selectedFn = $('li.selected').html();
-    $('#preEncArea').html(Xis_stream[selectedFn].toString('hex'));
+    $('#XiArea').html(Xis_stream[selectedFn].toString('hex'));
 
     // show up the "next" button
     $('#next1').removeAttr('hidden');
@@ -162,7 +159,7 @@ $('#plainContainer, #hexContainer').hover( function () {
     $('#Wi').removeClass('highlight');
 })
 
-$('#preEncContainer').hover(function () {
+$('#XiContainer').hover(function () {
     $('#Wi, #Xi, #E').addClass('highlight');
 }, function () {
     $('#Wi, #Xi, #E').removeClass('highlight');
