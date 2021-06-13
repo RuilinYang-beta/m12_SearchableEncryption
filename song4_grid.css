@@ -1,0 +1,77 @@
+:root {
+    --green: #96ceb4;
+    --yellow: #ffeead;
+    --orange: #ffcc5c;
+    --pink: #ff6f69;
+}
+
+/*-- text container --*/
+.textContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.textContainer>p {
+    width: 100%;
+    margin: 0px 0px 5px 0px;
+    text-align: center;
+}
+
+.textContainer>textarea {
+    width: 98%;
+    height: 98%;
+}
+
+/*-- h3 --*/
+h3 {
+    margin: 0px 0px 8px 0px;
+}
+
+/*-- grid --*/
+.grid {
+    display: grid;
+    grid-template-columns: 120px 220px 220px 220px 220px;
+    grid-template-rows: 225px 225px 225px 20px;
+    row-gap: 5px;
+    grid-template-areas:
+    "primitives     Cj            filename      img     img"
+    "files          Sj            Lj            img_dec img_dec"
+    "files          kj            Fj            Rj      Wj"
+    ".              .               .           .       finish";
+}
+
+/*.grid div {*/
+/*    background-color: var(--green);*/
+/*}*/
+
+/*.grid div:nth-child(even) {*/
+/*    background-color: var(--yellow);*/
+/*}*/
+
+.cell {
+    border-style: dotted;
+    border-width: 1px;
+}
+
+/*-- sidebar: primitives and files --*/
+#primitives {
+    grid-area: primitives;
+}
+
+#files {
+    grid-area: files;
+}
+
+/*-- special: two images that each takes 2 cells --*/
+#img {
+    grid-area: img;
+}
+
+#img_dec {
+    grid-area: img_dec;
+}
+
+/*-- footer row: next --*/
+#finish {
+    grid-area: finish;
+}

@@ -4,13 +4,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <!-- css for the grid of the whole page-->
-    <link rel="stylesheet" href="song1_grid.css">
+    <link rel="stylesheet" href="song3_grid.css">
     <!-- css for the encryption image -->
     <link rel="stylesheet" href="image_enc.css">
     <!-- css for the sidebar: primitives and file list -->
     <link rel="stylesheet" href="sidebar.css">
     <!-- css for other parts specific for this page -->
-    <link rel="stylesheet" href="song1.css">
+    <link rel="stylesheet" href="song3.css">
 
     <!-- import jquery to use in Electron -->
     <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
@@ -19,12 +19,13 @@
 </head>
 
 <body>
-<div id="outmost1">
+<div id="outmost3">
 
-    <h3>(1) Initialization and pre-encryption</h3>
+    <h3>(3) Search</h3>
 
-    <div class="grid">
-        <!--sidebar: primitives and files-->
+    <!-- for each of its immediate successor, add class "cell" -->
+    <div class="grid" id="gridContainer">
+        <!-- sidebar: primitives and files -->
         <div class="cell" id="primitives">
             <div>Primitives: </div>
             <div class="flex">
@@ -52,28 +53,26 @@
                 <li>file12</li>
             </ul>
         </div>
-        <!--1st row: form and img-->
-        <div class="cell" id="form">
-            <!-- choose file -->
-            <div id="chooseFile">
-                <label>Select a few files to encrypt:</label>
-                <input type="file" id="fileInput" multiple />
-            </div>
-            <!-- password -->
-            <div id="choosePassword">
-                <label>Choose a password. The primitives will be derived from your password.</label>
+        <!-- 1st row: word, query term, img -->
+        <!-- 1.1 word -->
+        <div class="cell" id="word">
+            <h3>Alice (you)</h3>
+            <div id="chooseWord">
+                <label>Enter (exactly) a block to search, the server will return all the documents containing this term.</label>
                 <br>
-                <input id="passwordInput" required>
-                <p id="passwordNotice"></p>
+                <input id="wordInput" required>
             </div>
-            <!-- confirm -->
-            <div class="flex">
-                <button id="confirmButton" type="button" >Confirm</button>
-            </div>
+            <button id="confirmButton" type="button" >Confirm</button>
+            <p id="wordNotice"></p>
         </div>
+        <!-- 1.2 query term -->
+        <div class="cell" id="queryTerm">
+            This cell is used to show the computed X and k to send to the server.
+        </div>
+        <!-- 1.3 img -->
         <div class="cell" id="img">
             <div id="imageContainer">
-                <div id="imageTitle">operation on file i, block j:</div>
+                <div id="imageTitle">Recall how C<sub>j</sub> is computed:</div>
                 <!--pre-encryption-->
                 <div id="Wj" class="block">W<sub>j</sub></div>
                 <div id="da1" class="block-trans arrowSmall">&darr;</div>
@@ -100,47 +99,56 @@
                 <div id="ra3" class="block-trans arrow" >&rarr;</div>
             </div>
         </div>
-        <!--2nd and 3rd row-->
-        <div class="cell textContainer" id="plainContainer">
-            <p>plain text</p>
-            <textarea id="plainArea" disabled>display the plain text of the chosen file</textarea>
+
+        <!-- 2nd row: received, Cj, Sj, img_search -->
+        <div class="cell" id="receivedTerm">
+            <h3>Bob (cloud server) </h3>
+            This cell is used to show the received X and k, with hover -> highlight image_search effect.
         </div>
-        <div class="cell textContainer" id="hexContainer">
-            <p>plain text in hex encoding</p>
-            <textarea id="hexArea" disabled>display the plain text of the chosen file</textarea>
+        <div class="cell textContainer" id="CjContainer">
+            <p>cipher blocks(C<sub>j</sub>)</p>
+            <textarea id="CjArea" disabled>display the cipher blocks for the chosen file</textarea>
         </div>
-        <div class="cell textContainer" id="WjContainer">
-            <p>hex in blocks (W<sub>j</sub>)</p>
-            <textarea id="WjArea" disabled>display the plain text of the chosen file</textarea>
+        <div class="cell textContainer" id="SjContainer">
+            <p>computed S<sub>j</sub></p>
+            <textarea id="SjArea" disabled>display the computed Sj: &#xa Sj = Cj[:64] ⊕ X[:64]</textarea>
+            <button id="SjButton" type="button" disabled>compute</button>
         </div>
-        <div class="cell textContainer" id="XjContainer">
-            <p>pre-encrypted blocks (X<sub>j</sub>)</p>
-            <textarea id="XjArea" disabled>display the plain text of the chosen file</textarea>
-            <button id="XjButton" type="button" disabled>Pre encrypt</button>
+        <div class="cell" id="img_search">to put a simple image here, showing how Bob will deal with each block</div>
+        <!-- 3rd row: computedFj, actualFj, isEqual, toReturn -->
+        <div class="cell textContainer" id="computedFjContainer">
+            <p>computed F<sub>j</sub></p>
+            <textarea id="computedFjArea" disabled>display the computed Fj: &#xa Fj = F(k, Sj)</textarea>
+            <button id="computedFjButton" type="button" disabled>compute</button>
+        </div>
+        <div class="cell textContainer" id="actualFjContainer">
+            <p>actual F<sub>j</sub></p>
+            <textarea id="actualFjArea" disabled>display the actual Fj: &#xa Fj = Cj[64:] ⊕ X[64] </textarea>
+            <button id="actualFjButton" type="button" disabled>compute</button>
+        </div>
+        <div class="cell textContainer" id="isEqualContainer">
+            <p>isEqual?</p>
+            <textarea id="isEqualArea" disabled>is computed Fj equal to actual Fj for each block? </textarea>
+            <button id="isEqualButton" type="button" disabled>compute</button>
+        </div>
+        <div class="cell textContainer" id="toReturnContainer">
+            <p>toReturn?</p>
+            <textarea id="toReturnArea" disabled>should I (Bob, the server) return the file to Alice?</textarea>
+            <button id="toReturnButton" type="button" disabled>compute</button>
         </div>
         <!--footer row: next-->
         <button class="cell" id="next">Next -></button>
+
     </div>
+
 </div>
 
-<script src="globalHTMLs.js"></script>
-<script src="globalVar.js"></script>
 <script>
-    // $('#next').click(function() {
-    //
-    //     $('#outmost1').replaceWith(tempPage);
-    // })
-    //
     // $(document).ready(function() {
-    //     for (let i = 0; i < 81; i++){
-    //         $( "#imageContainer" ).append( `<div>${i}</div>` );
+    //     for (let i = 0; i < 20; i++){
+    //         $( "#gridContainer" ).append( `<div>${i}</div>` );
     //     }
     // })
-
-
 </script>
-
-
-
 
 </body>

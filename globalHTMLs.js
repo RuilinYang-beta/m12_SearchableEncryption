@@ -4,8 +4,8 @@
  * Note this is not a good practice, the purpose is to maintain the same variable state
  * (eg. after the first page, `plains` is non-empty) from being erased.
  *
- * If not using this approach, but load a song2.html after clicking `next` in song1.html,
- * song2.html will need to load globalVar.js to have access to `plains` etc, but this will erase
+ * If not using this approach, but load a old_song2.html after clicking `next` in old_song1.html,
+ * old_song2.html will need to load globalVar.js to have access to `plains` etc, but this will erase
  * `plains` to its initial state (an empty obj)!!
  */
 
@@ -24,9 +24,9 @@ const song2 = `
 
     <!-- pre-encrypted, Si -->
     <div class="flex-container" style="border-style: dotted;border-color: gainsboro;margin-left: 20px;margin-right: 20px;width: 450px;">
-        <div id="XiContainer">
+        <div id="XjContainer">
             <p>pre-encrypted</p>
-            <textarea id="XiArea" disabled>display the pre-encrypted cipher of the chosen file</textarea>
+            <textarea id="XjContainer" disabled>display the pre-encrypted cipher of the chosen file</textarea>
         </div>
 
         <div id="SiContainer">
@@ -157,3 +157,9 @@ const song2 = `
 <div style="text-align: right;margin-top: 15px;width: 800px;">
     <button id="next2">Next &rarr;</button>
 </div>`;
+
+
+const tempPage = `
+            <h3>this is an h3</h3>
+            <div>this is some content</div>
+            <script src="temp1.js"></script>`;

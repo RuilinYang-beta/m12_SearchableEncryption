@@ -1,0 +1,105 @@
+:root {
+    --green: #96ceb4;
+    --yellow: #ffeead;
+    --orange: #ffcc5c;
+    --pink: #ff6f69;
+}
+
+/*-- text container --*/
+.textContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.textContainer>p {
+    width: 100%;
+    margin: 0px 0px 5px 0px;
+    text-align: center;
+}
+
+.textContainer>textarea {
+    width: 98%;
+    height: 98%;
+}
+
+/*-- h3 --*/
+h3 {
+    margin: 0px 0px 8px 0px;
+}
+
+/*-- grid --*/
+.grid {
+    display: grid;
+    grid-template-columns: 120px 220px 220px 220px 220px;
+    grid-template-rows: 225px 225px 225px 20px;
+    row-gap: 5px;
+    grid-template-areas:
+        "primitives     Xj      Xj      img     img"
+        "files          Lj      Rj      kj      ."
+        "files          Sj      Fj      Cj      ."
+        ".              .       .       .       next";
+}
+
+/*!* -- temp: color of grid cell --*!*/
+/*.grid div {*/
+/*    background-color: var(--green);*/
+/*}*/
+
+/*.grid div:nth-child(even) {*/
+/*    background-color: var(--yellow);*/
+/*}*/
+
+.cell {
+    border-style: dotted;
+    border-width: 1px;
+}
+
+/*-- sidebar: primitives and files --*/
+#primitives {
+    grid-area: primitives;
+}
+
+#files {
+    grid-area: files;
+}
+
+/*-- 1st row: Xj and img --*/
+#XjContainer {
+    grid-area: Xj;
+}
+
+#img {
+    grid-area: img;
+}
+
+/*-- 2nd row: Lj, Rj and kj --*/
+#LjContainer {
+    grid-area: Lj;
+}
+
+#RjContainer {
+    grid-area: Rj;
+}
+
+#kjContainer {
+    grid-area: kj;
+}
+
+/*-- 3rd row: Sj, Fj and Cj --*/
+#SjContainer {
+    grid-area: Sj;
+}
+
+#FjContainer {
+    grid-area: Fj;
+}
+
+#CjContainer {
+    grid-area: Cj;
+}
+
+/*-- footer row: next --*/
+#next {
+    grid-area: next;
+    justify-self: center;
+}

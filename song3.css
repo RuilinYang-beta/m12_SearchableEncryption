@@ -1,0 +1,24 @@
+/*-- form: enter a word to search for --*/
+#word {
+    padding: 10px;
+}
+
+#chooseWord {
+    margin: 10px 0px 10px 0px;
+}
+
+#wordInput {
+    margin: 10px auto 10px auto;
+    display: block;
+}
+
+#confirmButton {
+    margin: 10px auto 10px auto;
+    display: block;
+}
+
+#wordNotice {
+    font-size: 12px ;
+}
+
+

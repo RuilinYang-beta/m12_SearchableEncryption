@@ -12,11 +12,12 @@ const preferences = {
 app.on('ready', () => {
     mainWindow = new BrowserWindow({
         backgroundColor: '#FFF', // keep white when dev tool is open
-        width: 900,
-        height: 700,
+        width: 1100,
+        height: 864,
         webPreferences: preferences
     });
-    mainWindow.loadURL(`file://${__dirname}/index.html`);
+    // mainWindow.loadURL(`file://${__dirname}/index.html`);
+    mainWindow.loadURL(`file://${__dirname}/song4.html`);
 
     const mainMenu = Menu.buildFromTemplate(menuTemplate);
     mainWindow.setMenu(mainMenu);
@@ -52,9 +53,12 @@ const menuTemplate = [
             {
                 label: 'Song et al(2000)',
                 click() {
-                    // TODO
-                    mainWindow.loadURL(`file://${__dirname}/song1.html`);
-                    console.log('TODO');
+                    mainWindow.loadURL(`file://${__dirname}/temp.html`);
+                }
+            }, {
+                label: 'song2(temp)',
+                click() {
+                    mainWindow.loadURL(`file://${__dirname}/song2.html`);
                 }
             }
         ]
@@ -63,3 +67,5 @@ const menuTemplate = [
         role: 'viewMenu'
     }
 ];
+
+

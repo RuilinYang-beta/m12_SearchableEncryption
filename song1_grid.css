@@ -1,0 +1,102 @@
+/* This file deals with the structure of the whole page,
+ * and two common components across pages: h3 and textContainer.
+ */
+
+:root {
+    --green: #96ceb4;
+    --yellow: #ffeead;
+    --orange: #ffcc5c;
+    --pink: #ff6f69;
+}
+
+/*-- text container --*/
+.textContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.textContainer>p {
+    width: 100%;
+    margin: 0px 0px 5px 0px;
+    text-align: center;
+}
+
+.textContainer>textarea {
+    width: 98%;
+    height: 98%;
+}
+
+/*-- h3 --*/
+h3 {
+    margin: 0px 0px 8px 0px;
+}
+
+/*-- grid --*/
+.grid {
+    display: grid;
+    grid-template-columns: 120px 220px 220px 220px 220px;
+    grid-template-rows: 225px 225px 225px 20px;
+    row-gap: 5px;
+    grid-template-areas:
+    "primitives form  form img img"
+    "files      plain hex  Wj  Xj"
+    "files      plain hex  Wj  Xj"
+    ".          .     .    .   next";
+}
+
+/*!* -- temp: color of grid cell --*!*/
+/*.container div {*/
+/*    background-color: var(--green);*/
+/*}*/
+
+/*.container div:nth-child(even) {*/
+/*    background-color: var(--yellow);*/
+/*}*/
+
+/* -- temp: border of grid cell --*/
+.grid .cell {
+    border-style: dotted;
+    border-width: 1px;
+}
+
+/*-- sidebar: primitives and files --*/
+#primitives {
+    grid-area: primitives;
+}
+
+#files {
+    grid-area: files;
+}
+
+/*-- 1st row: form and img --*/
+#word {
+    grid-area: form;
+}
+
+#img {
+    grid-area: img;
+}
+
+/*-- 2nd and 3rd row: 4 textContainers --*/
+#plainContainer {
+    grid-area: plain;
+}
+
+#hexContainer {
+    grid-area: hex;
+}
+
+#WjContainer {
+    grid-area: Wj;
+}
+
+#XjContainer {
+    grid-area: Xj;
+}
+
+/*-- footer row: next --*/
+#next {
+    grid-area: next;
+    justify-self: center;
+}
+
