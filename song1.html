@@ -47,27 +47,22 @@
             </ul>
         </div>
         <!--1st row: intro, form and img-->
-        <div class="cell" id="intro">
-            <p>Tips: </p>
-            <p>1. You can only choose files in the same folder. Then click on different file names to see what happens.</p>
-            <p>2. After confirming a password, hover on primitives, image, and text areas to see what's there.</p>
-        </div>
-        <div class="cell" id="form">
+        <div class="cell" id="chooseFileCell">
             <!-- choose file -->
             <div id="chooseFile">
-                <label>Select a few files to encrypt:</label>
+                <label>1. Select some files to encrypt:</label>
                 <input type="file" id="fileInput" multiple />
             </div>
+            <p>Hint: <br>You can only choose files in the same folder. Then click on different file names to see what happens.</p>
+        </div>
+        <div class="cell" id="choosePasswordCell">
             <!-- password -->
             <div id="choosePassword">
-                <label>Choose a password. The primitives will be derived from your password.</label>
+                <label>2. Set a password. The primitives will be derived from your password.</label>
                 <br>
                 <input id="passwordInput" required>
+                <button id="passwordButton" type="button" >Confirm</button>
                 <p id="passwordNotice"></p>
-            </div>
-            <!-- confirm -->
-            <div class="flex">
-                <button id="confirmButton" type="button" >Confirm</button>
             </div>
         </div>
         <div class="cell" id="img">

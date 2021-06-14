@@ -1,24 +1,40 @@
 /* CSS other than image, sidebar (primitive & filelist) */
 
-/*-- tips area --*/
-#intro p {
-    margin: 0px 0px 10px 0px;
+/*-- chooseFileCell --*/
+#chooseFileCell {
+    padding: 10px;
+}
+
+#chooseFileCell p {
+    margin: 10px 0px 10px 0px;
+}
+
+#fileInput {
+    margin: 10px 0px 10px 10px;
 }
 
 /*-- form: choose files and password --*/
-#fileInput, #passwordInput {
-    margin: 10px 0px 10px 30px;
+#choosePasswordCell {
+    padding: 10px;
 }
 
-#choosePassword {
-    margin-top: 10px;
+#passwordInput {
+    margin: 10px 0px 10px 10px;
+    width: 100px;
+    height: 20px;
+    padding-right: 60px;
 }
 
-#passwordNotice {
-    font-size: 12px ;
-    padding: 0px;
-    margin: 0px;
+#passwordButton {
+    margin-left: -65px;
+    height: 25px;
+    width: 60px;
+    -webkit-appearance: none;
+
 }
-
-
+/*#passwordNotice {*/
+/*    font-size: 12px ;*/
+/*    padding: 0px;*/
+/*    margin: 0px;*/
+/*}*/
 

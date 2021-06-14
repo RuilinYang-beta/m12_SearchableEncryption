@@ -108,7 +108,7 @@ document.getElementById("fileInput").addEventListener("change", function(ev){
     });
 }, false);
 
-$('#confirmButton').click(function() {
+$('#passwordButton').click(function() {
     // sanity: check if files are chosen
     if ($('#fileList').children().length === 0){
         $('#passwordNotice').html('Please select a few files before confirm.');
@@ -123,7 +123,7 @@ $('#confirmButton').click(function() {
 
     // init primitives
     initPrimitives(pswd, Object.keys(plains));
-    $('#passwordNotice').html('Primitives Initialized. Proceed to pre-encryption.');
+    $('#passwordNotice').html('Primitives Initialized. Proceed to pre-encryption. You can hover on primitives and text areas to see what\'s there.');
 
     // disable "choose files", "confirm", "password input"
     $('#fileInput').prop('disabled', true);

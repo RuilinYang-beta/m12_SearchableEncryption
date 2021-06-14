@@ -17,14 +17,15 @@ let displayBlocks = (blocksArr) => {
     return toDisplay;
 }
 
+// --- populated in page 1 ---
 // @format: {fileName: fileContent, ...}
 let plains = {};
 // @format: {fileName: [arr_of_blocks], ...}
 let Wjs = {}
 // @format: {fileName: preEncryptedContent, ...}
 let Xjs_stream = {};   // TODO: can I remove this?
-// @format: {fileName: [arr_of_preEncrypted_blocks], ...}
 let Xjs = {};
+// --- populated in page 2 ---
 let Ljs = {};
 let Rjs = {};
 let kjs = {};
@@ -32,6 +33,10 @@ let Sjs = {};
 let Fjs = {};
 let Tjs = {};
 let Cjs = {};
-
+// --- populated in page 3 ---
+// `b` for "Bob"; `comp` for "computed; `act` for "actual
+let bSjs = {};
+let bFjs_comp = {};
+let bFjs_act = {};
 
 

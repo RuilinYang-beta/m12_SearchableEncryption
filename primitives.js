@@ -32,8 +32,11 @@ const createPreEnc = (userChosenPassword) => {
     const key = crypto.scryptSync(userChosenPassword, salt, 16);
 
     // dataBuf is the content of a whole file
-    const encrypt = (dataBuf) => {
+    const encrypt = (dataBuf, padding=true) => {
         const cipher = crypto.createCipheriv(algo, key, '');  // ecb mode doesn't have an iv
+        if (!padding) {
+            cipher.setAutoPadding(false);
+        }
         const encrypted = cipher.update(dataBuf);
         const Xj_stream = Buffer.concat([encrypted, cipher.final()]);
         // split stream into an arr of small buffers of 16 bytes each

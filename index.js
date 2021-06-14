@@ -18,7 +18,7 @@ app.on('ready', () => {
         webPreferences: preferences
     });
     // mainWindow.loadURL(`file://${__dirname}/index.html`);
-    mainWindow.loadURL(`file://${__dirname}/song1.html`);
+    mainWindow.loadURL(`file://${__dirname}/song3.html`);
 
     const mainMenu = Menu.buildFromTemplate(menuTemplate);
     mainWindow.setMenu(mainMenu);

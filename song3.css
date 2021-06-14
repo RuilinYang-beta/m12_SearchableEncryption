@@ -1,24 +1,52 @@
 /*-- form: enter a word to search for --*/
-#word {
+#searchTerm {
     padding: 10px;
 }
 
-#chooseWord {
+#chooseSearchTerm {
     margin: 10px 0px 10px 0px;
 }
 
-#wordInput {
+#searchTermInput {
     margin: 10px auto 10px auto;
     display: block;
 }
 
-#confirmButton {
+#searchTermButton {
     margin: 10px auto 10px auto;
     display: block;
 }
 
-#wordNotice {
+#searchTermNotice {
     font-size: 12px ;
 }
 
+/*-- query terms --*/
+#queryTerm {
+    padding: 10px;
+}
+
+#queryTerm p {
+    padding: 0px;
+    margin: 0px;
+}
+
+#queryTerm input {
+    margin: 5px 0px 10px 10px;
+    width: 120px;
+}
+
+#queryTerm div {
+    margin: 5px 0px 0px 10px;
+}
+
+#queryTermButton {
+    margin: 10px auto 10px auto;
+    display: block;
+}
+
+/*-- received term --*/
+#receivedTerm {
+    padding: 10px;
+}
 

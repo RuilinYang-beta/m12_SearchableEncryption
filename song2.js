@@ -95,7 +95,7 @@ $('#CjButton').click(function() {
     Cjs = computeCjs(Xjs, Tjs);
     // populate CjArea with the Cj of selected file
     let fn = $('li.selected').html();
-    $('#FjArea').html(displayBlocks(Fjs[fn]));
+    $('#CjArea').html(displayBlocks(Cjs[fn]));
 
     // show the next button
     $('#next2').removeAttr('hidden');

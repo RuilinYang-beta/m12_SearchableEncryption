@@ -289,26 +289,36 @@ const song3 = `
             <ul id="fileList">
             </ul>
         </div>
-        <!-- 1st row: word, query term, img -->
-        <!-- 1.1 word -->
-        <div class="cell" id="word">
+        <!-- 1st row: searchTerm, queryTerm, img -->
+        <!-- 1.1 searchTerm -->
+        <div class="cell" id="searchTerm">
             <h3>Alice (you)</h3>
-            <div id="chooseWord">
+            <div id="chooseSearchTerm">
                 <label>Enter (exactly) a block to search, the server will return all the documents containing this term.</label>
                 <br>
-                <input id="wordInput" required>
+                <input id="searchTermInput" placeholder="enter a Wj" required>
             </div>
-            <button id="confirmButton" type="button" >Confirm</button>
-            <p id="wordNotice"></p>
+            <button id="searchTermButton" type="button" >Confirm</button>
+            <p id="searchTermNotice"></p>
         </div>
         <!-- 1.2 query term -->
         <div class="cell" id="queryTerm">
-            This cell is used to show the computed X and k to send to the server.
+            <p>Alice computes the query terms to submit to the server: </p>
+            <div>
+                <label>X:</label>
+                <input type="text" id="X" placeholder="X = E.encrypt(W)" disabled><br>
+                <label>L: </label>
+                <input type="text" id="L" placeholder="L = X[:64]" disabled><br>
+                <label>k: </label>
+                <input type="text" id="k" placeholder="k = f.encrypt(L)" disabled>
+            </div>
+            <button id="queryTermButton" type="button" disabled>Search</button>
+
         </div>
         <!-- 1.3 img -->
         <div class="cell" id="img">
             <div id="imageContainer">
-                <div id="imageTitle">operation on file i, block j:</div>
+                <div id="imageTitle">recall how Alice made each cipher block:</div>
                 <!--pre-encryption-->
                 <div id="Wj" class="block">W<sub>j</sub></div>
                 <div id="da1" class="block-trans arrowSmall">&darr;</div>
@@ -335,11 +345,17 @@ const song3 = `
                 <div id="ra3" class="block-trans arrow" >&rarr;</div>
             </div>
         </div>
-
         <!-- 2nd row: received, Cj, Sj, img_search -->
         <div class="cell" id="receivedTerm">
             <h3>Bob (cloud server) </h3>
-            This cell is used to show the received X and k, with hover -> highlight image_search effect.
+            <p>Received query terms from Alice: </p>
+            <div>
+                <label>X:</label>
+                <input type="text" id="receivedX" placeholder="X = E.encrypt(W)" disabled><br>
+                <label>k: </label>
+                <input type="text" id="receivedk" placeholder="k = f.encrypt(L)" disabled>
+            </div>
+            <p>Bob will find all the documents containing the search term to return to Alice.</p>
         </div>
         <div class="cell textContainer" id="CjContainer">
             <p>cipher blocks(C<sub>j</sub>)</p>
@@ -380,6 +396,7 @@ const song3 = `
             $('#outmost3').replaceWith(song4);
         })
     </script>
+    <script src="song3.js"></script>
 </div>`;
 
 const song4 = `
