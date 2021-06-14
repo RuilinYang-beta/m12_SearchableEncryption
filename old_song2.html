@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="old_song.css">
+    <!-- Insert this line above script imports  -->
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <!-- normal script imports etc  -->
+    <script src="./lib/jQuery3.6.js"></script>
+    <!-- Insert this line after script imports -->
+    <script>if (window.module) module = window.module;</script>
+</head>
+
+<body>
+<div id="song2">
+    <h2>(2) Prepare the cipher text</h2>
+
+    <!-- 1st row -->
+    <div class="flex-container">
+        <!-- primitives -->
+        <div style="border-style: dotted;border-color: gainsboro;">
+            <div id="E" class="block xs">E</div>
+            <div id="G" class="block xs">Gs</div>
+            <div id="smallF" class="block xs">f</div>
+            <div id="bigF" class="block xs">F</div>
+        </div>
+
+        <!-- pre-encrypted, Si -->
+        <div class="flex-container" style="border-style: dotted;border-color: gainsboro;margin-left: 20px;margin-right: 20px;width: 450px;">
+            <div id="XjContainer">
+                <p>pre-encrypted</p>
+                <textarea disabled>display the plain text of the chosen file</textarea>
+            </div>
+
+            <div id="SiContainer">
+                <p>S<sub>i</sub></p>
+                <textarea id="SiArea" style="height: 220px;" disabled>display the pre-encrypted cipher text of the chosen file</textarea>
+                <button id="SiButton" type="button" class="centerOfParent" disabled>generate S<sub>i</sub></button>
+            </div>
+        </div>
+
+        <!-- image -->
+        <div style="border-style: dotted;border-color: gainsboro;">
+            <!-- Wi -->
+            <div id="Wi" class="block big">
+                W<sub>i</sub>
+            </div>
+
+            <!-- down arrow -->
+            <div id="darr" class="block-trans big arrow">
+                &darr;
+            </div>
+
+            <!-- Xj -->
+            <div id="Xj" class="block big">
+                X<sub>i</sub>
+            </div>
+
+            <!-- two arrows -->
+            <div class="flex-container">
+                <div id="dlarr" class="block-trans small arrow">
+                    &swarr;
+                </div>
+
+                <div id="drarr" class="block-trans small arrow">
+                    &searr;
+                </div>
+            </div>
+
+            <!-- Li, Ri, arr to xor -->
+            <div class="flex-container">
+                <div id="Li" class="block small">
+                    L<sub>i</sub>
+                </div>
+
+                <div id="Ri" class="block small">
+                    R<sub>i</sub>
+                </div>
+
+                <div id="dxorarr" class="block-trans small arrow">
+                    &#10549;
+                </div>
+            </div>
+
+            <!-- empty, xor, and Ci -->
+            <div class="flex-container">
+                <div class="block-trans big"></div>
+                <div id="xor"
+                     class="block-trans small"
+                     style="text-align:right;font-size:25px;width: 55px;">
+                    ⊕
+                </div>
+
+                <div id="rarr" class="block-trans small arrow">
+                    &rarr;
+                </div>
+
+                <div id="Ci" class="block big">
+                    C<sub>i</sub>
+                </div>
+            </div>
+
+            <!-- Si, Fk(Si), and ne arrow -->
+            <div class="flex-container">
+                <div id="Si" class="block small">
+                    S<sub>i</sub>
+                </div>
+
+                <div id="Fi" class="block small">
+                    F<sub>k<sub>i</sub></sub>(S<sub>i</sub>)
+                </div>
+
+                <div id="uxorarr" class="block-trans small arrow" style="">
+                    &#10548;
+                </div>
+            </div>
+
+            <!-- formula about ki -->
+            <div id="ki">
+                where k<sub>i</sub> = f<sub>k'</sub>(L<sub>i</sub>)
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 2nd row -->
+    <div class="flex-container" style="margin-top: 10px;height: 280px;">
+
+        <!-- chosen files -->
+        <div style="margin-right: 20px">
+            <p>files</p>
+            <ul id="fileList" style="border-style: dotted;border-color: gainsboro;">
+            </ul>
+        </div>
+
+
+        <!-- three text areas -->
+        <div class="flex-container">
+            <div id="KiContainer">
+                <p>k<sub>i</sub></p>
+                <textarea id="KiArea" style="height: 220px;" disabled>display the pre-encrypted cipher text of the chosen file</textarea>
+                <button id="KiButton" type="button" class="centerOfParent" disabled>compute k<sub>i</sub></button>
+            </div>
+
+            <div id="FiContainer">
+                <p>F<sub>k<sub>i</sub></sub>(S<sub>i</sub>)</p>
+                <textarea id="FiArea" style="height: 220px;" disabled>display the pre-encrypted cipher text of the chosen file</textarea>
+                <button id="FiButton" type="button" class="centerOfParent" disabled>compute F<sub>k<sub>i</sub></sub>(S<sub>i</sub>)</button>
+            </div>
+
+            <div id="CiContainer">
+                <p>C<sub>i</sub></p>
+                <textarea id="CiArea" style="height: 220px;" disabled>display the pre-encrypted cipher text of the chosen file</textarea>
+                <button id="CiButton" type="button" class="centerOfParent" disabled>compute C<sub>i</sub></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3rd row: next page -->
+    <div style="text-align: right;margin-top: 15px;width: 800px;">
+        <button id="next1">Next &rarr;</button>
+    </div>
+</div>
+
+
+<script src="globalModules.js"></script>
+<!--<script src="globalVar.js"></script>-->
+<script src="primitives.js"></script>
+<script src="se.js"></script>
+<script src="old_song2.js"></script>
+
+</body>

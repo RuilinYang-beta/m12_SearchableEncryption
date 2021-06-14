@@ -9,19 +9,29 @@ let Gs;  // PRNG for all the files {fileName: PRNG_of_the_file, ...}
 let f;   // compute k_i for each block
 let F;   // compute the block to XOR with R_i
 
-// use the same iv across all the PRNGs
-// const G_iv = crypto.randomBytes(16);
-// const F_iv = crypto.randomBytes(8);
+let displayBlocks = (blocksArr) => {
+    let toDisplay = '';
+    for (let block of blocksArr){
+        toDisplay += `[${block.toString('hex')}],`;
+    }
+    return toDisplay;
+}
 
-// plain text across all files
 // @format: {fileName: fileContent, ...}
 let plains = {};
-// pre encrypted cipher across all files
+// @format: {fileName: [arr_of_blocks], ...}
+let Wjs = {}
 // @format: {fileName: preEncryptedContent, ...}
-let Xis_stream = {};
-// pre encrypted cipher across all files, split in blocks
+let Xjs_stream = {};   // TODO: can I remove this?
 // @format: {fileName: [arr_of_preEncrypted_blocks], ...}
-let Xis = {};
+let Xjs = {};
+let Ljs = {};
+let Rjs = {};
+let kjs = {};
+let Sjs = {};
+let Fjs = {};
+let Tjs = {};
+let Cjs = {};
 
 
 

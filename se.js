@@ -1,29 +1,36 @@
-// comment them when run in Electron, they will be imported in globalModules.js
-const fs = require('fs');
-const crypto = require('crypto');
-const assert = require('assert');
-const xor = require('buffer-xor');  // do to bitwise xor on two buffers
-const {createPreEnc, createFilenameEnc, createPRNG, createSmallF, createBigF} = require('./primitives');
+// // comment them when run in Electron, they will be imported in globalModules.js
+// const fs = require('fs');
+// const crypto = require('crypto');
+// const assert = require('assert');
+// const xor = require('buffer-xor');  // do to bitwise xor on two buffers
+// const {createPreEnc, createFilenameEnc, createPRNGs, createSmallF, createBigF} = require('./primitives');
+// let E;   // pre encryption
+// let e;   // encrypt filename
+// let Gs;  // PRNG for all the files {fileName: PRNG_of_the_file, ...}
+// let f;   // compute k_i for each block
+// let F;   // compute the block to XOR with R_i
+// let password = "userChosenPassword"; // later let user choose password
+// const fileNames = ['./sampleFiles/sample.txt', './sampleFiles/sample2.txt', './sampleFiles/sample3.txt'];
+
 
 /**
  * This file contains codes related to searchable encryption scheme.
  * Naming convention:
  * - Wi:
  *      the words of a file [word1, word2, ...] where each word is a block
- * - Wis:
+ * - Wjs:
  *      the words across all files: {file1: [words_of_file1], ...}
  */
 
-// let password = "userChosenPassword"; // later let user choose password
-// const files = ['./sampleFiles/sample.txt', './sampleFiles/sample2.txt', './sampleFiles/sample3.txt'];
-
-// a helper function
-const computeSanity = (arr1, arr2) => {
-    if (arr1.length !== arr2.length){
+// return true if `obj1` and `obj2` have same #entries
+// and each entry has same #blocks
+const checkSanity = (obj1, obj2) => {
+    if (Object.keys(obj1).length !== Object.keys(obj2).length){
         return false;
     }
-    for (let i = 0; i < arr1.length; i++){
-        if (arr1[i].length !== arr2[i].length){
+    for (let fn in obj1) {
+        assert(obj2[fn] !== undefined);
+        if (obj1[fn].length !== obj2[fn].length) {
             return false;
         }
     }
@@ -31,118 +38,149 @@ const computeSanity = (arr1, arr2) => {
 }
 
 // instantiate primitives
-const initPrimitives = (password) => {
+const initPrimitives = (password, fileNames) => {
     E = createPreEnc(password);
     e = createFilenameEnc(password);
-    Gs = createPRNG(password);
+    Gs = createPRNGs(password, fileNames);
     f = createSmallF(password);
     F = createBigF();
     return ;
 }
 
-// preEncryption on `files` using primitive E
-const computeXis = (Wis) => {
-    // Wis is of format {fileName: fileContentString, ...}
-    let Xis_stream = {};
-    let Xis = {};
+/**
+ * Output plain text split in blocks.
+ * @param plains: {filename: stringOfContent, ..}
+ * @return Wjs: {filename: [arr_of_block_buffer], ..}
+ */
+const computeWjs = (plains) => {
+    let Wjs = {};
+    for (let fn in plains) {
+        let bufBig = Buffer.from(plains[fn]);
+        let Wj = [];
+        let start = 0;
+        while (start + 16 <= bufBig.length){
+            Wj.push(bufBig.slice(start, start + 16));
+            start += 16;
+        }
+        if (start < bufBig.length) {
+            Wj.push(bufBig.slice(start, bufBig.length));
+        }
+        Wjs[fn] = Wj;
+    }
+    return Wjs;
+}
+
+/**
+ * preEncryption on `files` using primitive E
+ * @param plains: {fileName: fileContentString, ...}
+ * @returns Xjs_stream: {filename: bigBuffer,..}
+ *          Xjs: {filename: [arr_of_block_buffer]}
+ */
+const computeXjs = (plains) => {
+    // -- use in electron  @plains: {filename: fileContentString}
+    let Xjs_stream = {};
+    let Xjs = {};
 
     // fn for file name
-    for (let fn in Wis) {
-        let {Xi_stream, Xi} = E.encrypt(Wis[fn])
-        Xis_stream[fn] = Xi_stream;
-        Xis[fn] = Xi;
+    for (let fn in plains) {
+        let {Xj_stream, Xj} = E.encrypt(plains[fn])
+        Xjs_stream[fn] = Xj_stream;
+        Xjs[fn] = Xj;
     }
+    return {Xjs_stream, Xjs};
 
-    // Xis_stream: {fileName: preEncryptedBigBuffer, ...}
-    // Xis: {fileName: [preEncrypted_blocks_Buffers], ... }
-    return {Xis_stream, Xis};
-
-    // const Xi_streams = [];
-    // const Xis = [];
-    // files.forEach(filePath => {
+    // -- use for local test; @plains: [filenames]
+    // const Xjs = {};
+    // plains.forEach(filePath => {
     //         let data = fs.readFileSync(filePath);
-    //         let {Xi_stream, Xi} = E.encrypt(data);
-    //         Xi_streams.push(Xi_stream);
-    //         Xis.push(Xi);
+    //         let {Xj_stream, Xj} = E.encrypt(data);
+    //         Xjs[filePath] = Xj;
     //     });
-    // return {Xi_streams, Xis};
+    // return Xjs;
+}
+
+// populate Ljs and Rjs as views of Xjs
+const computeLjsRjs = (Xjs) => {
+    let Ljs = {};
+    let Rjs = {};
+    for (let fn in Xjs) {
+        let Lj = [];
+        let Rj = [];
+        for (let block of Xjs[fn]) {
+            Lj.push(block.slice(0, 8));
+            Rj.push(block.slice(8, 16));
+        }
+        Ljs[fn] = Lj;
+        Rjs[fn] = Rj;
+    }
+    return {Ljs, Rjs};
 }
 
 // now Xi_streams is an array of big buffers
 // needs to turn it into an obj of {name: buffer}
-const genSis = (Xi_streams) => {
-    const Sis = [];
-    Xi_streams.forEach( Xi_stream => {
-        let si = Gs.gen(Xi_stream.length / 2);
-        Sis.push(si);
-    });
+const genSis = (Gs, Ljs) => {
+    let Sis = {};
+    for (let fn in Ljs) {
+        // the PRNG of this file
+        let G = Gs[fn];
+        let Si = G.gen(Ljs[fn].length);
+        Sis[fn] = Si;
+    }
     return Sis;
 }
 
-const computeKis = (Xis) => {
-    const Kis = [];
-    Xis.forEach( Xi => {
-        let Ki = [];
-        for (let block of Xi) {
-            let Li = block.slice(0, 8);
-            Ki.push(f.encrypt(Li));
+const computeKjs = (Ljs) => {
+    let Kjs = {};
+    for (let fn in Ljs) {
+        let Kj = [];
+        for (let block of Ljs[fn]) {
+            Kj.push(f.encrypt(block));
         }
-        Kis.push(Ki);
-    });
-    return Kis;
+        Kjs[fn] = Kj;
+    }
+    return Kjs;
 }
 
-const computeFis = (Kis, Sis) => {
-    // Kis and Sis should have the same number of elements (they store info about same amount of files)
-    // and each number of Kis and Sis should have the same length (each file the same number of blocks)
-    assert(computeSanity(Kis, Sis));
+const computeFjs = (kjs, Sjs) => {
+    assert(checkSanity(kjs, Sjs));
 
-    // Fis for all files
-    let Fis = [];
-    for (let i = 0; i < Sis.length; i++){
-        // Fi's for current file
-        let Fi = [];
-        for (let j = 0; j < Sis[i].length; j++){
-            let fi = F.encrypt(Kis[i][j], Sis[i][j]);
-            Fi.push(fi);
+    let Fjs = {};
+    for (let fn in kjs) {
+        let Fj = [];
+        for (let i = 0; i < kjs[fn].length; i++){
+            Fj.push(F.encrypt(kjs[fn][i], Sjs[fn][i]));
         }
-        Fis.push(Fi);
+        Fjs[fn] = Fj;
     }
-    return Fis;
+    return Fjs;
 }
 
-// Ti is the concat of Si and Fi
-const computeTis = (Sis, Fis) => {
-    assert(computeSanity(Fis, Sis));
-
-    // Tis for Ti across files
-    let Tis = [];
-    for (let i = 0; i < Sis.length; i++) {
-        // Ti for current file
-        let Ti = [];
-        for (let j = 0; j < Sis[i].length; j++){
-            // ti for the current block
-            let ti = Buffer.concat([Sis[i][j], Fis[i][j]]);
-            Ti.push(ti);
+// Tj is the concat of Sj and Fj
+const computeTjs = (Sjs, Fjs) => {
+    assert(checkSanity(Fjs, Sjs));
+    let Tjs = {};
+    for (let fn in Sjs) {
+        let Tj = [];
+        for (let i = 0; i < Sjs[fn].length; i++){
+            Tj.push(Buffer.concat([Sjs[fn][i], Fjs[fn][i]]));
         }
-        Tis.push(Ti);
+        Tjs[fn] = Tj;
     }
-    return Tis;
+    return Tjs;
 }
 
-const computeCis = (Xis, Tis) => {
-    assert(computeSanity(Fis, Sis));
+const computeCjs = (Xjs, Tjs) => {
+    assert(checkSanity(Xjs, Tjs));
 
-    let Cis = [];
-    for (let i = 0; i < Xis.length; i++) {
-        let Ci = [];
-        for (let j = 0; j < Xis[i].length; j++) {
-            let ci = xor(Xis[i][j], Tis[i][j]);
-            Ci.push(ci);
+    let Cjs = {};
+    for (let fn in Xjs) {
+        let Cj = [];
+        for (let i = 0; i < Xjs[fn].length; i++){
+            Cj.push(xor(Xjs[fn][i], Tjs[fn][i]));
         }
-        Cis.push(Ci);
+        Cjs[fn] = Cj;
     }
-    return Cis;
+    return Cjs;
 }
 
 /*
@@ -192,35 +230,25 @@ const search = (Cis, X, k) => {
 }
 
 
+
 // // sample usage
-// initPrimitives(password);
-// const {Xi_streams, Xis} = computeXis(files);
-// const Sis = genSis(Xi_streams);
-// const Kis = computeKis(Xis);
-// const Fis = computeFis(Kis, Sis);
-// const Tis = computeTis(Sis, Fis);
-// const Cis = computeCis(Xis, Tis);
+// initPrimitives(password, fileNames);
+// console.log(f.encrypt(Buffer.from('aaaaaaa ')));
+
+// console.log(computeKjs({'file1': [Buffer.from('aaaaaaa ')]}));
+// const Xjs = computeXjs(fileNames);
+// const {Ljs, Rjs} = computeLjsRjs(Xjs);
+// const kjs = computeKjs(Ljs);
 //
-// console.log(Xis.map(e => e.length));
-// console.log(Sis.map(e => e.length));
-// console.log(Kis.map(e => e.length));
-// console.log(Fis.map(e => e.length));
-// console.log(Tis.map(e => e.length));
-// console.log(Cis.map(e => e.length));
-// console.log('================Xis');
-// console.log(Xi_streams);
-// console.log(Xis);
-// console.log('================Sis');
-// console.log(Sis);
-// console.log('================Kis');
-// console.log(Kis);
-// console.log('================Fis');
-// console.log(Fis);
-// console.log('================Tis');
-// console.log(Tis);
-// console.log('================Cis');
-// console.log(Cis);
-//
+// console.log('------ Xjs ');
+// console.log(Xjs);
+// console.log('------ Ljs ');
+// console.log(Ljs);
+// console.log('------ Rjs ');
+// console.log(Rjs);
+// console.log('------ kjs ');
+// console.log(kjs);
+
 // const {X, k} = computeQueryTerms('aaaaaaaaaaaaaaa ');
 // // console.log(X);
 // // console.log(k);
@@ -231,19 +259,19 @@ const search = (Cis, X, k) => {
 
 
 // module.exports = {initPrimitives};
-
-initPrimitives('password');
-const {Xis_stream, Xis} = computeXis({'file1':'this is contenet 1 and its content is long', 'file2': 'content2'});
-console.log(`you are here ${Xis_stream}`);
-// console.log(Xis_stream);
-console.log(Xis['file1']);
-
-// to display them with visual block boundary aid
-let toShow = '';
-Xis['file1'].forEach( e => {
-    toShow += '[';
-    toShow += e.toString('hex');
-    toShow += '], ';
-})
-
-console.log(toShow);
+//
+// initPrimitives('password');
+// const {Xis_stream, Xis} = computeXjs({'file1':'this is contenet 1 and its content is long', 'file2': 'content2'});
+// console.log(`you are here ${Xis_stream}`);
+// // console.log(Xis_stream);
+// console.log(Xis['file1']);
+//
+// // to display them with visual block boundary aid
+// let toShow = '';
+// Xis['file1'].forEach( e => {
+//     toShow += '[';
+//     toShow += e.toString('hex');
+//     toShow += '], ';
+// })
+//
+// console.log(toShow);

@@ -1,7 +1,7 @@
-// comment them when run in Electron, they will be imported in globalModules.js
-const crypto = require('crypto');
-const fs = require('fs');
-const assert = require('assert');
+// // comment them when run in Electron, they will be imported in globalModules.js
+// const crypto = require('crypto');
+// const fs = require('fs');
+// const assert = require('assert');
 
 /**
  * User only need to remember the `userChosenPassword`, everything else (ie. iv, salt, key) can be
@@ -35,16 +35,16 @@ const createPreEnc = (userChosenPassword) => {
     const encrypt = (dataBuf) => {
         const cipher = crypto.createCipheriv(algo, key, '');  // ecb mode doesn't have an iv
         const encrypted = cipher.update(dataBuf);
-        const Xi_stream = Buffer.concat([encrypted, cipher.final()]);
+        const Xj_stream = Buffer.concat([encrypted, cipher.final()]);
         // split stream into an arr of small buffers of 16 bytes each
         let start = 0;
-        let Xi = [];
-        while (start + 16 <= Xi_stream.length) {
-            Xi.push(Xi_stream.slice(start, start + 16));
+        let Xj = [];
+        while (start + 16 <= Xj_stream.length) {
+            Xj.push(Xj_stream.slice(start, start + 16));
             start += 16;
         }
         // TODO: do I need to return the same thing in two formats?
-        return {Xi_stream, Xi};
+        return {Xj_stream, Xj};
     };
 
     const decrypt = (dataBuf) => {
@@ -141,8 +141,8 @@ const createPRNG = (userChosenPassword, fileName) => {
     const iv = salt.slice(salt.length - 16, salt.length);
 
     // numBytes = (number of Bytes in file-to-encrypt) / 2
-    const gen = (numBytes) => {
-        const dataBuf = Buffer.alloc(numBytes, 0);
+    const gen = (numBlocks) => {
+        const dataBuf = Buffer.alloc(numBlocks * 8, 0);
         const cipher = crypto.createCipheriv(algo, key, iv);
         const encrypted = cipher.update(dataBuf);
         const result = Buffer.concat([encrypted, cipher.final()]);
@@ -158,6 +158,17 @@ const createPRNG = (userChosenPassword, fileName) => {
 
     // an obj of gen function and the derived key
     return {gen, key};
+}
+
+/**
+ * Wrapper of `createPRNG`, create a PRNG for each filename.
+ */
+const createPRNGs = (userChosenPassword, fileNames) => {
+    let Gs = {};
+    fileNames.forEach(fn => {
+        Gs[fn] = createPRNG(userChosenPassword, fn);
+    })
+    return Gs;
 }
 
 
@@ -179,7 +190,8 @@ const createPRNG = (userChosenPassword, fileName) => {
  */
 const createSmallF = (userChosenPassword) => {
     // key: 64 bits; block: 64 bits;
-    const algo = 'bf-cbc';
+    // const algo = 'bf-cbc';    // bf-cbc is not available in Electron
+    const algo = 'rc2-cbc';
     // salt is computed from algo and password
     const hash = crypto.createHash('sha256');
     const salt = hash.update(`${algo}${userChosenPassword}`).digest();
@@ -225,7 +237,8 @@ const createSmallF = (userChosenPassword) => {
  */
 const createBigF = () => {
     // key: 64 bits; block: 64 bits;
-    const algo = 'bf-cbc';
+    // const algo = 'bf-cbc';    // bf-cbc is not available in Electron
+    const algo = 'rc2-cbc';
     // iv is the last 64 bits of the hash of password
     const hash = crypto.createHash('sha256');
     const pre_iv = hash.update(`${algo}`).digest();
@@ -244,7 +257,7 @@ const createBigF = () => {
 }
 
 
-module.exports = {createPreEnc, createFilenameEnc, createPRNG, createSmallF, createBigF};
+// module.exports = {createPreEnc, createFilenameEnc, createPRNGs, createSmallF, createBigF};
 
 // ===============================================
 // ............... temp: playground...............

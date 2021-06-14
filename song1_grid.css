@@ -2,13 +2,6 @@
  * and two common components across pages: h3 and textContainer.
  */
 
-:root {
-    --green: #96ceb4;
-    --yellow: #ffeead;
-    --orange: #ffcc5c;
-    --pink: #ff6f69;
-}
-
 /*-- text container --*/
 .textContainer {
     display: flex;
@@ -38,10 +31,10 @@ h3 {
     grid-template-rows: 225px 225px 225px 20px;
     row-gap: 5px;
     grid-template-areas:
-    "primitives form  form img img"
+    "primitives intro  form img img"
     "files      plain hex  Wj  Xj"
     "files      plain hex  Wj  Xj"
-    ".          .     .    .   next";
+    ".          .     .    .   next1";
 }
 
 /*!* -- temp: color of grid cell --*!*/
@@ -68,9 +61,15 @@ h3 {
     grid-area: files;
 }
 
-/*-- 1st row: form and img --*/
-#word {
+/*-- 1st row: intro, form and img --*/
+#intro {
+    grid-area: intro;
+    padding: 2px;
+}
+
+#form {
     grid-area: form;
+    padding: 2px;
 }
 
 #img {
@@ -82,7 +81,7 @@ h3 {
     grid-area: plain;
 }
 
-#hexContainer {
+#plainBlockContainer {
     grid-area: hex;
 }
 
@@ -95,8 +94,8 @@ h3 {
 }
 
 /*-- footer row: next --*/
-#next {
-    grid-area: next;
+#next1 {
+    grid-area: next1;
     justify-self: center;
 }
 

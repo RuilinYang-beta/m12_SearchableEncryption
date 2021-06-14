@@ -1,56 +1,23 @@
 
-// =========================================
-// ............... functions ...............
-// =========================================
+// ================================================
+// ............... helper functions ...............
+// ================================================
 
 // When user click "Choose Files", clear any existing traces of files.
 function clearFileArea() {
-    plains = {};  // clear any existing values
-    let fileList = document.querySelector('#fileList');
-    if (fileList.childElementCount !== 0){
-        fileList.innerHTML = '';
-        document.querySelector('#plainArea').innerHTML = 'display the plain text of the chosen file';
-        document.querySelector('#hexArea').innerHTML = 'display the hex representation of the chosen file';
+    plains = {};
+    if ($('#fileList').children().length !== 0) {
+        // clear file list
+        $('#fileList').empty();
+        // reset all text areas
+        $('#plainArea').html('display the plain text of the chosen file');
+        $('#plainBlockArea').html('display the plain text of the chosen file in 128-bit blocks, a 128-bit block is a Word');
+        $('#WjArea').html('display the Words of the chosen file in hex encoding');
+        $('#XjArea').html('display the pre-encrypted Words of the chosen file');
     }
 }
 
-
-// Takes the `plains` and populate a few areas on the page.
-const writeFileArea = (plains) => {
-    let fileNames = Object.keys(plains);
-    // populate fileList
-    let fileList = document.querySelector('#fileList');
-    fileNames.forEach(fn => {
-        let li = document.createElement('li');
-        li.textContent = fn;
-        fileList.appendChild(li);
-    })
-
-
-    $('ul li').click( function() {
-        // add or rm selected class
-        $('ul li').removeClass('selected');
-        $(this).addClass('selected');
-
-        // populate plain, hex area
-        let selectedFileName = $(this).html();
-        let plainContent = plains[selectedFileName];
-        let hexContent = new Buffer.from(plainContent).toString('hex');
-        $('#plainArea').html(plainContent);
-        $('#hexArea').html(hexContent);
-
-        // populate pre-encrypted area if it exists
-        if (Xis_stream[selectedFileName] !== undefined) {
-            let preEncContent = Xis_stream[selectedFileName];
-            $('#XiArea').html(preEncContent.toString('hex'));
-        }
-    })
-
-    // make the first file selected
-    $('ul li').first().click();
-}
-
-
+// return a Promise to read a file
 const readFileAsText = (file) => {
     return new Promise(function(resolve,reject){
         let fr = new FileReader();
@@ -72,16 +39,48 @@ const readFileAsText = (file) => {
     });
 }
 
+// Takes the `plains` and populate a few areas on the page.
+const writeFileArea = (plains, Wjs) => {
+    // populate fileList
+    let fileNames = Object.keys(plains);
+    fileNames.forEach(fn => {
+        $('#fileList').append(`<li>${fn}</li>`);
+    })
+
+    // when a filename is clicked, populate plains, plainBlocks, Wj area
+    $('#fileList li').click( function() {
+        // add or rm selected class
+        $('#fileList li').removeClass('selected');
+        $(this).addClass('selected');
+
+        let fn = $(this).html();
+        // populate plain area, Wj, and plainBlock area
+        $('#plainArea').html(plains[fn]);
+        let WjDisplay = '';
+        let plainBlocksDisplay = '';
+        for (let block of Wjs[fn]){
+            WjDisplay += `[${block.toString('hex')}],`;
+            plainBlocksDisplay += `[${block.toString()}],`;
+        }
+        $('#WjArea').html(WjDisplay);
+        $('#plainBlockArea').html(plainBlocksDisplay);
+
+        // populate pre-encrypted area if it exists
+        if (Xjs_stream[fn] !== undefined) {
+            $('#XjArea').html(displayBlocks(Xjs[fn]));
+        }
+    })
+
+    // make the first file selected
+    $('#fileList li').first().click();
+}
+
 // ==============================================
 // ............... event handlers ...............
 // ==============================================
 
-// whenever "Choose Files" is clicked, areas display files are cleared
-$('#fileInput').click( clearFileArea );
-
 // Handle multiple file uploads
 document.getElementById("fileInput").addEventListener("change", function(ev){
-
     let files = ev.currentTarget.files;
     let readers = [];
 
@@ -91,76 +90,81 @@ document.getElementById("fileInput").addEventListener("change", function(ev){
     // Store promises in array
     for(let i = 0;i < files.length;i++){
         let content = readFileAsText(files[i]);
-
         readers.push(content);
     }
 
     // Trigger Promises
     Promise.all(readers).then((values) => {
-        // Values will be an array, each element is an obj representing a file
-        // [{name:file1name, content:file1content}, {name:file2name, content:file2content}, ...]
+        // new data is ready, erase old data
+        clearFileArea();
+        // format of `value`: [ele, ele, ele, ..]
+        // format of `ele`: {name:fileName, content:fileContent}
         for (let ele of values) {
             plains[ele.name] = ele.content;
         }
-        // `plains` is of format: {fileName: fileContent}
-        writeFileArea(plains);
+        Wjs = computeWjs(plains);
+
+        writeFileArea(plains, Wjs);
     });
 }, false);
 
-
 $('#confirmButton').click(function() {
-    // check if files are chosen
+    // sanity: check if files are chosen
     if ($('#fileList').children().length === 0){
         $('#passwordNotice').html('Please select a few files before confirm.');
         return ;
     }
-
-    // init primitives
-    let pswd = $('#password').val();
-    if (pswd.length > 0) {
-        initPrimitives(pswd);
-        $('#passwordNotice').html('Password used to initialize primitives. <br>Hover on E, Gs, f, F to see their keys. Now you can pre encrypt.');
+    // sanity: check if there's a password
+    let pswd = $('#passwordInput').val();
+    if (pswd.length === 0) {
+        $('#passwordNotice').html('Password cannot be empty. Please try again');
+        return;
     }
 
+    // init primitives
+    initPrimitives(pswd, Object.keys(plains));
+    $('#passwordNotice').html('Primitives Initialized. Proceed to pre-encryption.');
+
+    // disable "choose files", "confirm", "password input"
+    $('#fileInput').prop('disabled', true);
+    $('#passwordInput').prop('disabled', true);
+    $('#confirmButton').prop('disabled', true);
+
+    // enable "pre encrypt"
+    $('#XjButton').prop('disabled', false);
+
+    // hover effects of primitives
     // TODO: when hover, there should be a tooltip showing the key for each primitives
     $('.xs.block').hover(function() {
         $(this).addClass('highlight');
     }, function () {
         $(this).removeClass('highlight');
     })
-
-    // disable "choose files", "confirm", "password input"
-    $('#fileInput').prop('disabled', true);
-    $('#password').prop('disabled', true);
-    $('#confirmButton').prop('disabled', true);
-
-    // enable "pre encrypt"
-    $('#XiButton').prop('disabled', false);
+    // hover effects of text areas
+    $('#plainContainer, #plainBlockContainer, #WjContainer, #Wj').hover( function () {
+        $('#Wj').addClass('highlight');
+    }, function () {
+        $('#Wj').removeClass('highlight');
+    })
+    $('#XjContainer').hover(function () {
+        $('#Wj, #Xj, #bigE').addClass('highlight');
+    }, function () {
+        $('#Wj, #Xj, #bigE').removeClass('highlight');
+    })
 })
 
 
-$('#XiButton').click( function () {
+$('#XjButton').click( function () {
     // compute pre-encrypt cipher
-    let result = computeXis(plains);
-    Xis_stream = result.Xis_stream;
-    Xis = result.Xis;
+    let result = computeXjs(plains);
+    Xjs_stream = result.Xjs_stream;
+    Xjs = result.Xjs;
 
     // populate the pre-encrypted area with the cipher of the selected file
-    let selectedFn = $('li.selected').html();
-    $('#XiArea').html(Xis_stream[selectedFn].toString('hex'));
+    let fn = $('li.selected').html();
+    $('#XjArea').html(displayBlocks(Xjs[fn]));
 
-    // show up the "next" button
+    // show the next button
     $('#next1').removeAttr('hidden');
 })
 
-$('#plainContainer, #hexContainer').hover( function () {
-    $('#Wi').addClass('highlight');
-}, function () {
-    $('#Wi').removeClass('highlight');
-})
-
-$('#XiContainer').hover(function () {
-    $('#Wi, #Xi, #E').addClass('highlight');
-}, function () {
-    $('#Wi, #Xi, #E').removeClass('highlight');
-})

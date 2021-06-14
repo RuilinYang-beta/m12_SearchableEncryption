@@ -3,15 +3,10 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <!-- css for the grid of the whole page-->
-    <link rel="stylesheet" href="song2_grid.css">
     <!-- css for the encryption image -->
     <link rel="stylesheet" href="image_enc.css">
     <!-- css for the sidebar: primitives and file list -->
     <link rel="stylesheet" href="sidebar.css">
-    <!-- css for other parts specific for this page -->
-    <link rel="stylesheet" href="song2.css">
-
     <!-- import jquery to use in Electron -->
     <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
     <script src="./lib/jQuery3.6.js"></script>
@@ -19,7 +14,12 @@
 </head>
 
 <body>
+
 <div id="outmost2">
+    <!-- css for the grid of the whole page-->
+    <link rel="stylesheet" href="song2_grid.css">
+    <!-- css for other parts specific for this page -->
+    <link rel="stylesheet" href="song2.css">
 
     <h3>(2) Prepare the cipher text</h3>
 
@@ -39,18 +39,6 @@
         <div class="cell" id="files">
             <div>Files: </div>
             <ul id="fileList">
-                <li>file1</li>
-                <li>file2</li>
-                <li>file3</li>
-                <li>file4</li>
-                <li>file5</li>
-                <li>file6</li>
-                <li>file7</li>
-                <li>file8</li>
-                <li>file9</li>
-                <li>file10</li>
-                <li>file11</li>
-                <li>file12</li>
             </ul>
         </div>
         <!-- 1st row: Xj and img -->
@@ -83,7 +71,7 @@
                 <!--PRNG related-->
                 <div id="fn" class="block-trans">filename i</div>
                 <div id="da2" class="block-trans arrow">&darr;</div>
-                <div id="Gi" class="block-trans">PRNG<sub>i</sub></div>
+                <div id="Gi" class="block xs">G<sub>i</sub></div>
                 <div id="ra3" class="block-trans arrow" >&rarr;</div>
             </div>
         </div>
@@ -118,17 +106,16 @@
             <button id="CjButton" type="button" disabled>compute</button>
         </div>
         <!--footer row: next-->
-        <button class="cell" id="next">Next -></button>
+        <button class="cell" id="next2">Next -></button>
     </div>
 
+    <script>
+        $('#next2').click(function() {
+            $('#outmost2').replaceWith(song3);
+        })
+    </script>
+    <script src="song2.js"></script>
 </div>
 
-<script>
-    // $(document).ready(function() {
-    //     for (let i = 0; i < 20; i++){
-    //         $( "#gridContainer" ).append( `<div>${i}</div>` );
-    //     }
-    // })
-</script>
 
 </body>

@@ -1,5 +1,6 @@
 /* This is the css for primitives and files list */
 
+/*-- primitives --*/
 .flex {
     display: flex;
     flex-direction: column;
@@ -21,7 +22,14 @@
     margin-top: 8px;
 }
 
-ul {
+/* primitives when hover */
+.highlight {
+    background-color: var(--orange);
+    box-shadow: 3px 3px 3px grey;
+}
+
+/*-- file list and list items --*/
+#files ul {
     height: 420px;
     width:  96%;
     overflow: scroll;
@@ -30,8 +38,13 @@ ul {
     border: 2px solid #ccc;
 }
 
-li {
+#files li {
     height: 25px;
-    width: 96%;
+    width: 100%;
     border-bottom: 1px solid #ccc;
+}
+
+/* filename when selected */
+.selected {
+    background-color: lightblue;
 }

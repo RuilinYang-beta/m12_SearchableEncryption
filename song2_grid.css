@@ -37,7 +37,7 @@ h3 {
         "primitives     Xj      Xj      img     img"
         "files          Lj      Rj      kj      ."
         "files          Sj      Fj      Cj      ."
-        ".              .       .       .       next";
+        ".              .       .       .       next2";
 }
 
 /*!* -- temp: color of grid cell --*!*/
@@ -99,7 +99,7 @@ h3 {
 }
 
 /*-- footer row: next --*/
-#next {
-    grid-area: next;
+#next2 {
+    grid-area: next2;
     justify-self: center;
 }

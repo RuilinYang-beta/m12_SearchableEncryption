@@ -1,18 +1,24 @@
-/*-- form: choose files and password --*/
-#word {
-    padding: 0px 20px 20px 40px;
+/* CSS other than image, sidebar (primitive & filelist) */
+
+/*-- tips area --*/
+#intro p {
+    margin: 0px 0px 10px 0px;
 }
 
+/*-- form: choose files and password --*/
 #fileInput, #passwordInput {
     margin: 10px 0px 10px 30px;
 }
 
 #choosePassword {
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 #passwordNotice {
     font-size: 12px ;
+    padding: 0px;
+    margin: 0px;
 }
+
 
 

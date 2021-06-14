@@ -37,7 +37,7 @@ h3 {
     "primitives     word            queryTerm   img     img"
     "files          receivedTerm    Cj          Sj      img_search"
     "files          computedFj      actualFj    isEqual toReturn"
-    ".              .               .           .       next";
+    ".              .               .           .       next3";
 }
 
 /*!* -- temp: color of grid cell --*!*/
@@ -81,6 +81,6 @@ h3 {
 /* don't need to manually set them, they are automatically put in intended place */
 
 /*-- footer row: next --*/
-#next {
-    grid-area: next;
+#next3 {
+    grid-area: next3;
 }

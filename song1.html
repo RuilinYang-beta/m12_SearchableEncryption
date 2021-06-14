@@ -3,15 +3,17 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <!-- css for the grid of the whole page-->
-    <link rel="stylesheet" href="song1_grid.css">
+    <link rel="stylesheet" href="globalCSSVar.css">
     <!-- css for the encryption image -->
     <link rel="stylesheet" href="image_enc.css">
     <!-- css for the sidebar: primitives and file list -->
     <link rel="stylesheet" href="sidebar.css">
-    <!-- css for other parts specific for this page -->
-    <link rel="stylesheet" href="song1.css">
-
+    <!-- js containing global variables for all pages -->
+    <script src="globalHTMLs.js"></script>
+    <script src="globalVar.js"></script>
+    <script src="globalModules.js"></script>
+    <script src="se.js"></script>
+    <script src="primitives.js"></script>
     <!-- import jquery to use in Electron -->
     <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
     <script src="./lib/jQuery3.6.js"></script>
@@ -20,6 +22,10 @@
 
 <body>
 <div id="outmost1">
+    <!-- css for the grid of the whole page-->
+    <link rel="stylesheet" href="song1_grid.css">
+    <!-- css for other parts specific for this page -->
+    <link rel="stylesheet" href="song1.css">
 
     <h3>(1) Initialization and pre-encryption</h3>
 
@@ -38,21 +44,14 @@
         <div class="cell" id="files">
             <div>Files: </div>
             <ul id="fileList">
-                <li>file1</li>
-                <li>file2</li>
-                <li>file3</li>
-                <li>file4</li>
-                <li>file5</li>
-                <li>file6</li>
-                <li>file7</li>
-                <li>file8</li>
-                <li>file9</li>
-                <li>file10</li>
-                <li>file11</li>
-                <li>file12</li>
             </ul>
         </div>
-        <!--1st row: form and img-->
+        <!--1st row: intro, form and img-->
+        <div class="cell" id="intro">
+            <p>Tips: </p>
+            <p>1. You can only choose files in the same folder. Then click on different file names to see what happens.</p>
+            <p>2. After confirming a password, hover on primitives, image, and text areas to see what's there.</p>
+        </div>
         <div class="cell" id="form">
             <!-- choose file -->
             <div id="chooseFile">
@@ -96,7 +95,7 @@
                 <!--PRNG related-->
                 <div id="fn" class="block-trans">filename i</div>
                 <div id="da2" class="block-trans arrow">&darr;</div>
-                <div id="Gi" class="block-trans">PRNG<sub>i</sub></div>
+                <div id="Gi" class="block xs">G<sub>i</sub></div>
                 <div id="ra3" class="block-trans arrow" >&rarr;</div>
             </div>
         </div>
@@ -105,42 +104,28 @@
             <p>plain text</p>
             <textarea id="plainArea" disabled>display the plain text of the chosen file</textarea>
         </div>
-        <div class="cell textContainer" id="hexContainer">
-            <p>plain text in hex encoding</p>
-            <textarea id="hexArea" disabled>display the plain text of the chosen file</textarea>
+        <div class="cell textContainer" id="plainBlockContainer">
+            <p>plain text in 128-bit blocks</p>
+            <textarea id="plainBlockArea" disabled>display the plain text of the chosen file in 128-bit blocks, a 128-bit block is a Word</textarea>
         </div>
         <div class="cell textContainer" id="WjContainer">
             <p>hex in blocks (W<sub>j</sub>)</p>
-            <textarea id="WjArea" disabled>display the plain text of the chosen file</textarea>
+            <textarea id="WjArea" disabled>display the Words of the chosen file in hex encoding</textarea>
         </div>
         <div class="cell textContainer" id="XjContainer">
             <p>pre-encrypted blocks (X<sub>j</sub>)</p>
-            <textarea id="XjArea" disabled>display the plain text of the chosen file</textarea>
+            <textarea id="XjArea" disabled>display the pre-encrypted Words of the chosen file</textarea>
             <button id="XjButton" type="button" disabled>Pre encrypt</button>
         </div>
         <!--footer row: next-->
-        <button class="cell" id="next">Next -></button>
+        <button class="cell" id="next1" hidden>Next -></button>
     </div>
+    <script>
+        $('#next1').click(function() {
+            $('#outmost1').replaceWith(song2);
+        })
+    </script>
+    <script src="song1.js"></script>
 </div>
-
-<script src="globalHTMLs.js"></script>
-<script src="globalVar.js"></script>
-<script>
-    // $('#next').click(function() {
-    //
-    //     $('#outmost1').replaceWith(tempPage);
-    // })
-    //
-    // $(document).ready(function() {
-    //     for (let i = 0; i < 81; i++){
-    //         $( "#imageContainer" ).append( `<div>${i}</div>` );
-    //     }
-    // })
-
-
-</script>
-
-
-
 
 </body>
