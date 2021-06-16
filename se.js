@@ -77,7 +77,7 @@ const computeWjs = (plains) => {
  *          Xjs: {filename: [arr_of_block_buffer]}
  */
 const computeXjs = (plains) => {
-    // -- use in electron  @plains: {filename: fileContentString}
+    // // -- use in electron  @plains: {filename: fileContentString}
     let Xjs_stream = {};
     let Xjs = {};
 
@@ -89,7 +89,7 @@ const computeXjs = (plains) => {
     }
     return {Xjs_stream, Xjs};
 
-    // -- use for local test; @plains: [filenames]
+    // // -- use for local test; @plains: [filenames]
     // const Xjs = {};
     // plains.forEach(filePath => {
     //         let data = fs.readFileSync(filePath);
@@ -118,15 +118,15 @@ const computeLjsRjs = (Xjs) => {
 
 // now Xi_streams is an array of big buffers
 // needs to turn it into an obj of {name: buffer}
-const genSis = (Gs, Ljs) => {
-    let Sis = {};
+const genSjs = (Gs, Ljs) => {
+    let Sjs = {};
     for (let fn in Ljs) {
         // the PRNG of this file
         let G = Gs[fn];
-        let Si = G.gen(Ljs[fn].length);
-        Sis[fn] = Si;
+        let Sj = G.gen(Ljs[fn].length);
+        Sjs[fn] = Sj;
     }
-    return Sis;
+    return Sjs;
 }
 
 const computeKjs = (Ljs) => {
@@ -183,26 +183,56 @@ const computeCjs = (Xjs, Tjs) => {
     return Cjs;
 }
 
-/*
- * Given a search term in plaintext, compute several terms for query.
- * @requires: `searchTerm` is a string of 16 byte
- * @return:
- */
-const computeQueryTerms = (searchTerm) => {
-    let W = Buffer.from(searchTerm, 'utf-8');
-    // for now, the search term must be 16 byte,
-    // and it should be a clear cut of a block
-    assert(W.length === 16);
-
-    let X = E.encrypt(W).Xi[0];
-    let L = X.slice(0, X.length / 2);
-    // console.log(`W: ${W};`);
-    // console.log(`X:${X}, ${typeof X};`);
-    // console.log(`L: ${L}, ${typeof L}`);
-    let k = f.encrypt(L);
-    return {X, k};
+const computebSjs = (Cjs, X) => {
+    let bSjs = {};
+    for (let fn in Cjs) {
+        let bSj = [];
+        for (let i = 0; i < Cjs[fn].length; i++){
+            let Cj = Cjs[fn][i];
+            bSj.push(xor(Cj.slice(0, 8), X.slice(0, 8)));
+        }
+        bSjs[fn] = bSj;
+    }
+    return bSjs;
 }
 
+const computebFjs = (Cjs, X) => {
+    let bFjs = {};
+    for (let fn in Cjs) {
+        let bFj = [];
+        for (let i = 0; i < Cjs[fn].length; i++){
+            let cj = Cjs[fn][i];
+            bFj.push(xor(cj.slice(8, 16), X.slice(8, 16)));
+        }
+        bFjs[fn] = bFj;
+    }
+    return bFjs;
+}
+
+const computebComputedFjs = (bSjs, k) => {
+    let bFjs_comp = {};
+    for (let fn in bSjs) {
+        let bFj_comp = [];
+        for (let i = 0; i < bSjs[fn].length; i++){
+            bFj_comp.push(F.encrypt(k, bSjs[fn][i]));
+        }
+        bFjs_comp[fn] = bFj_comp;
+    }
+    return bFjs_comp;
+}
+
+const compareFjs = (bFjs, bFjs_comp) => {
+    let isEqual = {};
+    for (let fn in bFjs) {
+        let isequal = [];
+        for (let i = 0; i < bFjs[fn].length; i++){
+            let ie = (Buffer.compare(bFjs[fn][i], bFjs_comp[fn][i]) === 0) ? true : false;
+            isequal.push(ie);
+        }
+        isEqual[fn] = isequal;
+    }
+    return isEqual;
+}
 /*
  * The search is a sequential scan at server side.
  */
@@ -233,21 +263,45 @@ const search = (Cis, X, k) => {
 
 // // sample usage
 // initPrimitives(password, fileNames);
-// console.log(f.encrypt(Buffer.from('aaaaaaa ')));
-
-// console.log(computeKjs({'file1': [Buffer.from('aaaaaaa ')]}));
 // const Xjs = computeXjs(fileNames);
 // const {Ljs, Rjs} = computeLjsRjs(Xjs);
 // const kjs = computeKjs(Ljs);
+// const Sjs = genSjs(Gs, Ljs);
+// const Fjs = computeFjs(kjs, Sjs);
+// const Tjs = computeTjs(Sjs, Fjs);
+// const Cjs = computeCjs(Xjs, Tjs);
+// // search
+// const searchTerm = 'aaaaaaaaaaaaaaa ';
+// const X = E.encrypt(searchTerm, false).Xj[0];
+// const k = f.encrypt(X.slice(0, 8));
+// const bSjs = computebSjs(Cjs, X);
+// const bFjs = computebFjs(Cjs, X);
+// const bFjs_comp = computebComputedFjs(bSjs, k);
+// const isEqual = compareFjs(bFjs, bFjs_comp);
 //
-// console.log('------ Xjs ');
-// console.log(Xjs);
-// console.log('------ Ljs ');
-// console.log(Ljs);
-// console.log('------ Rjs ');
-// console.log(Rjs);
-// console.log('------ kjs ');
-// console.log(kjs);
+// let _print = (Xjs, displayVarName) => {
+//     // log variable name
+//     console.log(`---------- ${displayVarName} ----------`);
+//
+//     // log variable values
+//     for (let fn in Xjs) {
+//         console.log(`${fn}: \n${Xjs[fn].map(e => "    " + e.toString('hex')).join('\n')}`);
+//     }
+// }
+//
+// _print(Xjs, 'Xjs');
+// _print(Ljs, 'Ljs');
+// _print(Rjs, 'Rjs');
+// _print(kjs, 'kjs');
+// _print(Sjs, 'Sjs');
+// console.log(`------ toSearch X: ${X.toString('hex')}`);
+// console.log(`------ toSearch k: ${k.toString('hex')}`);
+// _print(Sjs, 'Alice Sjs');
+// _print(bSjs, 'Bob Sjs');
+// _print(Fjs, 'Alice Fjs');
+// _print(bFjs, 'Bob Fjs');
+// _print(bFjs_comp, 'Bob\'s computed Fjs');
+// _print(isEqual, 'bFjs === bFjs_comp?');
 
 // const {X, k} = computeQueryTerms('aaaaaaaaaaaaaaa ');
 // // console.log(X);
