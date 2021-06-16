@@ -36,7 +36,7 @@ h3 {
     grid-template-areas:
         "primitives     Xj      Xj      img     img"
         "files          Lj      Rj      kj      ."
-        "files          Sj      Fj      Cj      ."
+        "files          Sj      Fj      Cj      fnEnc"
         ".              .       .       .       next2";
 }
 
@@ -85,7 +85,7 @@ h3 {
     grid-area: kj;
 }
 
-/*-- 3rd row: SjEnc, FjEnc and CjEnc --*/
+/*-- 3rd row: Sj, Fj, Cj, and encrypted filename --*/
 #SjContainer {
     grid-area: Sj;
 }
@@ -96,6 +96,10 @@ h3 {
 
 #CjContainer {
     grid-area: Cj;
+}
+
+#fnEncContainer {
+    grid-area: fnEnc;
 }
 
 /*-- footer row: next --*/

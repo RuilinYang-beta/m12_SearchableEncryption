@@ -123,8 +123,7 @@ const genSjs = (Gs, Ljs) => {
     for (let fn in Ljs) {
         // the PRNG of this file
         let G = Gs[fn];
-        let Sj = G.gen(Ljs[fn].length);
-        Sjs[fn] = Sj;
+        Sjs[fn] = G.gen(Ljs[fn].length);
     }
     return Sjs;
 }
@@ -183,6 +182,14 @@ const computeCjs = (Xjs, Tjs) => {
     return Cjs;
 }
 
+const encrypteFilenames = (Xjs) => {
+    let fnEncs = {};
+    for (let fn in Xjs) {
+        fnEncs[fn] = e.encrypt(Buffer.from(fn));
+    }
+    return fnEncs;
+}
+
 const computebSjs = (Cjs, X) => {
     let bSjs = {};
     for (let fn in Cjs) {
@@ -233,6 +240,60 @@ const compareFjs = (bFjs, bFjs_comp) => {
     }
     return isEqual;
 }
+
+// @filenames: an array of filenames in plain text
+const genSjsDec = (Cjs, filenames, Gs) => {
+    let SjsDec = {};
+    for (let fn of filenames) {
+        let G = Gs[fn];
+        SjsDec[fn] = G.gen(Cjs[fn].length);
+    }
+    return SjsDec;
+}
+
+// note:
+// Cjs contains the cipher for all the files while SjsDec only contains data about returned files
+const computeLjsDec = (Cjs, SjsDec) => {
+    let LjsDec = {};
+    for (let fn in SjsDec) {
+        let Lj = [];
+        for (let i = 0; i < SjsDec[fn].length; i++){
+            Lj.push(xor(Cjs[fn][i].slice(0, 8), SjsDec[fn][i]));
+        }
+        LjsDec[fn] = Lj;
+    }
+    return LjsDec;
+}
+
+// note:
+// Cjs contains the cipher for all the files while FjsDec only contains data about returned files
+const computeRjsDec = (Cjs, FjsDec) => {
+    let RjsDec = {};
+    for (let fn in FjsDec) {
+        let Rj = [];
+        for (let i = 0; i < FjsDec[fn].length; i++){
+            Rj.push(xor(Cjs[fn][i].slice(8, 16), FjsDec[fn][i]));
+        }
+        RjsDec[fn] = Rj;
+    }
+    return RjsDec;
+}
+
+const computeWjsDec = (LjsDec, RjsDec) =>{
+    assert(checkSanity(LjsDec, RjsDec));
+
+    let WjsDec = {};
+    for (let fn in LjsDec) {
+        let Wj = [];
+        for (let i = 0; i < Ljs[fn].length; i++){
+            let xj = Buffer.concat([Ljs[fn][i], Rjs[fn][i]]);
+            Wj.push(E.decrypt(xj, false));
+        }
+        WjsDec[fn] = Wj;
+    }
+    return WjsDec;
+}
+
 /*
  * The search is a sequential scan at server side.
  */

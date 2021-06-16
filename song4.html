@@ -30,10 +30,10 @@
             <div>Primitives: </div>
             <div class="flex">
                 <div id="bigE" class="block xs">E</div>
+                <div id="smallE" class="block xs">e</div>
                 <div id="G" class="block xs">Gs</div>
                 <div id="smallF" class="block xs">f</div>
                 <div id="bigF" class="block xs">F</div>
-                <div id="smallE" class="block xs">e</div>
             </div>
         </div>
         <div class="cell" id="files">
@@ -41,15 +41,18 @@
             <ul id="fileList">
             </ul>
         </div>
-        <!-- 1st row: CjEnc, filename, img -->
+        <!-- 1st row: Cj, filename, img -->
         <!-- 1.1 Cj -->
         <div class="cell textContainer" id="CjContainer">
             <p>cipher blocks(C<sub>j</sub>)</p>
             <textarea id="CjArea" disabled>display the cipher blocks for the chosen file</textarea>
         </div>
         <!-- 1.2 filename -->
-        <div class="cell" id="filename">a button to decrypt all filenames (and change the file list)</div>
-        <!-- 1.3 img -->
+        <div class="cell" id="fnDecButton">
+            click the button to decrypt all filenames (and change the file list)
+            <button>decrypt filenames</button>
+        </div>
+        <!-- 1.3 imgEnc -->
         <div class="cell" id="imgEnc">
             <div id="imageTitleEnc">recall how Alice made each cipher block:</div>
             <!--pre-encryption-->
@@ -77,7 +80,7 @@
             <div id="GiEnc" class="block xs">G<sub>i</sub></div>
             <div id="ra3Enc" class="block-trans arrow" >&rarr;</div>
         </div>
-        <!-- 2nd row: SjEnc, Lj, img_dec -->
+        <!-- 2nd row: Sj, Lj, imgDec -->
         <div class="cell textContainer" id="SjContainer">
             <p>computed S<sub>j</sub></p>
             <textarea id="SjArea" disabled>display the computed Sj: &#xa Sj = Cj[:64] ⊕ X[:64]</textarea>
@@ -139,7 +142,7 @@
             <button id="WjButton" type="button" disabled>compute</button>
         </div>
         <!--footer row: finish-->
-        <button class="cell" id="finish">Finish -></button>
+        <button class="cell" id="finish" disabled>Finish -></button>
     </div>
 
     <script>
@@ -147,6 +150,7 @@
             $('#outmost4').replaceWith(welcome);
         })
     </script>
+    <script src="song4.js"></script>
 </div>
 
 

@@ -9,156 +9,6 @@
  * `plains` to its initial state (an empty obj)!!
  */
 
-const song2_old = `
-<h2>(2) Prepare the cipher text</h2>
-
-<!-- 1st row -->
-<div class="flex-container">
-    <!-- primitives -->
-    <div style="border-style: dotted;border-color: gainsboro;">
-        <div id="E" class="block xs">E</div>
-        <div id="G" class="block xs">G</div>
-        <div id="smallF" class="block xs">f</div>
-        <div id="bigF" class="block xs">F</div>
-    </div>
-
-    <!-- pre-encrypted, Si -->
-    <div class="flex-container" style="border-style: dotted;border-color: gainsboro;margin-left: 20px;margin-right: 20px;width: 450px;">
-        <div id="XjContainer">
-            <p>pre-encrypted</p>
-            <textarea id="XjContainer" disabled>display the pre-encrypted cipher of the chosen file</textarea>
-        </div>
-
-        <div id="SiContainer">
-            <p>S<sub>i</sub></p>
-            <textarea id="SiArea" style="height: 220px;" disabled>display the pseudorandom bytes that will be applied to encrypt the chosen file</textarea>
-            <button id="SiButton" type="button" class="centerOfParent" disabled>generate S<sub>i</sub></button>
-        </div>
-    </div>
-
-    <!-- image -->
-    <div style="border-style: dotted;border-color: gainsboro;">
-        <!-- Wi -->
-        <div id="Wi" class="block big">
-            W<sub>i</sub>
-        </div>
-
-        <!-- down arrow -->
-        <div id="darr" class="block-trans big arrow">
-            &darr;
-        </div>
-
-        <!-- Xi -->
-        <div id="Xi" class="block big">
-            X<sub>i</sub>
-        </div>
-
-        <!-- two arrows -->
-        <div class="flex-container">
-            <div id="dlarr" class="block-trans small arrow">
-                &swarr;
-            </div>
-
-            <div id="drarr" class="block-trans small arrow">
-                &searr;
-            </div>
-        </div>
-
-        <!-- Li, Ri, arr to xor -->
-        <div class="flex-container">
-            <div id="Li" class="block small">
-                L<sub>i</sub>
-            </div>
-
-            <div id="Ri" class="block small">
-                R<sub>i</sub>
-            </div>
-
-            <div id="dxorarr" class="block-trans small arrow">
-                &#10549;
-            </div>
-        </div>
-
-        <!-- empty, xor, and Ci -->
-        <div class="flex-container">
-            <div class="block-trans big"></div>
-            <div id="xor"
-                 class="block-trans small"
-                 style="text-align:right;font-size:25px;width: 55px;">
-                ⊕
-            </div>
-
-            <div id="rarr" class="block-trans small arrow">
-                &rarr;
-            </div>
-
-            <div id="Ci" class="block big">
-                C<sub>i</sub>
-            </div>
-        </div>
-
-        <!-- Si, Fk(Si), and ne arrow -->
-        <div class="flex-container">
-            <div id="Si" class="block small">
-                S<sub>i</sub>
-            </div>
-
-            <div id="Fi" class="block small">
-                F<sub>k<sub>i</sub></sub>(S<sub>i</sub>)
-            </div>
-
-            <div id="uxorarr" class="block-trans small arrow" style="">
-                &#10548;
-            </div>
-        </div>
-
-        <!-- formula about ki -->
-        <div id="ki">
-            where k<sub>i</sub> = f<sub>k'</sub>(L<sub>i</sub>)
-        </div>
-    </div>
-</div>
-
-
-<!-- 2nd row -->
-<div class="flex-container" style="margin-top: 10px;height: 280px;">
-
-    <!-- chosen files -->
-    <div style="margin-right: 20px">
-        <p>files</p>
-        <ul id="fileList" style="border-style: dotted;border-color: gainsboro;">
-        </ul>
-    </div>
-
-
-    <!-- three text areas -->
-    <div class="flex-container">
-        <div id="KiContainer">
-            <p>k<sub>i</sub></p>
-            <textarea id="KiArea" style="height: 220px;" disabled>display the computed key that will be used to encrypt the chosen file</textarea>
-            <button id="KiButton" type="button" class="centerOfParent" disabled>compute k<sub>i</sub></button>
-        </div>
-
-        <div id="FiContainer">
-            <p>F<sub>k<sub>i</sub></sub>(S<sub>i</sub>)</p>
-            <textarea id="FiArea" style="height: 220px;" disabled>display the encrypted pseudorandom bytes that will be used to encrypt the chosen file</textarea>
-            <button id="FiButton" type="button" class="centerOfParent" disabled>compute F<sub>k<sub>i</sub></sub>(S<sub>i</sub>)</button>
-        </div>
-
-        <div id="CiContainer">
-            <p>C<sub>i</sub></p>
-            <textarea id="CiArea" style="height: 220px;" disabled>display the (final) cipher text of the chosen file</textarea>
-            <button id="CiButton" type="button" class="centerOfParent" disabled>compute C<sub>i</sub></button>
-        </div>
-    </div>
-</div>
-
-<!-- 3rd row: next page -->
-<div style="text-align: right;margin-top: 15px;width: 800px;">
-    <button id="next2">Next &rarr;</button>
-</div>`;
-
-
 const song2 = `
 <div id="outmost2">
     <!-- css for the grid of the whole page-->
@@ -175,10 +25,10 @@ const song2 = `
             <div>Primitives: </div>
             <div class="flex">
                 <div id="bigE" class="block xs">E</div>
+                <div id="smallE" class="block xs">e</div>
                 <div id="G" class="block xs">Gs</div>
                 <div id="smallF" class="block xs">f</div>
                 <div id="bigF" class="block xs">F</div>
-                <div id="smallE" class="block xs">e</div>
             </div>
         </div>
         <div class="cell" id="files">
@@ -199,13 +49,13 @@ const song2 = `
             <div id="XjEnc" class="block">X<sub>j</sub></div>
             <div id="laEnc" class="block-trans arrowSmall">&swarr;</div>
             <div id="ra1Enc" class="block-trans arrowSmall">&searr;</div>
-            <!--xorEnc terms-->
+            <!--xor terms-->
             <div id="LjEnc" class="block">L<sub>j</sub></div>
             <div id="RjEnc" class="block">R<sub>j</sub></div>
             <div id="SjEnc" class="block">S<sub>j</sub></div>
             <div id="FjEnc" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
-            <div id="kjEnc">where k<sub>j</sub> = f<sub>k'</sub>(L<sub>j</sub>)</div>
-            <!--xorEnc operators-->
+            <div id="kjEnc">where k<sub>j</sub> = f(L<sub>j</sub>)</div>
+            <!--xor operators-->
             <div id="xadEnc" class="block-trans arrow">&#10549;</div>
             <div id="xorEnc" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
             <div id="xauEnc" class="block-trans arrow" style="">&#10548;</div>
@@ -218,7 +68,7 @@ const song2 = `
             <div id="GiEnc" class="block xs">G<sub>i</sub></div>
             <div id="ra3Enc" class="block-trans arrow" >&rarr;</div>
         </div>
-        <!-- 2nd row: Lj, RjEnc and kjEnc -->
+        <!-- 2nd row: Lj, Rj and kj -->
         <div class="cell textContainer" id="LjContainer">
             <p>left sub-blocks (L<sub>j</sub>)</p>
             <textarea id="LjArea" disabled>display the left sub-block of the pre-encrypted blocks</textarea>
@@ -232,7 +82,7 @@ const song2 = `
             <textarea id="kjArea" disabled>display the key derived from Li</textarea>
             <button id="kjButton" type="button">compute</button>
         </div>
-        <!-- 3rd row: SjEnc, FjEnc and CjEnc -->
+        <!-- 3rd row: Sj, Fj and Cj -->
         <div class="cell textContainer" id="SjContainer">
             <p>pseudorandom blocks(S<sub>j</sub>)</p>
             <textarea id="SjArea" disabled>display the pseudorandom blocks generated specifically for the chosen file</textarea>
@@ -248,8 +98,13 @@ const song2 = `
             <textarea id="CjArea" disabled>display the cipher blocks for the chosen file</textarea>
             <button id="CjButton" type="button" disabled>compute</button>
         </div>
+        <div class="cell textContainer" id="fnEncContainer">
+            <p>encrypted filename</p>
+            <textarea id="fnEncArea" disabled>the encrypted filename of the chosen file, it will be attached to the front of the cipher text.</textarea>
+            <button id="fnEncButton" type="button">compute</button>
+        </div>
         <!--footer row: next-->
-        <button class="cell" id="next2" hidden>Next -></button>
+        <button class="cell" id="next2" disabled>Next -></button>
     </div>
 
     <script>
@@ -276,10 +131,10 @@ const song3 = `
             <div>Primitives: </div>
             <div class="flex">
                 <div id="bigE" class="block xs">E</div>
+                <div id="smallE" class="block xs">e</div>
                 <div id="G" class="block xs">Gs</div>
                 <div id="smallF" class="block xs">f</div>
                 <div id="bigF" class="block xs">F</div>
-                <div id="smallE" class="block xs">e</div>
             </div>
         </div>
         <div class="cell" id="files">
@@ -327,7 +182,7 @@ const song3 = `
             <div id="RjEnc" class="block">R<sub>j</sub></div>
             <div id="SjEnc" class="block">S<sub>j</sub></div>
             <div id="FjEnc" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
-            <div id="kjEnc">where k<sub>j</sub> = f<sub>k'</sub>(L<sub>j</sub>)</div>
+            <div id="kjEnc">where k<sub>j</sub> = f(L<sub>j</sub>)</div>
             <!--xorEnc operators-->
             <div id="xadEnc" class="block-trans arrow">&#10549;</div>
             <div id="xorEnc" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
@@ -406,10 +261,10 @@ const song3 = `
             <textarea id="toReturnArea" disabled>should I (Bob, the server) return the file to Alice?</textarea>
         </div>
         <!--footer row: next-->
-        <button class="cell" id="next3">Next -></button>
+        <button class="cell" id="next3" disabled>Next -></button>
         <!--other: blackout effect-->
         <div id="coverAlice"></div>
-        <!--        <div id="coverBob"></div>-->
+        <div id="coverBob"></div>
     </div>
     <script>
         $('#next3').click(function() {
@@ -435,10 +290,10 @@ const song4 = `
             <div>Primitives: </div>
             <div class="flex">
                 <div id="bigE" class="block xs">E</div>
+                <div id="smallE" class="block xs">e</div>
                 <div id="G" class="block xs">Gs</div>
                 <div id="smallF" class="block xs">f</div>
                 <div id="bigF" class="block xs">F</div>
-                <div id="smallE" class="block xs">e</div>
             </div>
         </div>
         <div class="cell" id="files">
@@ -446,15 +301,18 @@ const song4 = `
             <ul id="fileList">
             </ul>
         </div>
-        <!-- 1st row: CjEnc, filename, img -->
+        <!-- 1st row: Cj, filename, img -->
         <!-- 1.1 Cj -->
         <div class="cell textContainer" id="CjContainer">
             <p>cipher blocks(C<sub>j</sub>)</p>
             <textarea id="CjArea" disabled>display the cipher blocks for the chosen file</textarea>
         </div>
         <!-- 1.2 filename -->
-        <div class="cell" id="filename">a button to decrypt all filenames (and change the file list)</div>
-        <!-- 1.3 img -->
+        <div class="cell" id="fnDecButton">
+            click the button to decrypt all filenames (and change the file list)
+            <button>decrypt filenames</button>
+        </div>
+        <!-- 1.3 imgEnc -->
         <div class="cell" id="imgEnc">
             <div id="imageTitleEnc">recall how Alice made each cipher block:</div>
             <!--pre-encryption-->
@@ -468,7 +326,7 @@ const song4 = `
             <div id="RjEnc" class="block">R<sub>j</sub></div>
             <div id="SjEnc" class="block">S<sub>j</sub></div>
             <div id="FjEnc" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
-            <div id="kjEnc">where k<sub>j</sub> = f<sub>k'</sub>(L<sub>j</sub>)</div>
+            <div id="kjEnc">where k<sub>j</sub> = f(L<sub>j</sub>)</div>
             <!--xorEnc operators-->
             <div id="xadEnc" class="block-trans arrow">&#10549;</div>
             <div id="xorEnc" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
@@ -482,7 +340,7 @@ const song4 = `
             <div id="GiEnc" class="block xs">G<sub>i</sub></div>
             <div id="ra3Enc" class="block-trans arrow" >&rarr;</div>
         </div>
-        <!-- 2nd row: SjEnc, Lj, img_dec -->
+        <!-- 2nd row: Sj, Lj, imgDec -->
         <div class="cell textContainer" id="SjContainer">
             <p>computed S<sub>j</sub></p>
             <textarea id="SjArea" disabled>display the computed Sj: &#xa Sj = Cj[:64] ⊕ X[:64]</textarea>
@@ -504,7 +362,7 @@ const song4 = `
             <div id="CjDec" class="block" >C<sub>j</sub></div>
             <div id="SjDec" class="block">S<sub>j</sub></div>
             <div id="FjDec" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
-            <div id="kjDec">where k<sub>j</sub> = f<sub>k'</sub>(L<sub>j</sub>)</div>
+            <div id="kjDec">where k<sub>j</sub> = f(L<sub>j</sub>)</div>
             <!--xorEnc operators-->
             <div id="xadDec" class="block-trans arrow">&#10549;</div>
             <div id="xorDec" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
@@ -544,7 +402,7 @@ const song4 = `
             <button id="WjButton" type="button" disabled>compute</button>
         </div>
         <!--footer row: finish-->
-        <button class="cell" id="finish">Finish -></button>
+        <button class="cell" id="finish" disabled>Finish -></button>
     </div>
 
     <script>
@@ -552,6 +410,7 @@ const song4 = `
             $('#outmost4').replaceWith(welcome);
         })
     </script>
+    <script src="song4.js"></script>
 </div>`;
 
 const welcome = `

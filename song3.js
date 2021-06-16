@@ -7,7 +7,7 @@ const writeFileArea3 = (plains) => {
     // populate fileList
     let fileNames = Object.keys(plains);
     for (let i = 0; i < fileNames.length; i++) {
-        // hide filename as a class in <li>
+        // hide filename as a data field in <li>
         $('#fileList').append(`<li data-filename="${fileNames[i]}">Alice'sFile${i}</li>`);
     }
 
@@ -39,15 +39,6 @@ const writeFileArea3 = (plains) => {
     // make the first file selected
     $('#fileList li').first().click();
 }
-
-const isTrue = (e) => e;
-
-
-// ========================================
-// ............... commands ...............
-// ========================================
-
-
 
 
 // ==============================================
@@ -124,9 +115,7 @@ $('#isEqualButton').click(function() {
     let fn = $('li.selected').data("filename");
     $('#isEqualArea').html(displayBlocks(isEqual[fn]));
     $('#toReturnArea').html("" + isEqual[fn].some(isTrue));
-    // TODO: show the next button
-
-    //
-
+    // enable the next button
+    $('#next3').prop('disabled', false);
 })
 

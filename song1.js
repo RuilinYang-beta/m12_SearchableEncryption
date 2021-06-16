@@ -122,6 +122,8 @@ $('#passwordButton').click(function() {
     }
 
     // init primitives
+    $('#passwordNotice').html('Wait a sec...');
+    console.log('here');
     initPrimitives(pswd, Object.keys(plains));
     $('#passwordNotice').html('Primitives Initialized. Proceed to pre-encryption. You can hover on primitives and text areas to see what\'s there.');
 
@@ -159,12 +161,10 @@ $('#XjButton').click( function () {
     let result = computeXjs(plains);
     Xjs_stream = result.Xjs_stream;
     Xjs = result.Xjs;
-
     // populate the pre-encrypted area with the cipher of the selected file
     let fn = $('li.selected').html();
     $('#XjArea').html(displayBlocks(Xjs[fn]));
-
-    // show the next button
-    $('#next1').removeAttr('hidden');
+    // enable the next button
+    $('#next1').prop('disabled', false);
 })
 

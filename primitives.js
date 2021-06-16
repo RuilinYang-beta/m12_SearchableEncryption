@@ -34,9 +34,7 @@ const createPreEnc = (userChosenPassword) => {
     // dataBuf is the content of a whole file
     const encrypt = (dataBuf, padding=true) => {
         const cipher = crypto.createCipheriv(algo, key, '');  // ecb mode doesn't have an iv
-        if (!padding) {
-            cipher.setAutoPadding(false);
-        }
+        cipher.setAutoPadding(padding);
         const encrypted = cipher.update(dataBuf);
         const Xj_stream = Buffer.concat([encrypted, cipher.final()]);
         // split stream into an arr of small buffers of 16 bytes each
@@ -50,8 +48,9 @@ const createPreEnc = (userChosenPassword) => {
         return {Xj_stream, Xj};
     };
 
-    const decrypt = (dataBuf) => {
+    const decrypt = (dataBuf, padding=true) => {
         const decipher = crypto.createDecipheriv(algo, key, '');
+        decipher.setAutoPadding(padding);
         const decrypted = decipher.update(dataBuf);
         return Buffer.concat([decrypted, decipher.final()]);
     };
@@ -93,10 +92,9 @@ const createFilenameEnc = (userChosenPassword) =>{
     const iv = salt.slice(salt.length - 16, salt.length);
 
     const encrypt = (fileNameBuf) => {
-        const left = Math.floor((total_len - fileNameBuf.length) / 2);
-        const right = total_len - left - fileNameBuf.length;
+        const paddingLen = total_len - fileNameBuf.length;
         // fileNameBuf is padded into a buffer of `total_len` bytes
-        const toEnc = Buffer.concat([Buffer.alloc(left, ' '), fileNameBuf, Buffer.alloc(right, ' ')]);
+        const toEnc = Buffer.concat([fileNameBuf, Buffer.alloc(paddingLen, ' ')]);
 
         const cipher = crypto.createCipheriv(algo, key, iv);
         // let the encrypted be the same len with `total_len` so it's easier to think about
@@ -108,6 +106,7 @@ const createFilenameEnc = (userChosenPassword) =>{
     const decrypt = (toDec) => {
         const decipher = crypto.createDecipheriv(algo, key, iv);
         // let the decrypted be the same len with `total_len` so it's easier to think about
+        // it's the caller's job to recover a trimmed string from the decrypted
         decipher.setAutoPadding(false);
         const decrypted = decipher.update(toDec);
         return Buffer.concat([decrypted, decipher.final()]);

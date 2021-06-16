@@ -30,10 +30,10 @@
             <div>Primitives: </div>
             <div class="flex">
                 <div id="bigE" class="block xs">E</div>
+                <div id="smallE" class="block xs">e</div>
                 <div id="G" class="block xs">Gs</div>
                 <div id="smallF" class="block xs">f</div>
                 <div id="bigF" class="block xs">F</div>
-                <div id="smallE" class="block xs">e</div>
             </div>
         </div>
         <div class="cell" id="files">
@@ -54,13 +54,13 @@
             <div id="XjEnc" class="block">X<sub>j</sub></div>
             <div id="laEnc" class="block-trans arrowSmall">&swarr;</div>
             <div id="ra1Enc" class="block-trans arrowSmall">&searr;</div>
-            <!--xorEnc terms-->
+            <!--xor terms-->
             <div id="LjEnc" class="block">L<sub>j</sub></div>
             <div id="RjEnc" class="block">R<sub>j</sub></div>
             <div id="SjEnc" class="block">S<sub>j</sub></div>
             <div id="FjEnc" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
             <div id="kjEnc">where k<sub>j</sub> = f<sub>k'</sub>(L<sub>j</sub>)</div>
-            <!--xorEnc operators-->
+            <!--xor operators-->
             <div id="xadEnc" class="block-trans arrow">&#10549;</div>
             <div id="xorEnc" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
             <div id="xauEnc" class="block-trans arrow" style="">&#10548;</div>
@@ -73,7 +73,7 @@
             <div id="GiEnc" class="block xs">G<sub>i</sub></div>
             <div id="ra3Enc" class="block-trans arrow" >&rarr;</div>
         </div>
-        <!-- 2nd row: Lj, RjEnc and kjEnc -->
+        <!-- 2nd row: Lj, Rj and kj -->
         <div class="cell textContainer" id="LjContainer">
             <p>left sub-blocks (L<sub>j</sub>)</p>
             <textarea id="LjArea" disabled>display the left sub-block of the pre-encrypted blocks</textarea>
@@ -87,7 +87,7 @@
             <textarea id="kjArea" disabled>display the key derived from Li</textarea>
             <button id="kjButton" type="button">compute</button>
         </div>
-        <!-- 3rd row: SjEnc, FjEnc and CjEnc -->
+        <!-- 3rd row: Sj, Fj and Cj -->
         <div class="cell textContainer" id="SjContainer">
             <p>pseudorandom blocks(S<sub>j</sub>)</p>
             <textarea id="SjArea" disabled>display the pseudorandom blocks generated specifically for the chosen file</textarea>
@@ -103,8 +103,13 @@
             <textarea id="CjArea" disabled>display the cipher blocks for the chosen file</textarea>
             <button id="CjButton" type="button" disabled>compute</button>
         </div>
+        <div class="cell textContainer" id="fnEncContainer">
+            <p>encrypted filename</p>
+            <textarea id="fnEncArea" disabled>the encrypted filename of the chosen file, it will be attached to the front of the cipher text.</textarea>
+            <button id="fnEncButton" type="button">compute</button>
+        </div>
         <!--footer row: next-->
-        <button class="cell" id="next2" hidden>Next -></button>
+        <button class="cell" id="next2" disabled>Next -></button>
     </div>
 
     <script>

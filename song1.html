@@ -37,10 +37,10 @@
             <div>Primitives: </div>
             <div class="flex">
                 <div id="bigE" class="block xs">E</div>
+                <div id="smallE" class="block xs">e</div>
                 <div id="G" class="block xs">Gs</div>
                 <div id="smallF" class="block xs">f</div>
                 <div id="bigF" class="block xs">F</div>
-                <div id="smallE" class="block xs">e</div>
             </div>
         </div>
         <div class="cell" id="files">
@@ -81,7 +81,7 @@
             <div id="RjEnc" class="block">R<sub>j</sub></div>
             <div id="SjEnc" class="block">S<sub>j</sub></div>
             <div id="FjEnc" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
-            <div id="kjEnc">where k<sub>j</sub> = f<sub>k'</sub>(L<sub>j</sub>)</div>
+            <div id="kjEnc">where k<sub>j</sub> = f(L<sub>j</sub>)</div>
             <!--xorEnc operators-->
             <div id="xadEnc" class="block-trans arrow">&#10549;</div>
             <div id="xorEnc" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
@@ -114,7 +114,7 @@
             <button id="XjButton" type="button" disabled>Pre encrypt</button>
         </div>
         <!--footer row: next-->
-        <button class="cell" id="next1" hidden>Next -></button>
+        <button class="cell" id="next1" disabled>Next -></button>
     </div>
     <script>
         $('#next1').click(function() {

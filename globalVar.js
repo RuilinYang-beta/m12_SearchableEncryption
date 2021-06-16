@@ -1,5 +1,5 @@
 /**
- * This file contains global variables that the renderer pages can access.
+ * This file contains global variables and functions that can be accessed across pages.
  */
 
 // init E, Gs, f
@@ -20,10 +20,12 @@ let _print = (Xjs, displayVarName) => {
     }
 }
 
-let displayBlocks = (blocksArr) => {
+const isTrue = (e) => e;
+
+let displayBlocks = (blocksArr, encoding='hex') => {
     let toDisplay = '';
     for (let block of blocksArr){
-        toDisplay += `[${block.toString('hex')}],`;
+        toDisplay += `[${block.toString(encoding)}],`;
     }
     return toDisplay;
 }
@@ -44,10 +46,17 @@ let Sjs = {};
 let Fjs = {};
 let Tjs = {};
 let Cjs = {};
+let fnEncs = {};  // encrypted filename
 // --- populated in page 3 ---
 // `b` for "Bob"; `comp` for "computed; `act` for "actual
 let bSjs = {};
 let bFjs = {};
 let bFjs_comp = {};
 let isEqual = {};
-
+// --- populated in page 4 ---
+let SjsDec = {};
+let LjsDec = {};
+let kjsDec = {};
+let FjsDec = {};
+let RjsDec = {};
+let WjsDec = {};

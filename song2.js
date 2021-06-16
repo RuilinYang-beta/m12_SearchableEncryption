@@ -35,6 +35,9 @@ const writeFileArea2 = (Xjs) => {
         if (Cjs[fn] !== undefined) {
             $('#CjArea').html(displayBlocks(Cjs[fn]));
         }
+        if (fnEncs[fn] !== undefined) {
+            $('#fnEncArea').html(fnEncs[fn].toString('hex'));
+        }
     })
 
     // make the first file selected
@@ -97,6 +100,19 @@ $('#CjButton').click(function() {
     let fn = $('li.selected').html();
     $('#CjArea').html(displayBlocks(Cjs[fn]));
 
-    // show the next button
-    $('#next2').removeAttr('hidden');
+    // enable the next button
+    if (Object.keys(fnEncs).length !== 0) {
+        $('#next2').prop('disabled', false);
+    }
+})
+
+$('#fnEncButton').click(function() {
+    fnEncs = encrypteFilenames(Xjs);
+    // populate fnEncArea with the encrypted filename of selected file
+    let fn = $('li.selected').html();
+    $('#fnEncArea').html(fnEncs[fn].toString('hex'));
+    // enable the next button
+    if (Object.keys(Cjs).length !== 0) {
+        $('#next2').prop('disabled', false);
+    }
 })

@@ -34,7 +34,7 @@ h3 {
     grid-template-rows: 225px 225px 225px 20px;
     row-gap: 5px;
     grid-template-areas:
-    "primitives     Cj            filename      imgEnc     imgEnc"
+    "primitives     Cj            fnDecButton   imgEnc     imgEnc"
     "files          Sj            Lj            imgDec     imgDec"
     "files          kj            Fj            Rj      Wj"
     ".              .               .           .       finish";
@@ -67,8 +67,14 @@ h3 {
     grid-area: Cj;
 }
 
-#filename {
-    grid-area: filename;
+#fnDecButton {
+    padding: 10px;
+    grid-area: fnDecButton;
+}
+
+#fnDecButton>button {
+    display: block;
+    margin: 50px auto;
 }
 
 #imgEnc {
