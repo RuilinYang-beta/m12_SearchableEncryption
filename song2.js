@@ -17,7 +17,7 @@ const writeFileArea2 = (Xjs) => {
         $(this).addClass('selected');
 
         let fn = $(this).html();
-        // populate Xj, Lj, Rj area
+        // populate XjEnc, Lj, RjEnc area
         $('#XjArea').html(displayBlocks(Xjs[fn]));
         $('#LjArea').html(displayBlocks(Ljs[fn]));
         $('#RjArea').html(displayBlocks(Rjs[fn]));
@@ -45,7 +45,7 @@ const writeFileArea2 = (Xjs) => {
 // ............... commands ...............
 // ========================================
 
-// split Xj into Lj and Rj
+// split XjEnc into Lj and RjEnc
 let result = computeLjsRjs(Xjs);
 Ljs = result.Ljs;
 Rjs = result.Rjs;
@@ -62,19 +62,19 @@ $('#kjButton').click(function() {
     let fn = $('li.selected').html();
     $('#kjArea').html(displayBlocks(kjs[fn]));
 
-    // enable Fj button if both kjs and Sjs are computed
+    // enable FjEnc button if both kjs and Sjs are both computed
     if (Object.keys(Sjs).length !== 0) {
         $('#FjButton').prop('disabled', false);
     }
 })
 
 $('#SjButton').click(function() {
-    Sjs = genSis(Gs, Ljs);
+    Sjs = genSjs(Gs, Ljs);
     // populate SjArea with the pseudorandom blocks of selected file
     let fn = $('li.selected').html();
     $('#SjArea').html(displayBlocks(Sjs[fn]));
 
-    // enable Fj button if both kjs and Sjs are computed
+    // enable FjEnc button if both kjs and Sjs are computed
     if (Object.keys(kjs).length !== 0) {
         $('#FjButton').prop('disabled', false);
     }
@@ -82,18 +82,18 @@ $('#SjButton').click(function() {
 
 $('#FjButton').click(function() {
     Fjs = computeFjs(kjs, Sjs);
-    // populate FjArea with the Fj of selected file
+    // populate FjArea with the FjEnc of selected file
     let fn = $('li.selected').html();
     $('#FjArea').html(displayBlocks(Fjs[fn]));
 
-    // enable Cj button
+    // enable CjEnc button
     $('#CjButton').prop('disabled', false);
 })
 
 $('#CjButton').click(function() {
     Tjs = computeTjs(Sjs, Fjs);
     Cjs = computeCjs(Xjs, Tjs);
-    // populate CjArea with the Cj of selected file
+    // populate CjArea with the CjEnc of selected file
     let fn = $('li.selected').html();
     $('#CjArea').html(displayBlocks(Cjs[fn]));
 

@@ -62,6 +62,18 @@ const menuTemplate = [
                 click() {
                     mainWindow.loadURL(`file://${__dirname}/song2.html`);
                 }
+            },
+            {
+                label: 'song3(temp)',
+                click() {
+                    mainWindow.loadURL(`file://${__dirname}/song3.html`);
+                }
+            },
+            {
+                label: 'song4(temp)',
+                click() {
+                    mainWindow.loadURL(`file://${__dirname}/song4.html`);
+                }
             }
         ]
     },

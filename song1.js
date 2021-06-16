@@ -47,14 +47,14 @@ const writeFileArea = (plains, Wjs) => {
         $('#fileList').append(`<li>${fn}</li>`);
     })
 
-    // when a filename is clicked, populate plains, plainBlocks, Wj area
+    // when a filename is clicked, populate plains, plainBlocks, WjEnc area
     $('#fileList li').click( function() {
         // add or rm selected class
         $('#fileList li').removeClass('selected');
         $(this).addClass('selected');
 
         let fn = $(this).html();
-        // populate plain area, Wj, and plainBlock area
+        // populate plain area, WjEnc, and plainBlock area
         $('#plainArea').html(plains[fn]);
         let WjDisplay = '';
         let plainBlocksDisplay = '';
@@ -141,15 +141,15 @@ $('#passwordButton').click(function() {
         $(this).removeClass('highlight');
     })
     // hover effects of text areas
-    $('#plainContainer, #plainBlockContainer, #WjContainer, #Wj').hover( function () {
-        $('#Wj').addClass('highlight');
+    $('#plainContainer, #plainBlockContainer, #WjContainer, #WjEnc').hover( function () {
+        $('#WjEnc').addClass('highlight');
     }, function () {
-        $('#Wj').removeClass('highlight');
+        $('#WjEnc').removeClass('highlight');
     })
     $('#XjContainer').hover(function () {
-        $('#Wj, #Xj, #bigE').addClass('highlight');
+        $('#WjEnc, #XjEnc, #bigE').addClass('highlight');
     }, function () {
-        $('#Wj, #Xj, #bigE').removeClass('highlight');
+        $('#WjEnc, #XjEnc, #bigE').removeClass('highlight');
     })
 })
 

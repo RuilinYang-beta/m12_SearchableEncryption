@@ -9,6 +9,17 @@ let Gs;  // PRNG for all the files {fileName: PRNG_of_the_file, ...}
 let f;   // compute k_i for each block
 let F;   // compute the block to XOR with R_i
 
+let _dummy = 'aaaaaaaaaaaaaaa ';
+let _print = (Xjs, displayVarName) => {
+    // log variable name
+    console.log(`---------- ${displayVarName} ----------`);
+
+    // log variable values
+    for (let fn in Xjs) {
+        console.log(`${fn}: \n${Xjs[fn].map(e => "    " + e.toString('hex')).join('\n')}`);
+    }
+}
+
 let displayBlocks = (blocksArr) => {
     let toDisplay = '';
     for (let block of blocksArr){
@@ -36,7 +47,7 @@ let Cjs = {};
 // --- populated in page 3 ---
 // `b` for "Bob"; `comp` for "computed; `act` for "actual
 let bSjs = {};
+let bFjs = {};
 let bFjs_comp = {};
-let bFjs_act = {};
-
+let isEqual = {};
 

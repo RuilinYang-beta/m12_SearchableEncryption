@@ -63,16 +63,16 @@ h3 {
     grid-area: files;
 }
 
-/*-- 1st row: Xj and img --*/
+/*-- 1st row: XjEnc and img --*/
 #XjContainer {
     grid-area: Xj;
 }
 
-#img {
+#imgEnc {
     grid-area: img;
 }
 
-/*-- 2nd row: Lj, Rj and kj --*/
+/*-- 2nd row: Lj, RjEnc and kjEnc --*/
 #LjContainer {
     grid-area: Lj;
 }
@@ -85,7 +85,7 @@ h3 {
     grid-area: kj;
 }
 
-/*-- 3rd row: Sj, Fj and Cj --*/
+/*-- 3rd row: SjEnc, FjEnc and CjEnc --*/
 #SjContainer {
     grid-area: Sj;
 }

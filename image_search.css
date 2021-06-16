@@ -1,0 +1,110 @@
+#imgSearch {
+    display: grid;
+    grid-template-columns: 40px 40px 25px 25px 45px 45px;
+    grid-template-rows: 28px 10px 28px 20px 28px 28px 28px;
+    grid-template-areas:
+        /* naming */
+        /* da:    down arrow*/
+        /* laEnc/ra: left arrow/right arrow*/
+        /* xad:   xorEnc arrow down*/
+        /* xauEnc:   xorEnc arrow up*/
+        "title  title   title   title   title   title"
+        ".      .       .       .       .       ."
+        "X      X       .       .       .       ."
+        "la     ra1     .       .       .       ."
+        "L      R       xad     .       q1      q2"
+        ".      .       xor     ra2     Sj      Fj"
+        "Cj     Cj      xau     .       k       k"
+}
+
+/*-- title --*/
+#imageTitleSearch {
+    grid-area: title;
+}
+
+/*-- split X --*/
+#XSearch {
+    grid-area: X;
+    font-size: 14px;
+}
+
+#laSearch {
+    grid-area: la;
+}
+
+#ra1Search {
+    grid-area: ra1;
+}
+
+/*-- xorSearch terms --*/
+#LSearch {
+    grid-area: L;
+}
+
+#RSearch {
+    grid-area: R;
+}
+
+#CjSearch {
+    grid-area: Cj;
+}
+
+/*-- xorSearch operators --*/
+#xadSearch {
+    grid-area: xad;
+}
+
+#xauSearch {
+    grid-area: xau;
+}
+
+#xorSearch {
+    grid-area: xor;
+}
+
+#ra2Search {
+    grid-area: ra2;
+}
+
+/*-- xorSearch results --*/
+#SjSearch {
+    grid-area: Sj;
+}
+
+#FjSearch {
+    grid-area: Fj;
+}
+
+#kSearch {
+    grid-area: k;
+    font-size: 14px;
+}
+/*-- question marks --*/
+#q1Search {
+    grid-area: q1;
+}
+
+#q2Search {
+    grid-area: q2;
+}
+/*-- block settings --*/
+.block {
+    border-style: groove;
+    border-radius: 10%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.block-trans {
+    border-style: none;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.arrow {
+    font-size: 24px;
+}
+
+.arrowSmall {
+    font-size: 18px;
+}

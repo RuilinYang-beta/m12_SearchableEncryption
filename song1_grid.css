@@ -31,10 +31,10 @@ h3 {
     grid-template-rows: 225px 225px 225px 20px;
     row-gap: 5px;
     grid-template-areas:
-    "primitives intro  form img img"
-    "files      plain hex  Wj  Xj"
-    "files      plain hex  Wj  Xj"
-    ".          .     .    .   next1";
+    "primitives     intro   form    imgEnc  imgEnc"
+    "files          plain   hex     Wj      Xj"
+    "files          plain   hex     Wj      Xj"
+    ".              .       .       .       next1";
 }
 
 /*!* -- temp: color of grid cell --*!*/
@@ -72,8 +72,8 @@ h3 {
     padding: 2px;
 }
 
-#img {
-    grid-area: img;
+#imgEnc {
+    grid-area: imgEnc;
 }
 
 /*-- 2nd and 3rd row: 4 textContainers --*/

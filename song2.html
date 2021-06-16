@@ -41,41 +41,39 @@
             <ul id="fileList">
             </ul>
         </div>
-        <!-- 1st row: Xj and img -->
+        <!-- 1st row: XjEnc and img -->
         <div class="cell textContainer" id="XjContainer">
             <p>pre-encrypted blocks (X<sub>j</sub>)</p>
             <textarea id="XjArea" disabled>display the pre-encrypted blocks of the chosen file</textarea>
         </div>
-        <div class="cell" id="img">
-            <div id="imageContainer">
-                <div id="imageTitle">operation on file i, block j:</div>
-                <!--pre-encryption-->
-                <div id="Wj" class="block">W<sub>j</sub></div>
-                <div id="da1" class="block-trans arrowSmall">&darr;</div>
-                <div id="Xj" class="block">X<sub>j</sub></div>
-                <div id="la" class="block-trans arrowSmall">&swarr;</div>
-                <div id="ra1" class="block-trans arrowSmall">&searr;</div>
-                <!--xor terms-->
-                <div id="Lj" class="block">L<sub>j</sub></div>
-                <div id="Rj" class="block">R<sub>j</sub></div>
-                <div id="Sj" class="block">S<sub>j</sub></div>
-                <div id="Fj" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
-                <div id="kj">where k<sub>j</sub> = f<sub>k'</sub>(L<sub>j</sub>)</div>
-                <!--xor operators-->
-                <div id="xad" class="block-trans arrow">&#10549;</div>
-                <div id="xor" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
-                <div id="xau" class="block-trans arrow" style="">&#10548;</div>
-                <!--cipher text-->
-                <div id="Cj" class="block" >C<sub>j</sub></div>
-                <div id="ra2" class="block-trans arrow" >&rarr;</div>
-                <!--PRNG related-->
-                <div id="fn" class="block-trans">filename i</div>
-                <div id="da2" class="block-trans arrow">&darr;</div>
-                <div id="Gi" class="block xs">G<sub>i</sub></div>
-                <div id="ra3" class="block-trans arrow" >&rarr;</div>
-            </div>
+        <div class="cell" id="imgEnc">
+            <div id="imageTitleEnc">operation on file i, block j:</div>
+            <!--pre-encryption-->
+            <div id="WjEnc" class="block">W<sub>j</sub></div>
+            <div id="da1Enc" class="block-trans arrowSmall">&darr;</div>
+            <div id="XjEnc" class="block">X<sub>j</sub></div>
+            <div id="laEnc" class="block-trans arrowSmall">&swarr;</div>
+            <div id="ra1Enc" class="block-trans arrowSmall">&searr;</div>
+            <!--xorEnc terms-->
+            <div id="LjEnc" class="block">L<sub>j</sub></div>
+            <div id="RjEnc" class="block">R<sub>j</sub></div>
+            <div id="SjEnc" class="block">S<sub>j</sub></div>
+            <div id="FjEnc" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
+            <div id="kjEnc">where k<sub>j</sub> = f<sub>k'</sub>(L<sub>j</sub>)</div>
+            <!--xorEnc operators-->
+            <div id="xadEnc" class="block-trans arrow">&#10549;</div>
+            <div id="xorEnc" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
+            <div id="xauEnc" class="block-trans arrow" style="">&#10548;</div>
+            <!--cipher text-->
+            <div id="CjEnc" class="block" >C<sub>j</sub></div>
+            <div id="ra2Enc" class="block-trans arrow" >&rarr;</div>
+            <!--PRNG related-->
+            <div id="fnEnc" class="block-trans">filename i</div>
+            <div id="da2Enc" class="block-trans arrow">&darr;</div>
+            <div id="GiEnc" class="block xs">G<sub>i</sub></div>
+            <div id="ra3Enc" class="block-trans arrow" >&rarr;</div>
         </div>
-        <!-- 2nd row: Lj, Rj and kj -->
+        <!-- 2nd row: Lj, RjEnc and kjEnc -->
         <div class="cell textContainer" id="LjContainer">
             <p>left sub-blocks (L<sub>j</sub>)</p>
             <textarea id="LjArea" disabled>display the left sub-block of the pre-encrypted blocks</textarea>
@@ -86,14 +84,14 @@
         </div>
         <div class="cell textContainer" id="kjContainer">
             <p>computed key (k<sub>j</sub>)</p>
-            <textarea id="kjArea" disabled>display the key derived from L<sub>i</>sub></textarea>
-            <button id="kjButton" type="button" disabled>compute</button>
+            <textarea id="kjArea" disabled>display the key derived from Li</textarea>
+            <button id="kjButton" type="button">compute</button>
         </div>
-        <!-- 3rd row: Sj, Fj and Cj -->
+        <!-- 3rd row: SjEnc, FjEnc and CjEnc -->
         <div class="cell textContainer" id="SjContainer">
             <p>pseudorandom blocks(S<sub>j</sub>)</p>
             <textarea id="SjArea" disabled>display the pseudorandom blocks generated specifically for the chosen file</textarea>
-            <button id="SjButton" type="button" disabled>generate</button>
+            <button id="SjButton" type="button">generate</button>
         </div>
         <div class="cell textContainer" id="FjContainer">
             <p>F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</p>
@@ -106,7 +104,7 @@
             <button id="CjButton" type="button" disabled>compute</button>
         </div>
         <!--footer row: next-->
-        <button class="cell" id="next2">Next -></button>
+        <button class="cell" id="next2" hidden>Next -></button>
     </div>
 
     <script>

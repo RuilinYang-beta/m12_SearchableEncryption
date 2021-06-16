@@ -34,8 +34,8 @@ h3 {
     grid-template-rows: 225px 225px 225px 20px;
     row-gap: 5px;
     grid-template-areas:
-    "primitives     Cj            filename      img     img"
-    "files          Sj            Lj            img_dec img_dec"
+    "primitives     Cj            filename      imgEnc     imgEnc"
+    "files          Sj            Lj            imgDec     imgDec"
     "files          kj            Fj            Rj      Wj"
     ".              .               .           .       finish";
 }
@@ -62,13 +62,47 @@ h3 {
     grid-area: files;
 }
 
-/*-- special: two images that each takes 2 cells --*/
-#img {
-    grid-area: img;
+/*-- 1st row: Cj, filename Button, and imgEnc --*/
+#CjContainer {
+    grid-area: Cj;
 }
 
-#img_dec {
-    grid-area: img_dec;
+#filename {
+    grid-area: filename;
+}
+
+#imgEnc {
+    grid-area: imgEnc;
+}
+
+/*-- 2nd row: Sj, Lj, and imgDec --*/
+#SjContainer {
+    grid-area: Sj;
+}
+
+#LjContainer {
+    grid-area: Lj;
+}
+
+#imgDec {
+    grid-area: imgDec;
+}
+
+/*-- 3rd row: kj, Fj, Rj, and Wj --*/
+#kjContainer {
+    grid-area: kj;
+}
+
+#FjContainer {
+    grid-area: Fj;
+}
+
+#RjContainer {
+    grid-area: Rj;
+}
+
+#WjContainer {
+    grid-area: Wj;
 }
 
 /*-- footer row: next --*/

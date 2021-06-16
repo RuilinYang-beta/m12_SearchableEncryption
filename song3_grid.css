@@ -30,14 +30,14 @@ h3 {
 /*-- grid --*/
 .grid {
     display: grid;
-    grid-template-columns: 120px 220px 220px 220px 220px;
-    grid-template-rows: 225px 225px 225px 20px;
+    grid-template-columns: [c0] 120px [c1] 220px [c2] 220px [c3] 220px [c4] 220px [c5];
+    grid-template-rows: [r0] 225px [r1] 225px [r2] 225px [r3] 20px [r4];
     row-gap: 5px;
     grid-template-areas:
-    "primitives     word            queryTerm   img     img"
-    "files          receivedTerm    Cj          Sj      img_search"
-    "files          computedFj      actualFj    isEqual toReturn"
-    ".              .               .           .       next3";
+    "primitives     searchTerm      queryTerm   imgEnc      imgEnc"
+    "files          receivedTerm    Cj          Sj          imgSearch"
+    "files          actualFj        computedFj  isEqual     toReturn"
+    ".              .               .           .           next3";
 }
 
 /*!* -- temp: color of grid cell --*!*/
@@ -49,6 +49,30 @@ h3 {
 /*    background-color: var(--yellow);*/
 /*}*/
 
+
+/*-- coverAlice/Bob --*/
+#coverAlice {
+    grid-row-start: r0;
+    grid-column-start: c0;
+    grid-row-end: r1;
+    grid-column-end: c3;
+    background-color: black;
+    opacity: 0.75;
+    z-index: 1;
+    display: none;
+}
+
+#coverBob {
+    grid-row-start: r1;
+    grid-column-start: c0;
+    grid-row-end: r4;
+    grid-column-end: c5;
+    background-color: black;
+    opacity: 0.75;
+    z-index: 1;
+}
+
+/*-- other grid items --*/
 .cell {
     border-style: dotted;
     border-width: 1px;
@@ -64,21 +88,50 @@ h3 {
 }
 
 /*-- 1st row: word, query term, img --*/
-#word {
-    grid-area: word;
+#searchTerm {
+    grid-area: searchTerm;
 }
 
 #queryTerm {
     grid-area: queryTerm;
 }
 
-#img {
-    grid-area: img;
+#imgEnc {
+    grid-area: imgEnc;
 }
 
-/*-- 2nd row: received, Cj, Sj, img_search--*/
+/*-- 2nd row: receivedTerm, CjEnc, SjEnc, img_search--*/
+#receivedTerm {
+    grid-area: receivedTerm;
+}
+
+#CjContainer {
+    grid-area: Cj;
+}
+
+#bSjContainer {
+    grid-area: Sj;
+}
+
+#imgSearch {
+    grid-area: imgSearch;
+}
 /*-- 3rd row: computedFj, actualFj, isEqual, toReturn --*/
-/* don't need to manually set them, they are automatically put in intended place */
+#bComputedFjContainer {
+    grid-area: computedFj;
+}
+
+#bFjContainer {
+    grid-area: actualFj;
+}
+
+#isEqualContainer {
+    grid-area: isEqual;
+}
+
+#toReturnContainer {
+    grid-area: toReturn;
+}
 
 /*-- footer row: next --*/
 #next3 {

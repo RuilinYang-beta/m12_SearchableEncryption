@@ -2,12 +2,14 @@ const crypto = require('crypto');
 const fs = require('fs');
 const assert = require('assert');
 
-// --- about xor ---
-// var xor = require('buffer-xor')
-// var a = new Buffer('aaaaaaaaaaaaaaa', 'hex')
-// var b = new Buffer('f0f0', 'hex')
-//
-// console.log(xor(a, b))
+// --- about xorEnc ---
+var xor = require('buffer-xor')
+var a = new Buffer('aaaaaaaaaaaaaaa', 'hex')
+var b = new Buffer('f0f0', 'hex')
+
+console.log(xor(a, b))
+console.log(a);
+console.log(b);
 
 // --- enc filename ---
 // const filename = 'this is filename';
@@ -43,5 +45,3 @@ const assert = require('assert');
 // };
 //
 // console.log(encrypt(Buffer.from('aaaaaaa ')));
-
-crypto.getCiphers().forEach(e => console.log(e));

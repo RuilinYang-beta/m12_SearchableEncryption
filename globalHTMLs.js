@@ -186,41 +186,39 @@ const song2 = `
             <ul id="fileList">
             </ul>
         </div>
-        <!-- 1st row: Xj and img -->
+        <!-- 1st row: XjEnc and img -->
         <div class="cell textContainer" id="XjContainer">
             <p>pre-encrypted blocks (X<sub>j</sub>)</p>
             <textarea id="XjArea" disabled>display the pre-encrypted blocks of the chosen file</textarea>
         </div>
-        <div class="cell" id="img">
-            <div id="imageContainer">
-                <div id="imageTitle">operation on file i, block j:</div>
-                <!--pre-encryption-->
-                <div id="Wj" class="block">W<sub>j</sub></div>
-                <div id="da1" class="block-trans arrowSmall">&darr;</div>
-                <div id="Xj" class="block">X<sub>j</sub></div>
-                <div id="la" class="block-trans arrowSmall">&swarr;</div>
-                <div id="ra1" class="block-trans arrowSmall">&searr;</div>
-                <!--xor terms-->
-                <div id="Lj" class="block">L<sub>j</sub></div>
-                <div id="Rj" class="block">R<sub>j</sub></div>
-                <div id="Sj" class="block">S<sub>j</sub></div>
-                <div id="Fj" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
-                <div id="kj">where k<sub>j</sub> = f<sub>k'</sub>(L<sub>j</sub>)</div>
-                <!--xor operators-->
-                <div id="xad" class="block-trans arrow">&#10549;</div>
-                <div id="xor" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
-                <div id="xau" class="block-trans arrow" style="">&#10548;</div>
-                <!--cipher text-->
-                <div id="Cj" class="block" >C<sub>j</sub></div>
-                <div id="ra2" class="block-trans arrow" >&rarr;</div>
-                <!--PRNG related-->
-                <div id="fn" class="block-trans">filename i</div>
-                <div id="da2" class="block-trans arrow">&darr;</div>
-                <div id="Gi" class="block xs">G<sub>i</sub></div>
-                <div id="ra3" class="block-trans arrow" >&rarr;</div>
-            </div>
+        <div class="cell" id="imgEnc">
+            <div id="imageTitleEnc">operation on file i, block j:</div>
+            <!--pre-encryption-->
+            <div id="WjEnc" class="block">W<sub>j</sub></div>
+            <div id="da1Enc" class="block-trans arrowSmall">&darr;</div>
+            <div id="XjEnc" class="block">X<sub>j</sub></div>
+            <div id="laEnc" class="block-trans arrowSmall">&swarr;</div>
+            <div id="ra1Enc" class="block-trans arrowSmall">&searr;</div>
+            <!--xorEnc terms-->
+            <div id="LjEnc" class="block">L<sub>j</sub></div>
+            <div id="RjEnc" class="block">R<sub>j</sub></div>
+            <div id="SjEnc" class="block">S<sub>j</sub></div>
+            <div id="FjEnc" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
+            <div id="kjEnc">where k<sub>j</sub> = f<sub>k'</sub>(L<sub>j</sub>)</div>
+            <!--xorEnc operators-->
+            <div id="xadEnc" class="block-trans arrow">&#10549;</div>
+            <div id="xorEnc" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
+            <div id="xauEnc" class="block-trans arrow" style="">&#10548;</div>
+            <!--cipher text-->
+            <div id="CjEnc" class="block" >C<sub>j</sub></div>
+            <div id="ra2Enc" class="block-trans arrow" >&rarr;</div>
+            <!--PRNG related-->
+            <div id="fnEnc" class="block-trans">filename i</div>
+            <div id="da2Enc" class="block-trans arrow">&darr;</div>
+            <div id="GiEnc" class="block xs">G<sub>i</sub></div>
+            <div id="ra3Enc" class="block-trans arrow" >&rarr;</div>
         </div>
-        <!-- 2nd row: Lj, Rj and kj -->
+        <!-- 2nd row: Lj, RjEnc and kjEnc -->
         <div class="cell textContainer" id="LjContainer">
             <p>left sub-blocks (L<sub>j</sub>)</p>
             <textarea id="LjArea" disabled>display the left sub-block of the pre-encrypted blocks</textarea>
@@ -234,7 +232,7 @@ const song2 = `
             <textarea id="kjArea" disabled>display the key derived from Li</textarea>
             <button id="kjButton" type="button">compute</button>
         </div>
-        <!-- 3rd row: Sj, Fj and Cj -->
+        <!-- 3rd row: SjEnc, FjEnc and CjEnc -->
         <div class="cell textContainer" id="SjContainer">
             <p>pseudorandom blocks(S<sub>j</sub>)</p>
             <textarea id="SjArea" disabled>display the pseudorandom blocks generated specifically for the chosen file</textarea>
@@ -316,36 +314,34 @@ const song3 = `
 
         </div>
         <!-- 1.3 img -->
-        <div class="cell" id="img">
-            <div id="imageContainer">
-                <div id="imageTitle">recall how Alice made each cipher block:</div>
-                <!--pre-encryption-->
-                <div id="Wj" class="block">W<sub>j</sub></div>
-                <div id="da1" class="block-trans arrowSmall">&darr;</div>
-                <div id="Xj" class="block">X<sub>j</sub></div>
-                <div id="la" class="block-trans arrowSmall">&swarr;</div>
-                <div id="ra1" class="block-trans arrowSmall">&searr;</div>
-                <!--xor terms-->
-                <div id="Lj" class="block">L<sub>j</sub></div>
-                <div id="Rj" class="block">R<sub>j</sub></div>
-                <div id="Sj" class="block">S<sub>j</sub></div>
-                <div id="Fj" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
-                <div id="kj">where k<sub>j</sub> = f<sub>k'</sub>(L<sub>j</sub>)</div>
-                <!--xor operators-->
-                <div id="xad" class="block-trans arrow">&#10549;</div>
-                <div id="xor" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
-                <div id="xau" class="block-trans arrow" style="">&#10548;</div>
-                <!--cipher text-->
-                <div id="Cj" class="block" >C<sub>j</sub></div>
-                <div id="ra2" class="block-trans arrow" >&rarr;</div>
-                <!--PRNG related-->
-                <div id="fn" class="block-trans">filename i</div>
-                <div id="da2" class="block-trans arrow">&darr;</div>
-                <div id="Gi" class="block xs">G<sub>i</sub></div>
-                <div id="ra3" class="block-trans arrow" >&rarr;</div>
-            </div>
+        <div class="cell" id="imgEnc">
+            <div id="imageTitleEnc">recall how Alice made each cipher block:</div>
+            <!--pre-encryption-->
+            <div id="WjEnc" class="block">W<sub>j</sub></div>
+            <div id="da1Enc" class="block-trans arrowSmall">&darr;</div>
+            <div id="XjEnc" class="block">X<sub>j</sub></div>
+            <div id="laEnc" class="block-trans arrowSmall">&swarr;</div>
+            <div id="ra1Enc" class="block-trans arrowSmall">&searr;</div>
+            <!--xorEnc terms-->
+            <div id="LjEnc" class="block">L<sub>j</sub></div>
+            <div id="RjEnc" class="block">R<sub>j</sub></div>
+            <div id="SjEnc" class="block">S<sub>j</sub></div>
+            <div id="FjEnc" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
+            <div id="kjEnc">where k<sub>j</sub> = f<sub>k'</sub>(L<sub>j</sub>)</div>
+            <!--xorEnc operators-->
+            <div id="xadEnc" class="block-trans arrow">&#10549;</div>
+            <div id="xorEnc" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
+            <div id="xauEnc" class="block-trans arrow" style="">&#10548;</div>
+            <!--cipher text-->
+            <div id="CjEnc" class="block" >C<sub>j</sub></div>
+            <div id="ra2Enc" class="block-trans arrow" >&rarr;</div>
+            <!--PRNG related-->
+            <div id="fnEnc" class="block-trans">filename i</div>
+            <div id="da2Enc" class="block-trans arrow">&darr;</div>
+            <div id="GiEnc" class="block xs">G<sub>i</sub></div>
+            <div id="ra3Enc" class="block-trans arrow" >&rarr;</div>
         </div>
-        <!-- 2nd row: received, Cj, Sj, img_search -->
+        <!-- 2nd row: received, CjEnc, recovered SjEnc, img_search -->
         <div class="cell" id="receivedTerm">
             <h3>Bob (cloud server) </h3>
             <p>Received query terms from Alice: </p>
@@ -361,22 +357,44 @@ const song3 = `
             <p>cipher blocks(C<sub>j</sub>)</p>
             <textarea id="CjArea" disabled>display the cipher blocks for the chosen file</textarea>
         </div>
-        <div class="cell textContainer" id="SjContainer">
-            <p>computed S<sub>j</sub></p>
-            <textarea id="SjArea" disabled>display the computed Sj: &#xa Sj = Cj[:64] ⊕ X[:64]</textarea>
-            <button id="SjButton" type="button" disabled>compute</button>
+        <div class="cell textContainer" id="bSjContainer">
+            <p>recovered S<sub>j</sub></p>
+            <textarea id="bSjArea" disabled>display the recovered Sj: &#xa Sj = Cj[:64] ⊕ X[:64]</textarea>
+            <button id="bSjButton" type="button">compute</button>
         </div>
-        <div class="cell" id="img_search">to put a simple image here, showing how Bob will deal with each block</div>
-        <!-- 3rd row: computedFj, actualFj, isEqual, toReturn -->
-        <div class="cell textContainer" id="computedFjContainer">
+        <div class="cell" id="imgSearch">
+            <div id="imageTitleSearch">Bob's operation on file i, block j:</div>
+            <!-- split X -->
+            <div id="XSearch" class="block">X from Alice</div>
+            <div id="laSearch" class="block-trans arrowSmall">&swarr;</div>
+            <div id="ra1Search" class="block-trans arrowSmall">&searr;</div>
+            <!-- xorEnc terms -->
+            <div id="LSearch" class="block">L</div>
+            <div id="RSearch" class="block">R</div>
+            <div id="CjSearch" class="block">C<sub>j</sub></div>
+            <!-- xorEnc operators-->
+            <div id="xadSearch" class="block-trans arrow">&#10549;</div>
+            <div id="xorSearch" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
+            <div id="xauSearch" class="block-trans arrow" style="">&#10548;</div>
+            <div id="ra2Search" class="block-trans arrow" >&rarr;</div>
+            <!-- xorEnc results -->
+            <div id="SjSearch" class="block">S<sub>j</sub></div>
+            <div id="FjSearch" class="block">F<sub>k</sub>(S<sub>j</sub>)</div>
+            <div id="kSearch" class="block-trans">(k from Alice)</div>
+            <!-- question marks -->
+            <div id="q1Search" class="block-trans">(?)</div>
+            <div id="q2Search" class="block-trans">(?)</div>
+        </div>
+        <!-- 3rd row: recovered FjEnc, computedFj, isEqual, toReturn -->
+        <div class="cell textContainer" id="bFjContainer">
+            <p>recovered F<sub>j</sub></p>
+            <textarea id="bFjArea" disabled>display the recovered Fj: &#xa Fj = Cj[64:] ⊕ X[64:] </textarea>
+            <button id="bFjButton" type="button">compute</button>
+        </div>
+        <div class="cell textContainer" id="bComputedFjContainer">
             <p>computed F<sub>j</sub></p>
-            <textarea id="computedFjArea" disabled>display the computed Fj: &#xa Fj = F(k, Sj)</textarea>
-            <button id="computedFjButton" type="button" disabled>compute</button>
-        </div>
-        <div class="cell textContainer" id="actualFjContainer">
-            <p>actual F<sub>j</sub></p>
-            <textarea id="actualFjArea" disabled>display the actual Fj: &#xa Fj = Cj[64:] ⊕ X[64] </textarea>
-            <button id="actualFjButton" type="button" disabled>compute</button>
+            <textarea id="bComputedFjArea" disabled>display the computed Fj: &#xa Fj = F(k, Sj) &#xa (Bob knows how to construct an F)</textarea>
+            <button id="bComputedFjButton" type="button" disabled>compute</button>
         </div>
         <div class="cell textContainer" id="isEqualContainer">
             <p>isEqual?</p>
@@ -386,10 +404,12 @@ const song3 = `
         <div class="cell textContainer" id="toReturnContainer">
             <p>toReturn?</p>
             <textarea id="toReturnArea" disabled>should I (Bob, the server) return the file to Alice?</textarea>
-            <button id="toReturnButton" type="button" disabled>compute</button>
         </div>
         <!--footer row: next-->
         <button class="cell" id="next3">Next -></button>
+        <!--other: blackout effect-->
+        <div id="coverAlice"></div>
+        <!--        <div id="coverBob"></div>-->
     </div>
     <script>
         $('#next3').click(function() {
@@ -426,7 +446,7 @@ const song4 = `
             <ul id="fileList">
             </ul>
         </div>
-        <!-- 1st row: Cj, filename, img -->
+        <!-- 1st row: CjEnc, filename, img -->
         <!-- 1.1 Cj -->
         <div class="cell textContainer" id="CjContainer">
             <p>cipher blocks(C<sub>j</sub>)</p>
@@ -435,36 +455,34 @@ const song4 = `
         <!-- 1.2 filename -->
         <div class="cell" id="filename">a button to decrypt all filenames (and change the file list)</div>
         <!-- 1.3 img -->
-        <div class="cell" id="img">
-            <div id="imageContainer">
-                <div id="imageTitle">operation on file i, block j:</div>
-                <!--pre-encryption-->
-                <div id="Wj" class="block">W<sub>j</sub></div>
-                <div id="da1" class="block-trans arrowSmall">&darr;</div>
-                <div id="Xj" class="block">X<sub>j</sub></div>
-                <div id="la" class="block-trans arrowSmall">&swarr;</div>
-                <div id="ra1" class="block-trans arrowSmall">&searr;</div>
-                <!--xor terms-->
-                <div id="Lj" class="block">L<sub>j</sub></div>
-                <div id="Rj" class="block">R<sub>j</sub></div>
-                <div id="Sj" class="block">S<sub>j</sub></div>
-                <div id="Fj" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
-                <div id="kj">where k<sub>j</sub> = f<sub>k'</sub>(L<sub>j</sub>)</div>
-                <!--xor operators-->
-                <div id="xad" class="block-trans arrow">&#10549;</div>
-                <div id="xor" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
-                <div id="xau" class="block-trans arrow" style="">&#10548;</div>
-                <!--cipher text-->
-                <div id="Cj" class="block" >C<sub>j</sub></div>
-                <div id="ra2" class="block-trans arrow" >&rarr;</div>
-                <!--PRNG related-->
-                <div id="fn" class="block-trans">filename i</div>
-                <div id="da2" class="block-trans arrow">&darr;</div>
-                <div id="Gi" class="block xs">G<sub>i</sub></div>
-                <div id="ra3" class="block-trans arrow" >&rarr;</div>
-            </div>
+        <div class="cell" id="imgEnc">
+            <div id="imageTitleEnc">recall how Alice made each cipher block:</div>
+            <!--pre-encryption-->
+            <div id="WjEnc" class="block">W<sub>j</sub></div>
+            <div id="da1Enc" class="block-trans arrowSmall">&darr;</div>
+            <div id="XjEnc" class="block">X<sub>j</sub></div>
+            <div id="laEnc" class="block-trans arrowSmall">&swarr;</div>
+            <div id="ra1Enc" class="block-trans arrowSmall">&searr;</div>
+            <!--xorEnc terms-->
+            <div id="LjEnc" class="block">L<sub>j</sub></div>
+            <div id="RjEnc" class="block">R<sub>j</sub></div>
+            <div id="SjEnc" class="block">S<sub>j</sub></div>
+            <div id="FjEnc" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
+            <div id="kjEnc">where k<sub>j</sub> = f<sub>k'</sub>(L<sub>j</sub>)</div>
+            <!--xorEnc operators-->
+            <div id="xadEnc" class="block-trans arrow">&#10549;</div>
+            <div id="xorEnc" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
+            <div id="xauEnc" class="block-trans arrow" style="">&#10548;</div>
+            <!--cipher text-->
+            <div id="CjEnc" class="block" >C<sub>j</sub></div>
+            <div id="ra2Enc" class="block-trans arrow" >&rarr;</div>
+            <!--PRNG related-->
+            <div id="fnEnc" class="block-trans">filename i</div>
+            <div id="da2Enc" class="block-trans arrow">&darr;</div>
+            <div id="GiEnc" class="block xs">G<sub>i</sub></div>
+            <div id="ra3Enc" class="block-trans arrow" >&rarr;</div>
         </div>
-        <!-- 2nd row: Sj, Lj, img_dec -->
+        <!-- 2nd row: SjEnc, Lj, img_dec -->
         <div class="cell textContainer" id="SjContainer">
             <p>computed S<sub>j</sub></p>
             <textarea id="SjArea" disabled>display the computed Sj: &#xa Sj = Cj[:64] ⊕ X[:64]</textarea>
@@ -475,8 +493,36 @@ const song4 = `
             <textarea id="LjArea" disabled>display the computed Sj: &#xa Sj = Cj[:64] ⊕ X[:64]</textarea>
             <button id="LjButton" type="button" disabled>compute</button>
         </div>
-        <div class="cell" id="img_dec">a image to show the decryption process; parts highlightable</div>
-        <!-- 3rd row: kj, Fj, Rj, Wj -->
+        <div class="cell" id="imgDec">
+            <div id="imageTitleDec">Invert the encryption process to decrypt: </div>
+            <!--PRNG related-->
+            <div id="fnDec" class="block-trans">filename i</div>
+            <div id="da2Dec" class="block-trans arrow">&darr;</div>
+            <div id="GiDec" class="block xs">G<sub>i</sub></div>
+            <div id="ra3Dec" class="block-trans arrow" >&rarr;</div>
+            <!--xorDec terms-->
+            <div id="CjDec" class="block" >C<sub>j</sub></div>
+            <div id="SjDec" class="block">S<sub>j</sub></div>
+            <div id="FjDec" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
+            <div id="kjDec">where k<sub>j</sub> = f<sub>k'</sub>(L<sub>j</sub>)</div>
+            <!--xorEnc operators-->
+            <div id="xadDec" class="block-trans arrow">&#10549;</div>
+            <div id="xorDec" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
+            <div id="xauDec" class="block-trans arrow" style="">&#10548;</div>
+            <div id="ra2Dec" class="block-trans arrow" >&rarr;</div>
+            <!--pre-encryption-->
+            <div id="WjDec" class="block">W<sub>j</sub></div>
+            <div id="da1Dec" class="block-trans arrowSmall">&darr;</div>
+            <div id="XjDec" class="block">X<sub>j</sub></div>
+            <div id="laDec" class="block-trans arrowSmall">&swarr;</div>
+            <div id="ra1Dec" class="block-trans arrowSmall">&searr;</div>
+            <!--cipher text-->
+
+            <div id="LjDec" class="block">L<sub>j</sub></div>
+            <div id="RjDec" class="block">R<sub>j</sub></div>
+
+        </div>
+        <!-- 3rd row: kjEnc, FjEnc, RjEnc, WjEnc -->
         <div class="cell textContainer" id="kjContainer">
             <p>computed k<sub>j</sub></p>
             <textarea id="kjArea" disabled>display the computed Sj: &#xa Sj = Cj[:64] ⊕ X[:64]</textarea>

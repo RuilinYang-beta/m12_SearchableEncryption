@@ -1,0 +1,147 @@
+#imgDec {
+    display: grid;
+    grid-template-columns: repeat(9, 47px);
+    grid-template-rows: 35px repeat(6, 28px);
+    grid-template-areas:
+        /* naming */
+        /* da:    down arrow*/
+        /* laEnc/ra: left arrow/right arrow*/
+        /* xad:   xorEnc arrow down*/
+        /* xauEnc:   xorEnc arrow up*/
+        "title   title   title   title   title   title   title   title   title"
+        "fn      fn      .       Cj      Cj      xad     .       .       ."
+        "da2     da2     .       .       .       xor     ra2     Lj      Rj"
+        "Gi      Gi      ra3     Sj      Fj      xau     .       ra1     la"
+        ".       .       .       kj      kj      kj      .       Xj      Xj"
+        ".       .       .       .       .       .       .       da1     da1"
+        ".       .       .       .       .       .       .       Wj      Wj"
+}
+/* -- temp: color of grid cell --*/
+/*#imageContainer div {*/
+/*    background-color: var(--green);*/
+
+/*}*/
+/*#imageContainer div:nth-child(even) {*/
+/*    background-color: var(--yellow);*/
+/*}*/
+
+
+#imageTitleDec {
+    grid-area: title;
+}
+
+/* -- PRNG-related --*/
+#fnDec {
+    grid-area: fn;
+    align-self: end;
+}
+
+#da2Dec {
+    grid-area: da2;
+}
+
+#GiDec {
+    grid-area: Gi;
+    align-self: end;
+    justify-self: center;
+}
+
+/*-- xor terms --*/
+#CjDec {
+    grid-area: Cj;
+}
+
+#SjDec {
+    grid-area: Sj;
+}
+
+#FjDec {
+    grid-area: Fj;
+}
+
+#kjDec {
+    grid-area: kj;
+}
+
+/* -- xorEnc operators --*/
+#xadDec {
+    grid-area: xad;
+}
+
+#xorDec {
+    grid-area: xor;
+    justify-self: center;
+}
+
+#xauDec {
+    grid-area: xau;
+}
+
+#ra2Dec {
+    grid-area: ra2;
+}
+
+
+#ra3Dec {
+    grid-area: ra3;
+}
+
+/* -- xorEnc resutls --*/
+#LjDec {
+    grid-area: Lj;
+}
+
+#RjDec {
+    grid-area: Rj;
+}
+
+/*-- recover results --*/
+#laDec {
+    grid-area: la;
+}
+
+#ra1Dec {
+    grid-area: ra1;
+}
+
+#XjDec {
+    grid-area: Xj;
+}
+
+#da1Dec {
+    grid-area: da1;
+}
+
+#WjDec {
+    grid-area: Wj;
+}
+
+
+
+:root {
+    --height:  25px;
+    --bWidth:  100px;
+    --sWidth:  50px;
+}
+
+/*-- block settings --*/
+.block {
+    border-style: groove;
+    border-radius: 10%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.block-trans {
+    border-style: none;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.arrow {
+    font-size: 24px;
+}
+
+.arrowSmall {
+    font-size: 18px;
+}

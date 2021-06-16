@@ -1,0 +1,151 @@
+#imgEnc {
+    display: grid;
+    grid-template-columns: repeat(9, 47px);
+    grid-template-rows: [title] 18px
+                        [block1] 28px [arr1] 20px
+                        [block2] 28px [arr2] 20px
+                        [block3] 28px [arr3] 28px
+                        [block4] 28px [footer] 28px;
+    grid-template-areas:
+        /* naming */
+        /* da:    down arrow*/
+        /* laEnc/ra: left arrow/right arrow*/
+        /* xad:   xorEnc arrow down*/
+        /* xauEnc:   xorEnc arrow up*/
+        "title title title title title title title title title "
+        ".   .   .   Wj     Wj     .   .   .   ."
+        ".   .   .   da1    da1    .   .   .   ."
+        ".   .   .   Xj     Xj     .   .   .   ."
+        ".   .   .   la     ra1    .   .   .   ."
+        "fn  fn  .   Lj     Rj     xad .   .   ."
+        "da2 da2 .   .      .      xor ra2  Cj  Cj"
+        "Gi  Gi  ra3 Sj     Fj     xau .   .   ."
+        ".   .   .   kj     kj     kj  .   .   ."
+}
+/* -- temp: color of grid cell --*/
+/*#imageContainer div {*/
+/*    background-color: var(--green);*/
+
+/*}*/
+/*#imageContainer div:nth-child(even) {*/
+/*    background-color: var(--yellow);*/
+/*}*/
+
+
+#imageTitleEnc {
+    grid-area: title;
+}
+
+/* -- pre-encryption --*/
+#WjEnc {
+    grid-area: Wj;
+}
+
+#da1Enc{
+    grid-area: da1;
+}
+
+#XjEnc{
+    grid-area: Xj;
+}
+
+#laEnc{
+    grid-area: la;
+}
+
+#ra1Enc{
+    grid-area: ra1;
+}
+
+/* -- xorEnc terms --*/
+#LjEnc{
+    grid-area: Lj;
+}
+
+#RjEnc{
+    grid-area: Rj;
+}
+
+#SjEnc{
+    grid-area: Sj;
+}
+
+#FjEnc{
+    grid-area: Fj;
+}
+
+#kjEnc{
+    grid-area: kj;
+}
+
+/* -- xorEnc operators --*/
+#xadEnc{
+    grid-area: xad;
+}
+
+#xorEnc{
+    grid-area: xor;
+    justify-self: center;
+}
+
+#xauEnc{
+    grid-area: xau;
+}
+
+/* -- cipher text --*/
+#CjEnc{
+    grid-area: Cj;
+}
+
+#ra2Enc{
+    grid-area: ra2;
+}
+
+/* -- PRNG-related --*/
+#fnEnc{
+    grid-area: fn;
+    align-self: end;
+}
+
+#da2Enc{
+    grid-area: da2;
+}
+
+#GiEnc{
+    grid-area: Gi;
+    align-self: end;
+    justify-self: center;
+}
+
+#ra3Enc{
+    grid-area: ra3;
+}
+
+
+:root {
+    --height:  25px;
+    --bWidth:  100px;
+    --sWidth:  50px;
+}
+
+/*-- block settings --*/
+.block {
+    border-style: groove;
+    border-radius: 10%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.block-trans {
+    border-style: none;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.arrow {
+    font-size: 24px;
+}
+
+.arrowSmall {
+    font-size: 18px;
+}
