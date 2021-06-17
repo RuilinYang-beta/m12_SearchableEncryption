@@ -30,8 +30,8 @@ h3 {
 /*-- grid --*/
 .grid {
     display: grid;
-    grid-template-columns: 120px 220px 220px 220px 220px;
-    grid-template-rows: 225px 225px 225px 20px;
+    grid-template-columns: [c0] 120px [c1] 220px [c2] 220px [c3] 220px [c4] 220px [c5];
+    grid-template-rows: [r0] 225px [r1] 225px [r2] 225px [r3] 20px [r4];
     row-gap: 5px;
     grid-template-areas:
         "primitives     Xj      Xj      img     img"

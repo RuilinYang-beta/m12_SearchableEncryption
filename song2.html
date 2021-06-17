@@ -109,14 +109,19 @@
             <button id="fnEncButton" type="button">compute</button>
         </div>
         <!--footer row: next-->
-        <button class="cell" id="next2" disabled>Next -></button>
-    </div>
+        <button class="cell" id="next2">Next -></button>
+        <!--animation related-->
+        <div id="coverAll">
+            <div id="aliceText">Alice (you)</div>
+            <div id="aliceFiles">
+                <img  src="./images/aliceFiles.png" alt="Alice's Files">
+            </div>
 
-    <script>
-        $('#next2').click(function() {
-            $('#outmost2').replaceWith(song3);
-        })
-    </script>
+            <div id="actionText">sends file to</div>
+            <div id="bobText">Bob (cloud server)</div>
+            <div id="hintText">Click anywhere to continue...</div>
+        </div>
+    </div>
     <script src="song2.js"></script>
 </div>
 

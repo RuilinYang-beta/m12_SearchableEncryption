@@ -116,3 +116,16 @@ $('#fnEncButton').click(function() {
         $('#next2').prop('disabled', false);
     }
 })
+
+$('#next2').click(function() {
+    $('#coverAll').fadeIn(500, function() {
+        $("#aliceFiles").animate({left: '730px'}, 1000, function() {
+            // shou up hint
+            $('#hintText').fadeIn(1000, function() {
+                $('#coverAll').click(function() {
+                    $('#outmost2').replaceWith(song3);
+                })
+            });
+        });
+    });
+})

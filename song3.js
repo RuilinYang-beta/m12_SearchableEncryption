@@ -63,12 +63,21 @@ $('#searchTermButton').click(function() {
 })
 
 $('#queryTermButton').click(function() {
-    // cover Alice area, write file area, uncover Bob area
-    $("#coverAlice").fadeIn(450);
-    writeFileArea3(plains);
-    $('#coverBob').fadeOut(450);
-
-    // TODO: an animation that query terms flow to Bob
+    // cover all area, show animation
+    // when cover faded, show bob area, cover alice area
+    $('#coverAll').fadeIn(500, function() {
+        $("#aliceFiles").animate({left: '780px'}, 1000, function() {
+            // show up hint
+            $('#hintText').fadeIn(1000, function() {
+                $('#coverAll').click(function() {
+                    $('#coverAll').fadeOut(450);
+                    $("#coverAlice").show();   // cover alice
+                    $('#coverBob').hide();     // show bob
+                    writeFileArea3(plains);    // bob can see files
+                })
+            });
+        });
+    });
 
     // write query term to Bob
     $('#receivedX').val($('#X').val());
@@ -119,3 +128,16 @@ $('#isEqualButton').click(function() {
     $('#next3').prop('disabled', false);
 })
 
+
+$('#next3').click(function() {
+    $('#coverAll2').fadeIn(500, function() {
+        $("#aliceFiles2").animate({left: '80px'}, 1000, function() {
+            // show up hint
+            $('#hintText2').fadeIn(1000, function() {
+                $('#coverAll2').click(function() {
+                    $('#outmost3').replaceWith(song4);
+                })
+            });
+        });
+    });
+})

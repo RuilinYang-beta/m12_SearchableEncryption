@@ -1,0 +1,68 @@
+/*-- cover and animation --*/
+#coverAll {
+    position: relative;
+    grid-row-start: r0;
+    grid-column-start: c0;
+    grid-row-end: r4;
+    grid-column-end: c5;
+    background-color: var(--yellow);
+    opacity: 0.95;
+    z-index: 1;
+    display: none;
+}
+
+/*- texts -*/
+#aliceText {
+    position: absolute;
+    left: 100px;
+    top: 200px;
+    font-size: 30px;
+    font-family: sans-serif;
+    z-index: 2;
+}
+
+#bobText {
+    position: absolute;
+    left: 750px;
+    top: 200px;
+    font-size: 30px;
+    font-family: sans-serif;
+    z-index: 2;
+}
+
+#actionText {
+    position: absolute;
+    left: 450px;
+    top: 200px;
+    font-size: 20px;
+    font-family: sans-serif;
+    z-index: 2;
+}
+
+
+#hintText {
+    position: absolute;
+    left: 325px;
+    top: 500px;
+    font-size: 30px;
+    font-family: sans-serif;
+    z-index: 2;
+    display: none;
+}
+
+/*- image -*/
+#aliceFiles{
+    position: absolute;
+    left: 20px;
+    top: 250px;
+    width: 221px;
+    height: 131px;
+    display: inline-block;
+    z-index: 2;
+}
+
+#aliceFiles img {
+    width: 100%;
+    height: 100%;
+}
+

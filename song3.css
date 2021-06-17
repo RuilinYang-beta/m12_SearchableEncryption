@@ -51,3 +51,163 @@
 }
 
 
+/*-- cover and animation: alice sends query terms --*/
+/*- coverAlice/Bob -*/
+#coverAlice {
+    grid-row-start: r0;
+    grid-column-start: c0;
+    grid-row-end: r1;
+    grid-column-end: c3;
+    background-color: var(--yellow);
+    opacity: 0.95;
+    z-index: 1;
+    display: none;
+}
+
+#coverBob {
+    grid-row-start: r1;
+    grid-column-start: c0;
+    grid-row-end: r4;
+    grid-column-end: c5;
+    background-color: var(--yellow);
+    opacity: 0.95;
+    z-index: 1;
+}
+
+#coverAll {
+    position: relative;
+    grid-row-start: r0;
+    grid-column-start: c0;
+    grid-row-end: r4;
+    grid-column-end: c5;
+    background-color: var(--yellow);
+    opacity: 0.95;
+    z-index: 1;
+    display: none;
+}
+
+/*- texts -*/
+#aliceText {
+    position: absolute;
+    left: 100px;
+    top: 200px;
+    font-size: 30px;
+    font-family: sans-serif;
+    z-index: 2;
+}
+
+#bobText {
+    position: absolute;
+    left: 750px;
+    top: 200px;
+    font-size: 30px;
+    font-family: sans-serif;
+    z-index: 2;
+}
+
+#actionText {
+    position: absolute;
+    left: 400px;
+    top: 200px;
+    font-size: 20px;
+    font-family: sans-serif;
+    z-index: 2;
+}
+
+
+#hintText {
+    position: absolute;
+    left: 325px;
+    top: 500px;
+    font-size: 30px;
+    font-family: sans-serif;
+    z-index: 2;
+    display: none;
+}
+
+/*- image -*/
+#aliceFiles{
+    position: absolute;
+    left: 80px;
+    top: 250px;
+    width: 186px;
+    height: 117px;
+    display: inline-block;
+    z-index: 2;
+}
+
+#aliceFiles img {
+    width: 100%;
+    height: 100%;
+}
+
+/*-- cover and animation: bob return files to alice */
+#coverAll2 {
+    position: relative;
+    grid-row-start: r0;
+    grid-column-start: c0;
+    grid-row-end: r4;
+    grid-column-end: c5;
+    background-color: var(--yellow);
+    opacity: 0.95;
+    z-index: 1;
+    display: none;
+}
+
+/*- texts -*/
+#aliceText2 {
+    position: absolute;
+    left: 100px;
+    top: 200px;
+    font-size: 30px;
+    font-family: sans-serif;
+    z-index: 2;
+}
+
+#bobText2 {
+    position: absolute;
+    left: 750px;
+    top: 200px;
+    font-size: 30px;
+    font-family: sans-serif;
+    z-index: 2;
+}
+
+#actionText2 {
+    position: absolute;
+    left: 400px;
+    top: 200px;
+    font-size: 20px;
+    font-family: sans-serif;
+    z-index: 2;
+}
+
+
+#hintText2 {
+    position: absolute;
+    left: 325px;
+    top: 500px;
+    font-size: 30px;
+    font-family: sans-serif;
+    z-index: 2;
+    display: none;
+}
+
+/*- image -*/
+#aliceFiles2{
+    position: absolute;
+    left: 730px;
+    top: 250px;
+    /*    width: 404px;
+        height: 224px;*/
+    width: 222px;
+    height: 123px;
+    display: inline-block;
+    z-index: 2;
+}
+
+#aliceFiles2 img {
+    width: 100%;
+    height: 100%;
+}
+

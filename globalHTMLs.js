@@ -54,7 +54,7 @@ const song2 = `
             <div id="RjEnc" class="block">R<sub>j</sub></div>
             <div id="SjEnc" class="block">S<sub>j</sub></div>
             <div id="FjEnc" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
-            <div id="kjEnc">where k<sub>j</sub> = f(L<sub>j</sub>)</div>
+            <div id="kjEnc">where k<sub>j</sub> = f<sub>k'</sub>(L<sub>j</sub>)</div>
             <!--xor operators-->
             <div id="xadEnc" class="block-trans arrow">&#10549;</div>
             <div id="xorEnc" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
@@ -105,13 +105,18 @@ const song2 = `
         </div>
         <!--footer row: next-->
         <button class="cell" id="next2" disabled>Next -></button>
-    </div>
+        <!--animation related-->
+        <div id="coverAll">
+            <div id="aliceText">Alice (you)</div>
+            <div id="aliceFiles">
+                <img  src="./images/aliceFiles.png" alt="Alice's Files">
+            </div>
 
-    <script>
-        $('#next2').click(function() {
-            $('#outmost2').replaceWith(song3);
-        })
-    </script>
+            <div id="actionText">sends file to</div>
+            <div id="bobText">Bob (cloud server)</div>
+            <div id="hintText">Click anywhere to continue...</div>
+        </div>
+    </div>
     <script src="song2.js"></script>
 </div>`;
 
@@ -262,15 +267,28 @@ const song3 = `
         </div>
         <!--footer row: next-->
         <button class="cell" id="next3" disabled>Next -></button>
-        <!--other: blackout effect-->
+        <!--animation related-->
         <div id="coverAlice"></div>
         <div id="coverBob"></div>
+        <div id="coverAll">
+            <div id="aliceText">Alice (you)</div>
+            <div id="aliceFiles">
+                <img  src="./images/queryTerms.png" alt="Alice's Query Terms">
+            </div>
+            <div id="actionText">sends query terms to --></div>
+            <div id="bobText">Bob (cloud server)</div>
+            <div id="hintText">Click anywhere to continue...</div>
+        </div>
+        <div id="coverAll2">
+            <div id="aliceText2">Alice (you)</div>
+            <div id="aliceFiles2">
+                <img  src="./images/returnedFiles.png" alt="returned files from Bob">
+            </div>
+            <div id="actionText2"><-- return files to</div>
+            <div id="bobText2">Bob (cloud server)</div>
+            <div id="hintText2">Click anywhere to continue...</div>
+        </div>
     </div>
-    <script>
-        $('#next3').click(function() {
-            $('#outmost3').replaceWith(song4);
-        })
-    </script>
     <script src="song3.js"></script>
 </div>`;
 
