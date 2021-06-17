@@ -45,11 +45,11 @@
         <!-- 1.1 Cj -->
         <div class="cell textContainer" id="CjContainer">
             <p>cipher blocks(C<sub>j</sub>)</p>
-            <textarea id="CjArea" disabled>display the cipher blocks for the chosen file</textarea>
+            <textarea id="CjArea" disabled>the cipher blocks for the chosen file</textarea>
         </div>
         <!-- 1.2 filename -->
         <div class="cell" id="fnDecButton">
-            click the button to decrypt all filenames (and change the file list)
+            decrypt all filenames, this is necessary to recover S<sub>j</sub> for each block <br>(see how the names in the file list changes).
             <button>decrypt filenames</button>
         </div>
         <!-- 1.3 imgEnc -->
@@ -66,7 +66,7 @@
             <div id="RjEnc" class="block">R<sub>j</sub></div>
             <div id="SjEnc" class="block">S<sub>j</sub></div>
             <div id="FjEnc" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
-            <div id="kjEnc">where k<sub>j</sub> = f<sub>k'</sub>(L<sub>j</sub>)</div>
+            <div id="kjEnc">where k<sub>j</sub> = f(L<sub>j</sub>)</div>
             <!--xorEnc operators-->
             <div id="xadEnc" class="block-trans arrow">&#10549;</div>
             <div id="xorEnc" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
@@ -83,12 +83,12 @@
         <!-- 2nd row: Sj, Lj, imgDec -->
         <div class="cell textContainer" id="SjContainer">
             <p>computed S<sub>j</sub></p>
-            <textarea id="SjArea" disabled>display the computed Sj: &#xa Sj = Cj[:64] ⊕ X[:64]</textarea>
+            <textarea id="SjArea" disabled>the re-generated pseudorandom blocks</textarea>
             <button id="SjButton" type="button" disabled>compute</button>
         </div>
         <div class="cell textContainer" id="LjContainer">
             <p>computed L<sub>j</sub></p>
-            <textarea id="LjArea" disabled>display the computed Sj: &#xa Sj = Cj[:64] ⊕ X[:64]</textarea>
+            <textarea id="LjArea" disabled>the recovered Lj: &#xa Lj = Cj[:64] ⊕ Sj</textarea>
             <button id="LjButton" type="button" disabled>compute</button>
         </div>
         <div class="cell" id="imgDec">
@@ -102,7 +102,7 @@
             <div id="CjDec" class="block" >C<sub>j</sub></div>
             <div id="SjDec" class="block">S<sub>j</sub></div>
             <div id="FjDec" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
-            <div id="kjDec">where k<sub>j</sub> = f<sub>k'</sub>(L<sub>j</sub>)</div>
+            <div id="kjDec">where k<sub>j</sub> = f(L<sub>j</sub>)</div>
             <!--xorEnc operators-->
             <div id="xadDec" class="block-trans arrow">&#10549;</div>
             <div id="xorDec" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
@@ -122,22 +122,22 @@
         <!-- 3rd row: kjEnc, FjEnc, RjEnc, WjEnc -->
         <div class="cell textContainer" id="kjContainer">
             <p>computed k<sub>j</sub></p>
-            <textarea id="kjArea" disabled>display the computed Sj: &#xa Sj = Cj[:64] ⊕ X[:64]</textarea>
+            <textarea id="kjArea" disabled>the re-computed kj: &#xa kj = f(Lj)</textarea>
             <button id="kjButton" type="button" disabled>compute</button>
         </div>
         <div class="cell textContainer" id="FjContainer">
             <p>computed F<sub>j</sub></p>
-            <textarea id="FjArea" disabled>display the computed Sj: &#xa Sj = Cj[:64] ⊕ X[:64]</textarea>
+            <textarea id="FjArea" disabled>the re-computed Fj: &#xa Fj = F(kj, Sj)</textarea>
             <button id="FjButton" type="button" disabled>compute</button>
         </div>
         <div class="cell textContainer" id="RjContainer">
             <p>computed R<sub>j</sub></p>
-            <textarea id="RjArea" disabled>display the computed Sj: &#xa Sj = Cj[:64] ⊕ X[:64]</textarea>
+            <textarea id="RjArea" disabled>the recovered Rj: &#xa Rj = Cj[:64] ⊕ Fj</textarea>
             <button id="RjButton" type="button" disabled>compute</button>
         </div>
         <div class="cell textContainer" id="WjContainer">
             <p>computed W<sub>j</sub></p>
-            <textarea id="WjArea" disabled>display the computed Sj: &#xa Sj = Cj[:64] ⊕ X[:64]</textarea>
+            <textarea id="WjArea" disabled>the recovered Word Wj: &#xa Wj = E.decrypt(Xj)</textarea>
             <button id="WjButton" type="button" disabled>compute</button>
         </div>
         <!--footer row: finish-->

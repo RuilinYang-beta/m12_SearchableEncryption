@@ -3,7 +3,7 @@
 // ............... helper functions ...............
 // ================================================
 
-const writeFileArea3 = (plains) => {
+let writeFileArea3 = (plains) => {
     // populate fileList
     let fileNames = Object.keys(plains);
     for (let i = 0; i < fileNames.length; i++) {
@@ -131,7 +131,7 @@ $('#queryTermButton').click(function() {
         $('#coverAll').fadeIn(500, function() {
             $("#aliceFiles").animate({left: '780px'}, 1000, function() {
                 // show up hint
-                $('#hintText').fadeIn(1000, function() {
+                $('#hintText').fadeIn(500, function() {
                     $('#coverAll').click(function() {
                         $('#coverAll').fadeOut(450);
                         $("#coverAlice").show();   // cover alice
@@ -144,6 +144,7 @@ $('#queryTermButton').click(function() {
     } else {
         $("#coverAlice").fadeIn(450);   // cover alice
         $('#coverBob').fadeOut(450);     // show bob
+        writeFileArea3(plains);    // bob can see files
     }
 
     // write query term to Bob
@@ -197,11 +198,33 @@ $('#isEqualButton').click(function() {
 
 
 $('#next3').click(function() {
+    let matchFound = false;
+    for (let fn in isEqual) {
+        if (isEqual[fn].some(isTrue)){
+            matchFound = true;
+            break;
+        }
+    }
+
+    if (!matchFound) {
+        // -- weird thing about Electron, if I use an alert here,
+        // -- it takes > 10s before I can enter another search word.
+        // show alice, cover bob
+        $("#coverAlice").hide();
+        $('#coverBob').show();
+        // clean the floor
+        $('#queryTermButton').prop('disabled', true);
+        $('#searchTermInput').focus();
+        // tell user to choose another word
+        $('#searchTermNotice').html('No file matches. Please enter another word or start all over again.')
+        return;
+    }
+
     if (toAnimate) {
         $('#coverAll2').fadeIn(500, function() {
             $("#aliceFiles2").animate({left: '80px'}, 1000, function() {
                 // show up hint
-                $('#hintText2').fadeIn(1000, function() {
+                $('#hintText2').fadeIn(500, function() {
                     $('#coverAll2').click(function() {
                         $('#outmost3').replaceWith(song4);
                     })

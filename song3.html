@@ -110,11 +110,11 @@
         </div>
         <div class="cell textContainer" id="CjContainer">
             <p>cipher blocks(C<sub>j</sub>)</p>
-            <textarea id="CjArea" disabled>display the cipher blocks for the chosen file</textarea>
+            <textarea id="CjArea" disabled>the cipher blocks for the chosen file</textarea>
         </div>
         <div class="cell textContainer" id="bSjContainer">
             <p>recovered S<sub>j</sub></p>
-            <textarea id="bSjArea" disabled>display the recovered Sj: &#xa Sj = Cj[:64] ⊕ X[:64]</textarea>
+            <textarea id="bSjArea" disabled>the recovered Sj: &#xa Sj = Cj[:64] ⊕ X[:64]</textarea>
             <button id="bSjButton" type="button">compute</button>
         </div>
         <div class="cell" id="imgSearch">
@@ -143,12 +143,12 @@
         <!-- 3rd row: recovered FjEnc, computedFj, isEqual, toReturn -->
         <div class="cell textContainer" id="bFjContainer">
             <p>recovered F<sub>j</sub></p>
-            <textarea id="bFjArea" disabled>display the recovered Fj: &#xa Fj = Cj[64:] ⊕ X[64:] </textarea>
+            <textarea id="bFjArea" disabled>the recovered Fj: &#xa Fj = Cj[64:] ⊕ X[64:] </textarea>
             <button id="bFjButton" type="button">compute</button>
         </div>
         <div class="cell textContainer" id="bComputedFjContainer">
             <p>computed F<sub>j</sub></p>
-            <textarea id="bComputedFjArea" disabled>display the computed Fj: &#xa Fj = F(k, Sj) &#xa (Bob knows how to construct an F)</textarea>
+            <textarea id="bComputedFjArea" disabled>the computed Fj: &#xa Fj = F(k, Sj) &#xa (Bob knows how to construct an F)</textarea>
             <button id="bComputedFjButton" type="button" disabled>compute</button>
         </div>
         <div class="cell textContainer" id="isEqualContainer">
@@ -158,7 +158,7 @@
         </div>
         <div class="cell textContainer" id="toReturnContainer">
             <p>toReturn?</p>
-            <textarea id="toReturnArea" disabled>should I (Bob, the server) return the file to Alice?</textarea>
+            <textarea id="toReturnArea" disabled>should I (Bob, the server) return this file to Alice?</textarea>
         </div>
         <!--footer row: next-->
         <button class="cell" id="next3" disabled>Next -></button>

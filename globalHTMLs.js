@@ -39,23 +39,23 @@ const song2 = `
         <!-- 1st row: XjEnc and img -->
         <div class="cell textContainer" id="XjContainer">
             <p>pre-encrypted blocks (X<sub>j</sub>)</p>
-            <textarea id="XjArea" disabled>display the pre-encrypted blocks of the chosen file</textarea>
+            <textarea id="XjArea" disabled>the pre-encrypted blocks of the chosen file</textarea>
         </div>
         <div class="cell" id="imgEnc">
-            <div id="imageTitleEnc">operation on file i, block j:</div>
+            <div id="imageTitleEnc">Alice's operation on file i, block j:</div>
             <!--pre-encryption-->
             <div id="WjEnc" class="block">W<sub>j</sub></div>
             <div id="da1Enc" class="block-trans arrowSmall">&darr;</div>
             <div id="XjEnc" class="block">X<sub>j</sub></div>
             <div id="laEnc" class="block-trans arrowSmall">&swarr;</div>
             <div id="ra1Enc" class="block-trans arrowSmall">&searr;</div>
-            <!--xor terms-->
+            <!--xorEnc terms-->
             <div id="LjEnc" class="block">L<sub>j</sub></div>
             <div id="RjEnc" class="block">R<sub>j</sub></div>
             <div id="SjEnc" class="block">S<sub>j</sub></div>
             <div id="FjEnc" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
-            <div id="kjEnc">where k<sub>j</sub> = f<sub>k'</sub>(L<sub>j</sub>)</div>
-            <!--xor operators-->
+            <div id="kjEnc">where k<sub>j</sub> = f(L<sub>j</sub>)</div>
+            <!--xorEnc operators-->
             <div id="xadEnc" class="block-trans arrow">&#10549;</div>
             <div id="xorEnc" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
             <div id="xauEnc" class="block-trans arrow" style="">&#10548;</div>
@@ -71,40 +71,40 @@ const song2 = `
         <!-- 2nd row: Lj, Rj and kj -->
         <div class="cell textContainer" id="LjContainer">
             <p>left sub-blocks (L<sub>j</sub>)</p>
-            <textarea id="LjArea" disabled>display the left sub-block of the pre-encrypted blocks</textarea>
+            <textarea id="LjArea" disabled>the left sub- blocks of the pre-encrypted blocks</textarea>
         </div>
         <div class="cell textContainer" id="RjContainer">
             <p>right sub-blocks (R<sub>j</sub>)</p>
-            <textarea id="RjArea" disabled>display the right sub-block of the pre-encrypted blocks</textarea>
+            <textarea id="RjArea" disabled>the right sub- blocks of the pre-encrypted blocks</textarea>
         </div>
         <div class="cell textContainer" id="kjContainer">
             <p>computed key (k<sub>j</sub>)</p>
-            <textarea id="kjArea" disabled>display the key derived from Li</textarea>
+            <textarea id="kjArea" disabled>the key derived from Lj</textarea>
             <button id="kjButton" type="button">compute</button>
         </div>
         <!-- 3rd row: Sj, Fj and Cj -->
         <div class="cell textContainer" id="SjContainer">
             <p>pseudorandom blocks(S<sub>j</sub>)</p>
-            <textarea id="SjArea" disabled>display the pseudorandom blocks generated specifically for the chosen file</textarea>
+            <textarea id="SjArea" disabled>the pseudorandom blocks generated for the chosen file</textarea>
             <button id="SjButton" type="button">generate</button>
         </div>
         <div class="cell textContainer" id="FjContainer">
             <p>F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</p>
-            <textarea id="FjArea" disabled>display the encrypted pseudorandom blocks</textarea>
+            <textarea id="FjArea" disabled>the F-encrypted pseudorandom blocks</textarea>
             <button id="FjButton" type="button" disabled>compute</button>
         </div>
         <div class="cell textContainer" id="CjContainer">
             <p>cipher blocks(C<sub>j</sub>)</p>
-            <textarea id="CjArea" disabled>display the cipher blocks for the chosen file</textarea>
+            <textarea id="CjArea" disabled>the cipher blocks for the chosen file</textarea>
             <button id="CjButton" type="button" disabled>compute</button>
         </div>
         <div class="cell textContainer" id="fnEncContainer">
             <p>encrypted filename</p>
-            <textarea id="fnEncArea" disabled>the encrypted filename of the chosen file, it will be attached to the front of the cipher text.</textarea>
+            <textarea id="fnEncArea" disabled>the e-encrypted filename of the chosen file, it will be sent with the cipher text of a file.</textarea>
             <button id="fnEncButton" type="button">compute</button>
         </div>
         <!--footer row: next-->
-        <button class="cell" id="next2" disabled>Next -></button>
+        <button class="cell" id="next2">Next -></button>
         <!--animation related-->
         <div id="coverAll">
             <div id="aliceText">Alice (you)</div>
@@ -215,11 +215,11 @@ const song3 = `
         </div>
         <div class="cell textContainer" id="CjContainer">
             <p>cipher blocks(C<sub>j</sub>)</p>
-            <textarea id="CjArea" disabled>display the cipher blocks for the chosen file</textarea>
+            <textarea id="CjArea" disabled>the cipher blocks for the chosen file</textarea>
         </div>
         <div class="cell textContainer" id="bSjContainer">
             <p>recovered S<sub>j</sub></p>
-            <textarea id="bSjArea" disabled>display the recovered Sj: &#xa Sj = Cj[:64] ⊕ X[:64]</textarea>
+            <textarea id="bSjArea" disabled>the recovered Sj: &#xa Sj = Cj[:64] ⊕ X[:64]</textarea>
             <button id="bSjButton" type="button">compute</button>
         </div>
         <div class="cell" id="imgSearch">
@@ -248,12 +248,12 @@ const song3 = `
         <!-- 3rd row: recovered FjEnc, computedFj, isEqual, toReturn -->
         <div class="cell textContainer" id="bFjContainer">
             <p>recovered F<sub>j</sub></p>
-            <textarea id="bFjArea" disabled>display the recovered Fj: &#xa Fj = Cj[64:] ⊕ X[64:] </textarea>
+            <textarea id="bFjArea" disabled>the recovered Fj: &#xa Fj = Cj[64:] ⊕ X[64:] </textarea>
             <button id="bFjButton" type="button">compute</button>
         </div>
         <div class="cell textContainer" id="bComputedFjContainer">
             <p>computed F<sub>j</sub></p>
-            <textarea id="bComputedFjArea" disabled>display the computed Fj: &#xa Fj = F(k, Sj) &#xa (Bob knows how to construct an F)</textarea>
+            <textarea id="bComputedFjArea" disabled>the computed Fj: &#xa Fj = F(k, Sj) &#xa (Bob knows how to construct an F)</textarea>
             <button id="bComputedFjButton" type="button" disabled>compute</button>
         </div>
         <div class="cell textContainer" id="isEqualContainer">
@@ -263,7 +263,7 @@ const song3 = `
         </div>
         <div class="cell textContainer" id="toReturnContainer">
             <p>toReturn?</p>
-            <textarea id="toReturnArea" disabled>should I (Bob, the server) return the file to Alice?</textarea>
+            <textarea id="toReturnArea" disabled>should I (Bob, the server) return this file to Alice?</textarea>
         </div>
         <!--footer row: next-->
         <button class="cell" id="next3" disabled>Next -></button>
@@ -323,11 +323,11 @@ const song4 = `
         <!-- 1.1 Cj -->
         <div class="cell textContainer" id="CjContainer">
             <p>cipher blocks(C<sub>j</sub>)</p>
-            <textarea id="CjArea" disabled>display the cipher blocks for the chosen file</textarea>
+            <textarea id="CjArea" disabled>the cipher blocks for the chosen file</textarea>
         </div>
         <!-- 1.2 filename -->
         <div class="cell" id="fnDecButton">
-            click the button to decrypt all filenames (and change the file list)
+            decrypt all filenames, this is necessary to recover S<sub>j</sub> for each block <br>(see how the names in the file list changes).
             <button>decrypt filenames</button>
         </div>
         <!-- 1.3 imgEnc -->
@@ -361,12 +361,12 @@ const song4 = `
         <!-- 2nd row: Sj, Lj, imgDec -->
         <div class="cell textContainer" id="SjContainer">
             <p>computed S<sub>j</sub></p>
-            <textarea id="SjArea" disabled>display the computed Sj: &#xa Sj = Cj[:64] ⊕ X[:64]</textarea>
+            <textarea id="SjArea" disabled>the re-generated pseudorandom blocks</textarea>
             <button id="SjButton" type="button" disabled>compute</button>
         </div>
         <div class="cell textContainer" id="LjContainer">
             <p>computed L<sub>j</sub></p>
-            <textarea id="LjArea" disabled>display the computed Sj: &#xa Sj = Cj[:64] ⊕ X[:64]</textarea>
+            <textarea id="LjArea" disabled>the recovered Lj: &#xa Lj = Cj[:64] ⊕ Sj</textarea>
             <button id="LjButton" type="button" disabled>compute</button>
         </div>
         <div class="cell" id="imgDec">
@@ -393,41 +393,33 @@ const song4 = `
             <div id="laDec" class="block-trans arrowSmall">&swarr;</div>
             <div id="ra1Dec" class="block-trans arrowSmall">&searr;</div>
             <!--cipher text-->
-
             <div id="LjDec" class="block">L<sub>j</sub></div>
             <div id="RjDec" class="block">R<sub>j</sub></div>
-
         </div>
         <!-- 3rd row: kjEnc, FjEnc, RjEnc, WjEnc -->
         <div class="cell textContainer" id="kjContainer">
             <p>computed k<sub>j</sub></p>
-            <textarea id="kjArea" disabled>display the computed Sj: &#xa Sj = Cj[:64] ⊕ X[:64]</textarea>
+            <textarea id="kjArea" disabled>the re-computed kj: &#xa kj = f(Lj)</textarea>
             <button id="kjButton" type="button" disabled>compute</button>
         </div>
         <div class="cell textContainer" id="FjContainer">
             <p>computed F<sub>j</sub></p>
-            <textarea id="FjArea" disabled>display the computed Sj: &#xa Sj = Cj[:64] ⊕ X[:64]</textarea>
+            <textarea id="FjArea" disabled>the re-computed Fj: &#xa Fj = F(kj, Sj)</textarea>
             <button id="FjButton" type="button" disabled>compute</button>
         </div>
         <div class="cell textContainer" id="RjContainer">
             <p>computed R<sub>j</sub></p>
-            <textarea id="RjArea" disabled>display the computed Sj: &#xa Sj = Cj[:64] ⊕ X[:64]</textarea>
+            <textarea id="RjArea" disabled>the recovered Rj: &#xa Rj = Cj[:64] ⊕ Fj</textarea>
             <button id="RjButton" type="button" disabled>compute</button>
         </div>
         <div class="cell textContainer" id="WjContainer">
             <p>computed W<sub>j</sub></p>
-            <textarea id="WjArea" disabled>display the computed Sj: &#xa Sj = Cj[:64] ⊕ X[:64]</textarea>
+            <textarea id="WjArea" disabled>the recovered Word Wj: &#xa Wj = E.decrypt(Xj)</textarea>
             <button id="WjButton" type="button" disabled>compute</button>
         </div>
         <!--footer row: finish-->
         <button class="cell" id="finish" disabled>Finish -></button>
     </div>
-
-    <script>
-        $('#finish').click(function() {
-            $('#outmost4').replaceWith(welcome);
-        })
-    </script>
     <script src="song4.js"></script>
 </div>`;
 
