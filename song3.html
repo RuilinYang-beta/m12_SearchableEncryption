@@ -82,7 +82,7 @@
             <div id="RjEnc" class="block">R<sub>j</sub></div>
             <div id="SjEnc" class="block">S<sub>j</sub></div>
             <div id="FjEnc" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
-            <div id="kjEnc">where k<sub>j</sub> = f<sub>k'</sub>(L<sub>j</sub>)</div>
+            <div id="kjEnc">where k<sub>j</sub> = f(L<sub>j</sub>)</div>
             <!--xorEnc operators-->
             <div id="xadEnc" class="block-trans arrow">&#10549;</div>
             <div id="xorEnc" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
@@ -134,10 +134,10 @@
             <div id="ra2Search" class="block-trans arrow" >&rarr;</div>
             <!-- xorEnc results -->
             <div id="SjSearch" class="block">S<sub>j</sub></div>
-            <div id="FjSearch" class="block">F<sub>k</sub>(S<sub>j</sub>)</div>
-            <div id="kSearch" class="block-trans">(k from Alice)</div>
+            <div id="FjSearch" class="block">F<sub>j</sub></div>
+            <div id="FjSearch_comp" class="block">F<sub>k</sub>(S<sub>j</sub>)</div>
+            <div id="kSearch" class="block-trans">k from Alice</div>
             <!-- question marks -->
-            <div id="q1Search" class="block-trans">(?)</div>
             <div id="q2Search" class="block-trans">(?)</div>
         </div>
         <!-- 3rd row: recovered FjEnc, computedFj, isEqual, toReturn -->
@@ -184,11 +184,6 @@
             <div id="hintText2">Click anywhere to continue...</div>
         </div>
     </div>
-    <script>
-        $('#next3').click(function() {
-            $('#outmost3').replaceWith(song4);
-        })
-    </script>
     <script src="song3.js"></script>
 </div>
 

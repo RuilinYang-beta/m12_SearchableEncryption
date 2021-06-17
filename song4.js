@@ -25,7 +25,7 @@ const writeFileArea4 = (Cjs, isEqual) => {
         // populate CjEnc area
         $('#CjArea').html(displayBlocks(Cjs[fn]));
 
-        // // populate other if it exists
+        // populate other if it exists
         if (SjsDec[fn] !== undefined) { $('#SjArea').html(displayBlocks(SjsDec[fn])); }
         if (LjsDec[fn] !== undefined) { $('#LjArea').html(displayBlocks(LjsDec[fn])); }
         if (kjsDec[fn] !== undefined) { $('#kjArea').html(displayBlocks(kjsDec[fn])); }
@@ -33,9 +33,10 @@ const writeFileArea4 = (Cjs, isEqual) => {
         if (RjsDec[fn] !== undefined) { $('#RjArea').html(displayBlocks(RjsDec[fn])); }
         if (WjsDec[fn] !== undefined) { $('#WjArea').html(displayBlocks(WjsDec[fn], 'utf-8')); }
     })
-        // make the first file selected
-        $('#fileList li').first().click();
-    }
+
+    // make the first file selected
+    $('#fileList li').first().click();
+}
 
 
 // ========================================
@@ -43,11 +44,75 @@ const writeFileArea4 = (Cjs, isEqual) => {
 // ========================================
 writeFileArea4(Cjs, isEqual);
 
+$('#imgEnc').css('background-color', '#dddddd');
 
 
 // ==============================================
 // ............... event handlers ...............
 // ==============================================
+
+// -------- hover effects of primitives and files --------
+$('#files').hover(function() {
+    $('#fnDec').addClass('highlight');
+}, function () {
+    $('#fnDec').removeClass('highlight');
+})
+// TODO: when hover, there should be a tooltip showing the key for each primitives
+$('.flex>.xs.block').hover(function() {
+    $(this).addClass('highlight');
+}, function () {
+    $(this).removeClass('highlight');
+})
+
+// ---------- hover effects of text areas ----------
+$('#CjContainer').hover(function () {
+    $('#CjDec').addClass('highlight');
+}, function () {
+    $('#CjDec').removeClass('highlight');
+})
+
+$('#fnDecButton').hover(function () {
+    $('#fnDec, #smallE').addClass('highlight');
+}, function () {
+    $('#fnDec, #smallE').removeClass('highlight');
+})
+
+$('#SjContainer').hover(function () {
+    $('#GiDec, #SjDec, #G').addClass('highlight');
+}, function () {
+    $('#GiDec, #SjDec, #G').removeClass('highlight');
+})
+
+$('#LjContainer').hover(function () {
+    $('#LjDec').addClass('highlight');
+}, function () {
+    $('#LjDec').removeClass('highlight');
+})
+
+$('#kjContainer').hover(function () {
+    $('#kjDec, #smallF').addClass('highlight');
+}, function () {
+    $('#kjDec, #smallF').removeClass('highlight');
+})
+
+$('#FjContainer').hover(function () {
+    $('#FjDec, #bigF').addClass('highlight');
+}, function () {
+    $('#FjDec, #bigF').removeClass('highlight');
+})
+
+$('#RjContainer').hover(function () {
+    $('#RjDec').addClass('highlight');
+}, function () {
+    $('#RjDec').removeClass('highlight');
+})
+
+$('#WjContainer').hover(function () {
+    $('#XjDec, #WjDec, #bigE').addClass('highlight');
+}, function () {
+    $('#XjDec, #WjDec, #bigE').removeClass('highlight');
+})
+
 
 $('#fnDecButton>button').click(function() {
     $('#fileList li').each(function() {
@@ -113,4 +178,11 @@ $('#WjButton').click(function () {
     $('#WjArea').html(displayBlocks(WjsDec[fn], 'utf-8'));
     // enable finish
     $('#finish').attr('disabled', false);
+})
+
+$('#finish').click(function() {
+    // $('#outmost4').replaceWith(welcome);
+    $('#outmost4').fadeOut(450, function() {
+        $('#outmost4').replaceWith(welcome);
+    })
 })

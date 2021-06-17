@@ -239,10 +239,10 @@ const song3 = `
             <div id="ra2Search" class="block-trans arrow" >&rarr;</div>
             <!-- xorEnc results -->
             <div id="SjSearch" class="block">S<sub>j</sub></div>
-            <div id="FjSearch" class="block">F<sub>k</sub>(S<sub>j</sub>)</div>
-            <div id="kSearch" class="block-trans">(k from Alice)</div>
+            <div id="FjSearch" class="block">F<sub>j</sub></div>
+            <div id="FjSearch_comp" class="block">F<sub>k</sub>(S<sub>j</sub>)</div>
+            <div id="kSearch" class="block-trans">k from Alice</div>
             <!-- question marks -->
-            <div id="q1Search" class="block-trans">(?)</div>
             <div id="q2Search" class="block-trans">(?)</div>
         </div>
         <!-- 3rd row: recovered FjEnc, computedFj, isEqual, toReturn -->

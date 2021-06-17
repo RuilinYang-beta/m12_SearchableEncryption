@@ -55,7 +55,7 @@
                 <label>1. Select some files to encrypt:</label>
                 <input type="file" id="fileInput" multiple />
             </div>
-            <p>Hint: <br>You can only choose files in the same folder. Then click on different file names to see what happens.</p>
+            <p>Hint: <br>You can only choose files in the same folder.<br>Click on different filenames to see what happens.</p>
         </div>
         <!-- 1.2 password -->
         <div class="cell" id="choosePasswordCell">
@@ -103,9 +103,10 @@
         <div class="cell textContainer" id="plainBlockContainer">
             <p>plain text in 128-bit blocks</p>
             <textarea id="plainBlockArea" disabled>display the plain text of the chosen file in 128-bit blocks, a 128-bit block is a Word</textarea>
+            <p id="hintSearch">please remember a block <br>to search later</p>
         </div>
         <div class="cell textContainer" id="WjContainer">
-            <p>hex in blocks (W<sub>j</sub>)</p>
+            <p>blocks in hex(W<sub>j</sub>)</p>
             <textarea id="WjArea" disabled>display the Words of the chosen file in hex encoding</textarea>
         </div>
         <div class="cell textContainer" id="XjContainer">
@@ -114,13 +115,13 @@
             <button id="XjButton" type="button" disabled>Pre encrypt</button>
         </div>
         <!--footer row: next-->
+        <form id="animationForm">
+            <input type="checkbox" id="animation1">
+            <label for="animation1">Enable animation?</label>
+        </form>
+
         <button class="cell" id="next1" disabled>Next -></button>
     </div>
-    <script>
-        $('#next1').click(function() {
-            $('#outmost1').replaceWith(song2);
-        })
-    </script>
     <script src="song1.js"></script>
 </div>
 

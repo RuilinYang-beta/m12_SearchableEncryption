@@ -34,7 +34,7 @@ h3 {
     "primitives     intro   form    imgEnc  imgEnc"
     "files          plain   hex     Wj      Xj"
     "files          plain   hex     Wj      Xj"
-    ".              .       .       .       next1";
+    ".              .       .       ani     next1";
 }
 
 /*!* -- temp: color of grid cell --*!*/
@@ -97,5 +97,11 @@ h3 {
 #next1 {
     grid-area: next1;
     justify-self: center;
+}
+
+#animationForm {
+    grid-area: ani;
+    justify-self: center;
+    align-self: end;
 }
 

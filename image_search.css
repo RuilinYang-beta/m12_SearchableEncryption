@@ -1,21 +1,22 @@
 #imgSearch {
     display: grid;
     grid-template-columns: 40px 40px 25px 25px 45px 45px;
-    grid-template-rows: 28px 10px 28px 20px 28px 28px 28px;
+    grid-template-rows: 28px 10px 28px 28px 28px 28px 28px;
     grid-template-areas:
         /* naming */
         /* da:    down arrow*/
         /* laEnc/ra: left arrow/right arrow*/
         /* xad:   xorEnc arrow down*/
         /* xauEnc:   xorEnc arrow up*/
-        "title  title   title   title   title   title"
+            "title  title   title   title   title   title"
         ".      .       .       .       .       ."
-        "X      X       .       .       .       ."
-        "la     ra1     .       .       .       ."
-        "L      R       xad     .       q1      q2"
+        "X      X       .       .       k       k"
+        "la     ra1     .       .       .       Fj_comp"
+        "L      R       xad     .       .       q2"
         ".      .       xor     ra2     Sj      Fj"
-        "Cj     Cj      xau     .       k       k"
+        "Cj     Cj      xau     .       .       ."
 }
+
 
 /*-- title --*/
 #imageTitleSearch {
@@ -78,12 +79,14 @@
 #kSearch {
     grid-area: k;
     font-size: 14px;
-}
-/*-- question marks --*/
-#q1Search {
-    grid-area: q1;
+    align-self: end;
+    justify-self: end;
 }
 
+#FjSearch_comp {
+    grid-area: Fj_comp;
+}
+/*-- question marks --*/
 #q2Search {
     grid-area: q2;
 }

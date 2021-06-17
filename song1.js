@@ -78,6 +78,11 @@ const writeFileArea = (plains, Wjs) => {
 // ==============================================
 // ............... event handlers ...............
 // ==============================================
+$('#animation1').prop('checked', true);
+
+// ==============================================
+// ............... event handlers ...............
+// ==============================================
 
 // Handle multiple file uploads
 document.getElementById("fileInput").addEventListener("change", function(ev){
@@ -125,7 +130,7 @@ $('#passwordButton').click(function() {
     $('#passwordNotice').html('Wait a sec...');
     console.log('here');
     initPrimitives(pswd, Object.keys(plains));
-    $('#passwordNotice').html('Primitives Initialized. Proceed to pre-encryption. You can hover on primitives and text areas to see what\'s there.');
+    $('#passwordNotice').html('Primitives Initialized. <br>Hover on primitives and text areas to see what\'s there.');
 
     // disable "choose files", "confirm", "password input"
     $('#fileInput').prop('disabled', true);
@@ -135,15 +140,20 @@ $('#passwordButton').click(function() {
     // enable "pre encrypt"
     $('#XjButton').prop('disabled', false);
 
-    // hover effects of primitives
+    // --------- hover effects of primitives ---------
+    $('#files').hover(function() {
+        $('#fnEnc').addClass('highlight');
+    }, function () {
+        $('#fnEnc').removeClass('highlight');
+    })
     // TODO: when hover, there should be a tooltip showing the key for each primitives
-    $('.xs.block').hover(function() {
+    $('.flex>.xs.block').hover(function() {
         $(this).addClass('highlight');
     }, function () {
         $(this).removeClass('highlight');
     })
-    // hover effects of text areas
-    $('#plainContainer, #plainBlockContainer, #WjContainer, #WjEnc').hover( function () {
+    // --------- hover effects of text areas ---------
+    $('#plainContainer, #plainBlockContainer, #WjContainer').hover( function () {
         $('#WjEnc').addClass('highlight');
     }, function () {
         $('#WjEnc').removeClass('highlight');
@@ -155,7 +165,6 @@ $('#passwordButton').click(function() {
     })
 })
 
-
 $('#XjButton').click( function () {
     // compute pre-encrypt cipher
     let result = computeXjs(plains);
@@ -166,5 +175,17 @@ $('#XjButton').click( function () {
     $('#XjArea').html(displayBlocks(Xjs[fn]));
     // enable the next button
     $('#next1').prop('disabled', false);
+})
+
+$('#next1').click(function() {
+    // update animation flag
+    if ($('#animation1').prop('checked')){
+        toAnimate = true;
+    } else {
+        toAnimate = false;
+    }
+    // change html
+    $('#outmost1').replaceWith(song2);
+
 })
 

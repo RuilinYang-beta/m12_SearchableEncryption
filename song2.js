@@ -55,10 +55,74 @@ Rjs = result.Rjs;
 
 writeFileArea2(Xjs);
 
+console.log(`page2, toAnimate: ${toAnimate}`);
+
 // ==============================================
 // ............... event handlers ...............
 // ==============================================
 
+// -------- hover effects of primitives --------
+$('#files').hover(function() {
+    $('#fnEnc').addClass('highlight');
+}, function () {
+    $('#fnEnc').removeClass('highlight');
+})
+// TODO: when hover, there should be a tooltip showing the key for each primitives
+$('.flex>.xs.block').hover(function() {
+    $(this).addClass('highlight');
+}, function () {
+    $(this).removeClass('highlight');
+})
+// ---------- hover effects of text areas ----------
+$('#XjContainer').hover(function () {
+    $('#XjEnc').addClass('highlight');
+}, function () {
+    $('#XjEnc').removeClass('highlight');
+})
+
+$('#LjContainer').hover(function () {
+    $('#LjEnc').addClass('highlight');
+}, function () {
+    $('#LjEnc').removeClass('highlight');
+})
+
+$('#RjContainer').hover(function () {
+    $('#RjEnc').addClass('highlight');
+}, function () {
+    $('#RjEnc').removeClass('highlight');
+})
+
+$('#kjContainer').hover(function () {
+    $('#smallF, #kjEnc').addClass('highlight');
+}, function () {
+    $('#smallF, #kjEnc').removeClass('highlight');
+})
+
+$('#SjContainer').hover(function () {
+    $('#GiEnc, #SjEnc, #G').addClass('highlight');
+}, function () {
+    $('#GiEnc, #SjEnc, #G').removeClass('highlight');
+})
+
+$('#FjContainer').hover(function () {
+    $('#bigF, #FjEnc').addClass('highlight');
+}, function () {
+    $('#bigF, #FjEnc').removeClass('highlight');
+})
+
+$('#CjContainer').hover(function () {
+    $('#CjEnc').addClass('highlight');
+}, function () {
+    $('#CjEnc').removeClass('highlight');
+})
+
+$('#fnEncContainer').hover(function () {
+    $('#fnEnc, #smallE').addClass('highlight');
+}, function () {
+    $('#fnEnc, #smallE').removeClass('highlight');
+})
+
+// ---------- handle button clicks ----------
 $('#kjButton').click(function() {
     kjs = computeKjs(Ljs);
     // populate kjArea with the key of selected file
@@ -118,14 +182,18 @@ $('#fnEncButton').click(function() {
 })
 
 $('#next2').click(function() {
-    $('#coverAll').fadeIn(500, function() {
-        $("#aliceFiles").animate({left: '730px'}, 1000, function() {
-            // shou up hint
-            $('#hintText').fadeIn(1000, function() {
-                $('#coverAll').click(function() {
-                    $('#outmost2').replaceWith(song3);
-                })
+    if (toAnimate) {
+        $('#coverAll').fadeIn(500, function() {
+            $("#aliceFiles").animate({left: '730px'}, 1000, function() {
+                // shou up hint
+                $('#hintText').fadeIn(1000, function() {
+                    $('#coverAll').click(function() {
+                        $('#outmost2').replaceWith(song3);
+                    })
+                });
             });
         });
-    });
+    } else {
+        $('#outmost2').replaceWith(song3);
+    }
 })

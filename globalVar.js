@@ -2,12 +2,8 @@
  * This file contains global variables and functions that can be accessed across pages.
  */
 
-// init E, Gs, f
-let E;   // pre encryption
-let e;   // encrypt filename
-let Gs;  // PRNG for all the files {fileName: PRNG_of_the_file, ...}
-let f;   // compute k_i for each block
-let F;   // compute the block to XOR with R_i
+
+// ============== for dev ==============
 
 let _dummy = 'aaaaaaaaaaaaaaa ';
 let _print = (Xjs, displayVarName) => {
@@ -20,8 +16,12 @@ let _print = (Xjs, displayVarName) => {
     }
 }
 
+// ============== UI helper variables ==============
+
+// help to decide whether to return a file
 const isTrue = (e) => e;
 
+// display {filename: [arr_of_buffers]} on screen
 let displayBlocks = (blocksArr, encoding='hex') => {
     let toDisplay = '';
     for (let block of blocksArr){
@@ -30,6 +30,20 @@ let displayBlocks = (blocksArr, encoding='hex') => {
     return toDisplay;
 }
 
+// a flag marking whether to show animation (alice send files, send query terms, receive files)
+let toAnimate;
+
+// ============== crypto-related variables ==============
+
+// ------------------- primitives -------------------
+let E;   // pre encryption
+let e;   // encrypt filename
+let Gs;  // PRNG for all the files {fileName: PRNG_of_the_file, ...}
+let f;   // compute k_i for each block
+let F;   // compute the block to XOR with R_i
+
+
+// ------------------- other variables -------------------
 // --- populated in page 1 ---
 // @format: {fileName: fileContent, ...}
 let plains = {};

@@ -38,3 +38,11 @@
 /*    margin: 0px;*/
 /*}*/
 
+
+
+/*-- hint for later search --*/
+#hintSearch {
+    font-size: 14px ;
+    padding: 0px;
+    margin: 3px auto;
+}
