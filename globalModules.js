@@ -3,7 +3,7 @@
  */
 
 const electron = require('electron');
-const { remote } = electron;
+const { remote, ipcRenderer } = electron;
 const crypto = require('crypto');
 const fs = require('fs');
 const assert = require('assert');

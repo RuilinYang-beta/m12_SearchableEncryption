@@ -1,3 +1,27 @@
+/*-- the title line --*/
+#titleLine {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 1000px;
+}
+
+.help {
+    width: 25px;
+}
+
+.help .question {
+    height: 25px;
+    width: 25px;
+    background: #ccc;
+    font-size: 25px;
+    line-height: 25px;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+}
+
 /*-- cover and animation --*/
 #coverAll {
     position: relative;

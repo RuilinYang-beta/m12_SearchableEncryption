@@ -44,6 +44,11 @@ const initPrimitives = (password, fileNames) => {
     Gs = createPRNGs(password, fileNames);
     f = createSmallF(password);
     F = createBigF();
+    primitives['E'] =  E;
+    primitives['e'] =  e;
+    primitives['Gs'] = Gs;
+    primitives['f'] =  f;
+    primitives['F'] =  F;
     return ;
 }
 

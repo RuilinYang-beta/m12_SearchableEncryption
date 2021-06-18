@@ -75,14 +75,20 @@ const writeFileArea = (plains, Wjs) => {
     $('#fileList li').first().click();
 }
 
-// ==============================================
-// ............... event handlers ...............
-// ==============================================
+// ========================================
+// ............... commands ...............
+// ========================================
 $('#animation1').prop('checked', true);
 
 // ==============================================
 // ............... event handlers ...............
 // ==============================================
+
+// pop up help page
+$('#titleLine .help').click(function() {
+    window.open(songHelp, null, 'minimizable=false')
+})
+
 
 // Handle multiple file uploads
 document.getElementById("fileInput").addEventListener("change", function(ev){
@@ -141,28 +147,13 @@ $('#passwordButton').click(function() {
     $('#XjButton').prop('disabled', false);
 
     // --------- hover effects of primitives ---------
-    $('#files').hover(function() {
-        $('#fnEnc').addClass('highlight');
-    }, function () {
-        $('#fnEnc').removeClass('highlight');
-    })
-    // TODO: when hover, there should be a tooltip showing the key for each primitives
-    $('.flex>.xs.block').hover(function() {
-        $(this).addClass('highlight');
-    }, function () {
-        $(this).removeClass('highlight');
-    })
+    hoverFiles();
+    hoverPrimitives();
     // --------- hover effects of text areas ---------
-    $('#plainContainer, #plainBlockContainer, #WjContainer').hover( function () {
-        $('#WjEnc').addClass('highlight');
-    }, function () {
-        $('#WjEnc').removeClass('highlight');
-    })
-    $('#XjContainer').hover(function () {
-        $('#WjEnc, #XjEnc, #bigE').addClass('highlight');
-    }, function () {
-        $('#WjEnc, #XjEnc, #bigE').removeClass('highlight');
-    })
+    hoverTextAreas('#plainContainer, #plainBlockContainer, #WjContainer',
+                '#WjEnc');
+    hoverTextAreas('#XjContainer',
+                '#WjEnc, #XjEnc, #bigE');
 })
 
 $('#XjButton').click( function () {

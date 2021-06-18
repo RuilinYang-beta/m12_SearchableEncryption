@@ -46,74 +46,28 @@ writeFileArea4(Cjs, isEqual);
 
 $('#imgEnc').css('background-color', '#dddddd');
 
-
 // ==============================================
 // ............... event handlers ...............
 // ==============================================
 
+// pop up help page
+$('#titleLine .help').click(function() {
+    window.open(songHelp, null, 'minimizable=false')
+})
+
 // -------- hover effects of primitives and files --------
-$('#files').hover(function() {
-    $('#fnDec').addClass('highlight');
-}, function () {
-    $('#fnDec').removeClass('highlight');
-})
-// TODO: when hover, there should be a tooltip showing the key for each primitives
-$('.flex>.xs.block').hover(function() {
-    $(this).addClass('highlight');
-}, function () {
-    $(this).removeClass('highlight');
-})
-
+hoverFiles();
+hoverPrimitives();
 // ---------- hover effects of text areas ----------
-$('#CjContainer').hover(function () {
-    $('#CjDec').addClass('highlight');
-}, function () {
-    $('#CjDec').removeClass('highlight');
-})
-
-$('#fnDecButton').hover(function () {
-    $('#fnDec, #smallE').addClass('highlight');
-}, function () {
-    $('#fnDec, #smallE').removeClass('highlight');
-})
-
-$('#SjContainer').hover(function () {
-    $('#GiDec, #SjDec, #G').addClass('highlight');
-}, function () {
-    $('#GiDec, #SjDec, #G').removeClass('highlight');
-})
-
-$('#LjContainer').hover(function () {
-    $('#LjDec').addClass('highlight');
-}, function () {
-    $('#LjDec').removeClass('highlight');
-})
-
-$('#kjContainer').hover(function () {
-    $('#kjDec, #smallF').addClass('highlight');
-}, function () {
-    $('#kjDec, #smallF').removeClass('highlight');
-})
-
-$('#FjContainer').hover(function () {
-    $('#FjDec, #bigF').addClass('highlight');
-}, function () {
-    $('#FjDec, #bigF').removeClass('highlight');
-})
-
-$('#RjContainer').hover(function () {
-    $('#RjDec').addClass('highlight');
-}, function () {
-    $('#RjDec').removeClass('highlight');
-})
-
-$('#WjContainer').hover(function () {
-    $('#XjDec, #WjDec, #bigE').addClass('highlight');
-}, function () {
-    $('#XjDec, #WjDec, #bigE').removeClass('highlight');
-})
-
-
+hoverTextAreas('#CjContainer', '#CjDec');
+hoverTextAreas('#fnDecButton', '#fnDec, #smallE');
+hoverTextAreas('#SjContainer', '#GiDec, #SjDec, #G');
+hoverTextAreas('#LjContainer', '#LjDec');
+hoverTextAreas('#kjContainer', '#kjDec, #smallF');
+hoverTextAreas('#FjContainer', '#FjDec, #bigF');
+hoverTextAreas('#RjContainer', '#RjDec');
+hoverTextAreas('#WjContainer', '#XjDec, #WjDec, #bigE');
+// ---------- handle button clicks ----------
 $('#fnDecButton>button').click(function() {
     $('#fileList li').each(function() {
         let fn = $(this).data("filename");

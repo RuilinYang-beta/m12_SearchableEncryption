@@ -16,7 +16,12 @@ const song2 = `
     <!-- css for other parts specific for this page -->
     <link rel="stylesheet" href="song2.css">
 
-    <h3>(2) Prepare the cipher text</h3>
+    <div id="titleLine">
+        <h3>(2) Prepare the cipher text</h3>
+        <div class="help">
+            <div class="question">?</div>
+        </div>
+    </div>
 
     <!-- for each of its immediate successor, add class "cell" -->
     <div class="grid" id="gridContainer">
@@ -127,7 +132,12 @@ const song3 = `
     <!-- css for other parts specific for this page -->
     <link rel="stylesheet" href="song3.css">
 
-    <h3>(3) Search</h3>
+    <div id="titleLine">
+        <h3>(3) Search</h3>
+        <div class="help">
+            <div class="question">?</div>
+        </div>
+    </div>
 
     <!-- for each of its immediate successor, add class "cell" -->
     <div class="grid" id="gridContainer">
@@ -299,7 +309,12 @@ const song4 = `
     <!-- css for other parts specific for this page -->
     <link rel="stylesheet" href="song4.css">
 
-    <h3>(4) Alice's decryption to get file content</h3>
+    <div id="titleLine">
+        <h3>(4) Alice's decryption to get file content</h3>
+        <div class="help">
+            <div class="question">?</div>
+        </div>
+    </div>
 
     <!-- for each of its immediate successor, add class "cell" -->
     <div class="grid" id="gridContainer">
@@ -424,11 +439,11 @@ const song4 = `
 </div>`;
 
 const welcome = `
-<div id="outmostWelcome">
+<div id="outmostWelcome" style="display: flex; flex-direction: column;align-items: center">
     <h1>Welcome to Searchable Encryption Visualization</h1>
 
-    <div style="margin-left: 40px">
-        <p>If you are new, start from the 'Intro' menu;</p>
-        <p>If you know what you are doing, start from 'Scheme' menu</p>
+    <div >
+        <p style="font-size: 19px">Start from the 'Intro' menu for background information;</p>
+        <p style="font-size: 19px">Start from 'Scheme' menu to play with a Searchable Encryption scheme.</p>
     </div>
 </div>`;

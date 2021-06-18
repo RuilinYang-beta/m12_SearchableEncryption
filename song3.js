@@ -45,30 +45,17 @@ let writeFileArea3 = (plains) => {
 // ............... event handlers ...............
 // ==============================================
 
-// -------- hover effects of primitives and files --------
-$('#files').hover(function() {
-    $('#fnEnc').addClass('highlight');
-}, function () {
-    $('#fnEnc').removeClass('highlight');
-})
-// TODO: when hover, there should be a tooltip showing the key for each primitives
-$('.flex>.xs.block').hover(function() {
-    $(this).addClass('highlight');
-}, function () {
-    $(this).removeClass('highlight');
-})
-// ---------- hover effects of text areas ----------
-$('#searchTerm').hover(function () {
-    $('#WjEnc').addClass('highlight');
-}, function () {
-    $('#WjEnc').removeClass('highlight');
+// pop up help page
+$('#titleLine .help').click(function() {
+    window.open(songHelp, null, 'minimizable=false')
 })
 
-$('#queryTerm').hover(function () {
-    $('#XjEnc, #LjEnc, #kjEnc').addClass('highlight');
-}, function () {
-    $('#XjEnc, #LjEnc, #kjEnc').removeClass('highlight');
-})
+// -------- hover effects of primitives and files --------
+hoverFiles();
+hoverPrimitives();
+// ---------- hover effects of text areas ----------
+hoverTextAreas('#searchTerm', '#WjEnc');
+hoverTextAreas('#queryTerm', '#XjEnc, #LjEnc, #kjEnc');
 // ---------- handle button clicks ----------
 $('#searchTermButton').click(function() {
     let searchTerm = Buffer.from($('#searchTermInput').val());
@@ -86,42 +73,12 @@ $('#searchTermButton').click(function() {
     // enable search
     $('#queryTermButton').prop('disabled', false);
     // ---------- hover effects of text areas ----------
-    $('#receivedTerm').hover(function () {
-        $('#XSearch, #kSearch').addClass('highlight');
-    }, function () {
-        $('#XSearch, #kSearch').removeClass('highlight');
-    })
-
-    $('#CjContainer').hover(function () {
-        $('#CjSearch').addClass('highlight');
-    }, function () {
-        $('#CjSearch').removeClass('highlight');
-    })
-
-    $('#bSjContainer').hover(function () {
-        $('#SjSearch').addClass('highlight');
-    }, function () {
-        $('#SjSearch').removeClass('highlight');
-    })
-
-    $('#bFjContainer').hover(function () {
-        $('#FjSearch').addClass('highlight');
-    }, function () {
-        $('#FjSearch').removeClass('highlight');
-    })
-
-    $('#bComputedFjContainer').hover(function () {
-        $('#FjSearch_comp').addClass('highlight');
-    }, function () {
-        $('#FjSearch_comp').removeClass('highlight');
-    })
-
-    $('#isEqualContainer').hover(function () {
-        $('#q1Search, #q2Search').addClass('highlight');
-    }, function () {
-        $('#q1Search, #q2Search').removeClass('highlight');
-    })
-
+    hoverTextAreas('#receivedTerm', '#XSearch, #kSearch');
+    hoverTextAreas('#CjContainer', '#CjSearch');
+    hoverTextAreas('#bSjContainer', '#SjSearch');
+    hoverTextAreas('#bFjContainer', '#FjSearch');
+    hoverTextAreas('#bComputedFjContainer', '#FjSearch_comp');
+    hoverTextAreas('#isEqualContainer', '#q2Search');
 })
 
 $('#queryTermButton').click(function() {
@@ -133,18 +90,27 @@ $('#queryTermButton').click(function() {
                 // show up hint
                 $('#hintText').fadeIn(500, function() {
                     $('#coverAll').click(function() {
-                        $('#coverAll').fadeOut(450);
-                        $("#coverAlice").show();   // cover alice
-                        $('#coverBob').hide();     // show bob
-                        writeFileArea3(plains);    // bob can see files
+                        $('#coverAll').fadeOut(450, function() {
+                            // cover alice
+                            $("#coverAlice").show();
+                            // show bob
+                            $('#coverBob').hide(function() {
+                                // bob can see files
+                                writeFileArea3(plains);
+                            });
+                        });
                     })
                 });
             });
         });
     } else {
-        $("#coverAlice").fadeIn(450);   // cover alice
-        $('#coverBob').fadeOut(450);     // show bob
-        writeFileArea3(plains);    // bob can see files
+        // cover alice
+        $("#coverAlice").fadeIn(450);
+        // show bob
+        $('#coverBob').fadeOut(450, function() {
+            // bob can see files
+            writeFileArea3(plains);
+        });
     }
 
     // write query term to Bob
@@ -209,10 +175,21 @@ $('#next3').click(function() {
     if (!matchFound) {
         // -- weird thing about Electron, if I use an alert here,
         // -- it takes > 10s before I can enter another search word.
-        // show alice, cover bob
-        $("#coverAlice").hide();
+        // clean bob's area, files, and cover bob area
+        bSjs = {};
+        bFjs = {};
+        bFjs_comp = {};
+        isEqual = {};
+        $('#CjArea').html('the cipher blocks for the chosen file');
+        $('#bSjArea').html('the recovered Sj: &#xa Sj = Cj[:64] ⊕ X[:64]');
+        $('#bFjArea').html('the recovered Fj: &#xa Fj = Cj[64:] ⊕ X[64:] ');
+        $('#bComputedFjArea').html('the computed Fj: &#xa Fj = F(k, Sj) &#xa (Bob knows how to construct an F)');
+        $('#isEqualArea').html('is computed Fj equal to actual Fj for each block? ');
+        $('#toReturnArea').html('should I (Bob, the server) return this file to Alice?');
+        $('#fileList').empty();
         $('#coverBob').show();
-        // clean the floor
+        // show alice, clean alice's area
+        $("#coverAlice").hide();
         $('#queryTermButton').prop('disabled', true);
         $('#searchTermInput').focus();
         // tell user to choose another word
