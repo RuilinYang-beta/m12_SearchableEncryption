@@ -58,7 +58,7 @@ const menuTemplate = [
         ]
     },
     {
-        label: 'Scheme',
+        label: 'Schemes',
         submenu: [
             {
                 label: 'Song et al(2000)',
@@ -66,24 +66,24 @@ const menuTemplate = [
                     mainWindow.loadURL(`file://${__dirname}/song1.html`);
                 }
             },
-            {
-                label: 'song2(temp-UI only)',
-                click() {
-                    mainWindow.loadURL(`file://${__dirname}/song2.html`);
-                }
-            },
-            {
-                label: 'song3(temp-UI only)',
-                click() {
-                    mainWindow.loadURL(`file://${__dirname}/song3.html`);
-                }
-            },
-            {
-                label: 'song4(temp-UI only)',
-                click() {
-                    mainWindow.loadURL(`file://${__dirname}/song4.html`);
-                }
-            }
+            // {
+            //     label: 'song2(temp-UI only)',
+            //     click() {
+            //         mainWindow.loadURL(`file://${__dirname}/song2.html`);
+            //     }
+            // },
+            // {
+            //     label: 'song3(temp-UI only)',
+            //     click() {
+            //         mainWindow.loadURL(`file://${__dirname}/song3.html`);
+            //     }
+            // },
+            // {
+            //     label: 'song4(temp-UI only)',
+            //     click() {
+            //         mainWindow.loadURL(`file://${__dirname}/song4.html`);
+            //     }
+            // }
         ]
     },
     {
