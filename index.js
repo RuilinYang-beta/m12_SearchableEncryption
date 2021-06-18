@@ -22,7 +22,8 @@ app.on('ready', () => {
     mainWindow.loadURL(`file://${__dirname}/index.html`);
 
     const mainMenu = Menu.buildFromTemplate(menuTemplate);
-    mainWindow.setMenu(mainMenu);
+    Menu.setApplicationMenu(mainMenu);
+    // mainWindow.setMenu(mainMenu);
 })
 
 
