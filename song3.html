@@ -54,12 +54,12 @@
         <div class="cell" id="searchTerm">
             <h3>Alice (you)</h3>
             <div id="chooseSearchTerm">
-                <label>Enter (exactly) a block to search, the server will return all the documents containing this term.</label>
+                <label>Enter a block (content between a pair of [square brackets]) to search for all the files containing this term.</label>
                 <br>
                 <input id="searchTermInput" placeholder="enter a Wj" required>
             </div>
             <button id="searchTermButton" type="button" >Confirm</button>
-            <p id="searchTermNotice"></p>
+            <p id="searchTermNotice" style="color: #ff6f69"></p>
         </div>
         <!-- 1.2 query term -->
         <div class="cell" id="queryTerm">
@@ -88,8 +88,8 @@
             <div id="LjEnc" class="block">L<sub>j</sub></div>
             <div id="RjEnc" class="block">R<sub>j</sub></div>
             <div id="SjEnc" class="block">S<sub>j</sub></div>
-            <div id="FjEnc" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
-            <div id="kjEnc">where k<sub>j</sub> = f(L<sub>j</sub>)</div>
+            <div id="FjEnc" class="block">P<sub>j</sub></div>
+            <div id="kjEnc">where k<sub>j</sub> = f(L<sub>j</sub>), P<sub>j</sub> = F(k<sub>j</sub>, S<sub>j</sub>)</div>
             <!--xorEnc operators-->
             <div id="xadEnc" class="block-trans arrow">&#10549;</div>
             <div id="xorEnc" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
@@ -141,26 +141,26 @@
             <div id="ra2Search" class="block-trans arrow" >&rarr;</div>
             <!-- xorEnc results -->
             <div id="SjSearch" class="block">S<sub>j</sub></div>
-            <div id="FjSearch" class="block">F<sub>j</sub></div>
-            <div id="FjSearch_comp" class="block">F<sub>k</sub>(S<sub>j</sub>)</div>
+            <div id="FjSearch" class="block">P<sub>j</sub></div>
+            <div id="FjSearch_comp" class="block" style="font-size: 13px">F(k, S<sub>j</sub>)</div>
             <div id="kSearch" class="block-trans">k from Alice</div>
             <!-- question marks -->
             <div id="q2Search" class="block-trans">(?)</div>
         </div>
         <!-- 3rd row: recovered FjEnc, computedFj, isEqual, toReturn -->
         <div class="cell textContainer" id="bFjContainer">
-            <p>recovered F<sub>j</sub></p>
-            <textarea id="bFjArea" disabled>the recovered Fj: &#xa Fj = Cj[64:] ⊕ X[64:] </textarea>
+            <p>recovered P<sub>j</sub></p>
+            <textarea id="bFjArea" disabled>the recovered Pj: &#xa Pj = Cj[64:] ⊕ L </textarea>
             <button id="bFjButton" type="button">compute</button>
         </div>
         <div class="cell textContainer" id="bComputedFjContainer">
-            <p>computed F<sub>j</sub></p>
-            <textarea id="bComputedFjArea" disabled>the computed Fj: &#xa Fj = F(k, Sj) &#xa (Bob knows how to construct an F)</textarea>
+            <p>F(k, S<sub>j</sub>)</p>
+            <textarea id="bComputedFjArea" disabled>A value computed from k and Sj.(Bob knows how to construct an F)</textarea>
             <button id="bComputedFjButton" type="button" disabled>compute</button>
         </div>
         <div class="cell textContainer" id="isEqualContainer">
             <p>isEqual?</p>
-            <textarea id="isEqualArea" disabled>is computed Fj equal to actual Fj for each block? </textarea>
+            <textarea id="isEqualArea" disabled>is Pj equal to F(k, Sj) for each block? &#xa &#xa In other words, is there a relationship between the recovered Sj and Pj?</textarea>
             <button id="isEqualButton" type="button" disabled>compute</button>
         </div>
         <div class="cell textContainer" id="toReturnContainer">

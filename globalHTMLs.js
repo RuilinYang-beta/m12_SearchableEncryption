@@ -9,6 +9,118 @@
  * `plains` to its initial state (an empty obj)!!
  */
 
+const song1 = `
+<div id="outmost1">
+    <!-- css for the grid of the whole page-->
+    <link rel="stylesheet" href="song1_grid.css">
+    <!-- css for other parts specific for this page -->
+    <link rel="stylesheet" href="song1.css">
+
+    <div id="titleLine">
+        <h3>(1) Initialization and pre-encryption</h3>
+        <div class="help">
+            <div class="question">?</div>
+        </div>
+    </div>
+
+    <div class="grid">
+        <!--sidebar: primitives and files-->
+        <div class="cell" id="primitives">
+            <div>Primitives: </div>
+            <div class="flex">
+                <div id="bigE" class="block xs">E</div>
+                <div id="smallE" class="block xs">e</div>
+                <div id="G" class="block xs">Gs</div>
+                <div id="smallF" class="block xs">f</div>
+                <div id="bigF" class="block xs">F</div>
+            </div>
+        </div>
+        <div class="cell" id="files">
+            <div>Files: </div>
+            <ul id="fileList">
+            </ul>
+        </div>
+        <!--1st row: intro, form and img-->
+        <!-- 1.1 choose file -->
+        <div class="cell" id="chooseFileCell">
+            <div id="chooseFile">
+                <label>1. Select some files to encrypt:</label>
+                <input type="file" id="fileInput" multiple />
+            </div>
+            <p>Hint: <br>You can only choose files in the same folder.<br>Click on different filenames to see what happens.</p>
+        </div>
+        <!-- 1.2 password -->
+        <div class="cell" id="choosePasswordCell">
+            <div id="choosePassword">
+                <label>2. Set a password. The primitives will be derived from your password.</label>
+                <br>
+                <input id="passwordInput" required>
+                <button id="passwordButton" type="button" >Confirm</button>
+                <p id="passwordNotice">(It can take a few seconds)</p>
+            </div>
+        </div>
+        <!-- 1.3 img -->
+        <div class="cell" id="imgEnc">
+            <div id="imageTitleEnc">Alice's operation on file i, block j:</div>
+            <!--pre-encryption-->
+            <div id="WjEnc" class="block">W<sub>j</sub></div>
+            <div id="da1Enc" class="block-trans arrowSmall">&darr;</div>
+            <div id="XjEnc" class="block">X<sub>j</sub></div>
+            <div id="laEnc" class="block-trans arrowSmall">&swarr;</div>
+            <div id="ra1Enc" class="block-trans arrowSmall">&searr;</div>
+            <!--xorEnc terms-->
+            <div id="LjEnc" class="block">L<sub>j</sub></div>
+            <div id="RjEnc" class="block">R<sub>j</sub></div>
+            <div id="SjEnc" class="block">S<sub>j</sub></div>
+            <div id="FjEnc" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
+            <div id="kjEnc">where k<sub>j</sub> = f(L<sub>j</sub>)</div>
+            <!--xorEnc operators-->
+            <div id="xadEnc" class="block-trans arrow">&#10549;</div>
+            <div id="xorEnc" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
+            <div id="xauEnc" class="block-trans arrow" style="">&#10548;</div>
+            <!--cipher text-->
+            <div id="CjEnc" class="block" >C<sub>j</sub></div>
+            <div id="ra2Enc" class="block-trans arrow" >&rarr;</div>
+            <!--PRNG related-->
+            <div id="fnEnc" class="block-trans">filename i</div>
+            <div id="da2Enc" class="block-trans arrow">&darr;</div>
+            <div id="GiEnc" class="block xs">G<sub>i</sub></div>
+            <div id="ra3Enc" class="block-trans arrow" >&rarr;</div>
+        </div>
+        <!--2nd and 3rd row-->
+        <div class="cell textContainer" id="plainContainer">
+            <p>plain text</p>
+            <textarea id="plainArea" disabled>the plain text of the chosen file</textarea>
+        </div>
+        <div class="cell textContainer" id="plainBlockContainer">
+            <p>plain text in 128-bit blocks</p>
+            <textarea id="plainBlockArea" disabled>the plain text of the chosen file in 128-bit blocks (a 128-bit block is a Word)</textarea>
+            <form id="hintSearch">
+                <input type="checkbox" id="hintSearchBox">
+                <label for="hintSearch">I have memorized a block as the keyword to search later.</label>
+            </form>
+        </div>
+        <div class="cell textContainer" id="WjContainer">
+            <p>blocks in hex(W<sub>j</sub>)</p>
+            <textarea id="WjArea" disabled>the Words of the chosen file in hex encoding</textarea>
+        </div>
+        <div class="cell textContainer" id="XjContainer">
+            <p>pre-encrypted blocks (X<sub>j</sub>)</p>
+            <textarea id="XjArea" disabled>the pre-encrypted Words of the chosen file</textarea>
+            <button id="XjButton" type="button" disabled>Pre encrypt</button>
+        </div>
+        <!--footer row: next-->
+        <form id="animationForm">
+            <input type="checkbox" id="animation1">
+            <label for="animation1">Enable animation?</label>
+        </form>
+
+        <button class="cell" id="next1" disabled>Next -></button>
+    </div>
+    <script src="song1.js"></script>
+</div>`;
+
+
 const song2 = `
 <div id="outmost2">
     <!-- css for the grid of the whole page-->
@@ -58,8 +170,8 @@ const song2 = `
             <div id="LjEnc" class="block">L<sub>j</sub></div>
             <div id="RjEnc" class="block">R<sub>j</sub></div>
             <div id="SjEnc" class="block">S<sub>j</sub></div>
-            <div id="FjEnc" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
-            <div id="kjEnc">where k<sub>j</sub> = f(L<sub>j</sub>)</div>
+            <div id="FjEnc" class="block">P<sub>j</sub></div>
+            <div id="kjEnc">where k<sub>j</sub> = f(L<sub>j</sub>), P<sub>j</sub> = F(k<sub>j</sub>, S<sub>j</sub>)</div>
             <!--xorEnc operators-->
             <div id="xadEnc" class="block-trans arrow">&#10549;</div>
             <div id="xorEnc" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
@@ -94,7 +206,7 @@ const song2 = `
             <button id="SjButton" type="button">generate</button>
         </div>
         <div class="cell textContainer" id="FjContainer">
-            <p>F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</p>
+            <p>P<sub>j</sub></p>
             <textarea id="FjArea" disabled>the F-encrypted pseudorandom blocks</textarea>
             <button id="FjButton" type="button" disabled>compute</button>
         </div>
@@ -109,12 +221,13 @@ const song2 = `
             <button id="fnEncButton" type="button">compute</button>
         </div>
         <!--footer row: next-->
-        <button class="cell" id="next2">Next -></button>
+<!--        <button class="cell" id="back2"><- Back</button>-->
+        <button class="cell" id="next2" disabled>Next -></button>
         <!--animation related-->
         <div id="coverAll">
             <div id="aliceText">Alice (you)</div>
             <div id="aliceFiles">
-                <img  src="./images/aliceFiles.png" alt="Alice's Files">
+                <img src="./images/aliceFiles.png" alt="Alice's Files">
             </div>
 
             <div id="actionText">sends file to</div>
@@ -139,6 +252,8 @@ const song3 = `
         </div>
     </div>
 
+
+
     <!-- for each of its immediate successor, add class "cell" -->
     <div class="grid" id="gridContainer">
         <!-- sidebar: primitives and files -->
@@ -162,12 +277,12 @@ const song3 = `
         <div class="cell" id="searchTerm">
             <h3>Alice (you)</h3>
             <div id="chooseSearchTerm">
-                <label>Enter (exactly) a block to search, the server will return all the documents containing this term.</label>
+                <label>Enter a block (content between a pair of [square brackets]) to search for all the files containing this term.</label>
                 <br>
                 <input id="searchTermInput" placeholder="enter a Wj" required>
             </div>
             <button id="searchTermButton" type="button" >Confirm</button>
-            <p id="searchTermNotice"></p>
+            <p id="searchTermNotice" style="color: #ff6f69"></p>
         </div>
         <!-- 1.2 query term -->
         <div class="cell" id="queryTerm">
@@ -196,8 +311,8 @@ const song3 = `
             <div id="LjEnc" class="block">L<sub>j</sub></div>
             <div id="RjEnc" class="block">R<sub>j</sub></div>
             <div id="SjEnc" class="block">S<sub>j</sub></div>
-            <div id="FjEnc" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
-            <div id="kjEnc">where k<sub>j</sub> = f(L<sub>j</sub>)</div>
+            <div id="FjEnc" class="block">P<sub>j</sub></div>
+            <div id="kjEnc">where k<sub>j</sub> = f(L<sub>j</sub>), P<sub>j</sub> = F(k<sub>j</sub>, S<sub>j</sub>)</div>
             <!--xorEnc operators-->
             <div id="xadEnc" class="block-trans arrow">&#10549;</div>
             <div id="xorEnc" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
@@ -249,26 +364,26 @@ const song3 = `
             <div id="ra2Search" class="block-trans arrow" >&rarr;</div>
             <!-- xorEnc results -->
             <div id="SjSearch" class="block">S<sub>j</sub></div>
-            <div id="FjSearch" class="block">F<sub>j</sub></div>
-            <div id="FjSearch_comp" class="block">F<sub>k</sub>(S<sub>j</sub>)</div>
+            <div id="FjSearch" class="block">P<sub>j</sub></div>
+            <div id="FjSearch_comp" class="block" style="font-size: 13px">F(k, S<sub>j</sub>)</div>
             <div id="kSearch" class="block-trans">k from Alice</div>
             <!-- question marks -->
             <div id="q2Search" class="block-trans">(?)</div>
         </div>
         <!-- 3rd row: recovered FjEnc, computedFj, isEqual, toReturn -->
         <div class="cell textContainer" id="bFjContainer">
-            <p>recovered F<sub>j</sub></p>
-            <textarea id="bFjArea" disabled>the recovered Fj: &#xa Fj = Cj[64:] ⊕ X[64:] </textarea>
+            <p>recovered P<sub>j</sub></p>
+            <textarea id="bFjArea" disabled>the recovered Pj: &#xa Pj = Cj[64:] ⊕ L </textarea>
             <button id="bFjButton" type="button">compute</button>
         </div>
         <div class="cell textContainer" id="bComputedFjContainer">
-            <p>computed F<sub>j</sub></p>
-            <textarea id="bComputedFjArea" disabled>the computed Fj: &#xa Fj = F(k, Sj) &#xa (Bob knows how to construct an F)</textarea>
+            <p>F(k, S<sub>j</sub>)</p>
+            <textarea id="bComputedFjArea" disabled>A value computed from k and Sj.(Bob knows how to construct an F)</textarea>
             <button id="bComputedFjButton" type="button" disabled>compute</button>
         </div>
         <div class="cell textContainer" id="isEqualContainer">
             <p>isEqual?</p>
-            <textarea id="isEqualArea" disabled>is computed Fj equal to actual Fj for each block? </textarea>
+            <textarea id="isEqualArea" disabled>is Pj equal to F(k, Sj) for each block? &#xa &#xa In other words, is there a relationship between the recovered Sj and Pj?</textarea>
             <button id="isEqualButton" type="button" disabled>compute</button>
         </div>
         <div class="cell textContainer" id="toReturnContainer">
@@ -316,6 +431,7 @@ const song4 = `
         </div>
     </div>
 
+
     <!-- for each of its immediate successor, add class "cell" -->
     <div class="grid" id="gridContainer">
         <!-- sidebar: primitives and files -->
@@ -342,8 +458,9 @@ const song4 = `
         </div>
         <!-- 1.2 filename -->
         <div class="cell" id="fnDecButton">
-            decrypt all filenames, this is necessary to recover S<sub>j</sub> for each block <br>(see how the names in the file list changes).
+            Now the filenames are encrypted. Decrypt all filenames, this is necessary to recover S<sub>j</sub> for each block <br>
             <button>decrypt filenames</button>
+            <p id="filenameNotice" style="padding: 0px;margin: 0 auto"></p>
         </div>
         <!-- 1.3 imgEnc -->
         <div class="cell" id="imgEnc">
@@ -358,8 +475,8 @@ const song4 = `
             <div id="LjEnc" class="block">L<sub>j</sub></div>
             <div id="RjEnc" class="block">R<sub>j</sub></div>
             <div id="SjEnc" class="block">S<sub>j</sub></div>
-            <div id="FjEnc" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
-            <div id="kjEnc">where k<sub>j</sub> = f(L<sub>j</sub>)</div>
+            <div id="FjEnc" class="block">P<sub>j</sub></div>
+            <div id="kjEnc">where k<sub>j</sub> = f(L<sub>j</sub>), P<sub>j</sub> = F(k<sub>j</sub>, S<sub>j</sub>)</div>
             <!--xorEnc operators-->
             <div id="xadEnc" class="block-trans arrow">&#10549;</div>
             <div id="xorEnc" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
@@ -394,8 +511,8 @@ const song4 = `
             <!--xorDec terms-->
             <div id="CjDec" class="block" >C<sub>j</sub></div>
             <div id="SjDec" class="block">S<sub>j</sub></div>
-            <div id="FjDec" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
-            <div id="kjDec">where k<sub>j</sub> = f(L<sub>j</sub>)</div>
+            <div id="FjDec" class="block">P<sub>j</sub></div>
+            <div id="kjDec">where k<sub>j</sub> = f(L<sub>j</sub>), P<sub>j</sub> = F(k<sub>j</sub>, S<sub>j</sub>)</div>
             <!--xorEnc operators-->
             <div id="xadDec" class="block-trans arrow">&#10549;</div>
             <div id="xorDec" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
@@ -410,6 +527,7 @@ const song4 = `
             <!--cipher text-->
             <div id="LjDec" class="block">L<sub>j</sub></div>
             <div id="RjDec" class="block">R<sub>j</sub></div>
+
         </div>
         <!-- 3rd row: kjEnc, FjEnc, RjEnc, WjEnc -->
         <div class="cell textContainer" id="kjContainer">
@@ -418,13 +536,13 @@ const song4 = `
             <button id="kjButton" type="button" disabled>compute</button>
         </div>
         <div class="cell textContainer" id="FjContainer">
-            <p>computed F<sub>j</sub></p>
-            <textarea id="FjArea" disabled>the re-computed Fj: &#xa Fj = F(kj, Sj)</textarea>
+            <p>computed P<sub>j</sub></p>
+            <textarea id="FjArea" disabled>the re-computed Pj: &#xa Pj = F(kj, Sj)</textarea>
             <button id="FjButton" type="button" disabled>compute</button>
         </div>
         <div class="cell textContainer" id="RjContainer">
             <p>computed R<sub>j</sub></p>
-            <textarea id="RjArea" disabled>the recovered Rj: &#xa Rj = Cj[:64] ⊕ Fj</textarea>
+            <textarea id="RjArea" disabled>the recovered Rj: &#xa Rj = Cj[:64] ⊕ Pj</textarea>
             <button id="RjButton" type="button" disabled>compute</button>
         </div>
         <div class="cell textContainer" id="WjContainer">
@@ -439,11 +557,14 @@ const song4 = `
 </div>`;
 
 const welcome = `
-<div id="outmostWelcome" style="display: flex; flex-direction: column;align-items: center">
+<div id="outmostWelcome" style="display: flex; flex-direction: column; margin: 0px 20px">
     <h1>Welcome to Searchable Encryption Visualization</h1>
 
     <div >
-        <p style="font-size: 19px">Start from the 'Intro' menu for background information;</p>
-        <p style="font-size: 19px">Start from 'Scheme' menu to play with a Searchable Encryption scheme.</p>
+        <p style="font-size: 22px">For newcomers → Start from the 'Intro' menu for background information;</p>
+        <p style="font-size: 17px;margin-left: 20px">- There is an introduction of why we need Searchable Encryption</p>
+        <p style="font-size: 17px;margin-left: 20px">- And introduction to specific schemes. (right now only Song et al(2000) scheme)</p>
+        <p style="font-size: 22px">After brush up the background → Start from 'Scheme' menu to play with a Searchable Encryption scheme.</p>
+        <p style="font-size: 17px;margin-left: 20px">- If you get lost while experimenting, you can open an intro window side-by-side.</p>
     </div>
 </div>`;

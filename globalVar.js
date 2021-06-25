@@ -84,6 +84,9 @@ const hoverTextAreas = (onSelector, highlightSelector) => {
 
 // URL for page help
 const songHelp = 'https://docs.google.com/presentation/d/e/2PACX-1vSTyHQqQQR08CGmxV-RoAd0s8WfJd_xk3l-tys7tewUUXnTlwrUnqwKyG_7usPaeQqY9bFN0pEMQIdc/pub?start=true&loop=false&delayms=60000';
+const songHelp2 = 'https://docs.google.com/presentation/d/e/2PACX-1vQjnRObPLXK0zoQqKSfxtXjsD-R-wiRBSQObc0TCTMUzKTD9Yu_hi5Jy2WJm_F8eOlUTq07LNCdfBnI/pub?start=true&loop=false&delayms=60000';
+const songHelp3 ='https://docs.google.com/presentation/d/e/2PACX-1vRcDxKnF_spj7x8kVbHDzi0DR5Al0kke7fDJnf3AwCeLIqLBoRKZjUp_0OLp-lTUhN-ieGx9HZVDsYY/pub?start=true&loop=false&delayms=60000';
+const songHelp4 = 'https://docs.google.com/presentation/d/e/2PACX-1vQ-aRb7ietZZbt_00Mrm0HAQCtzSTBNWpcTaoWT7IhEb2BXdVeB0HX8XKUmknyayaxQ6tu8OstYTTAQ/pub?start=true&loop=false&delayms=60000';
 
 // ============== crypto-related variables ==============
 

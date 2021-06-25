@@ -52,7 +52,7 @@ $('#imgEnc').css('background-color', '#dddddd');
 
 // pop up help page
 $('#titleLine .help').click(function() {
-    window.open(songHelp, null, 'minimizable=false')
+    window.open(songHelp4, null, 'minimizable=false')
 })
 
 // -------- hover effects of primitives and files --------
@@ -73,6 +73,7 @@ $('#fnDecButton>button').click(function() {
         let fn = $(this).data("filename");
         $(this).html(fn);
     })
+    $('#filenameNotice').html('filenames are decrypted.');
     // enable compute Sj
     $('#SjButton').attr('disabled', false);
 })

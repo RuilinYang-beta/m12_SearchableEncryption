@@ -92,6 +92,16 @@ const menuTemplate = [
     }
 ];
 
+if (process.platform == 'darwin') {
+    menuTemplate.unshift({
+        label: app.getName(),
+        submenu: [
+            {role: 'about'}
+        ]});
+}
+
+
+
 // ================================================
 // ............... helper functions ...............
 // ================================================

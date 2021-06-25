@@ -164,9 +164,19 @@ $('#XjButton').click( function () {
     // populate the pre-encrypted area with the cipher of the selected file
     let fn = $('li.selected').html();
     $('#XjArea').html(displayBlocks(Xjs[fn]));
-    // enable the next button
-    $('#next1').prop('disabled', false);
+    if ($('#hintSearchBox').prop('checked')) {
+        // enable the next button
+        $('#next1').prop('disabled', false);
+    }
 })
+
+$('#hintSearchBox').change(function() {
+    if (this.checked && Object.keys(Xjs).length !== 0) {
+        // enable the next button
+        $('#next1').prop('disabled', false);
+    }
+})
+
 
 $('#next1').click(function() {
     // update animation flag
@@ -177,6 +187,5 @@ $('#next1').click(function() {
     }
     // change html
     $('#outmost1').replaceWith(song2);
-
 })
 

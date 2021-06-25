@@ -63,8 +63,8 @@
             <div id="LjEnc" class="block">L<sub>j</sub></div>
             <div id="RjEnc" class="block">R<sub>j</sub></div>
             <div id="SjEnc" class="block">S<sub>j</sub></div>
-            <div id="FjEnc" class="block">F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</div>
-            <div id="kjEnc">where k<sub>j</sub> = f(L<sub>j</sub>)</div>
+            <div id="FjEnc" class="block">P<sub>j</sub></div>
+            <div id="kjEnc">where k<sub>j</sub> = f(L<sub>j</sub>), P<sub>j</sub> = F(k<sub>j</sub>, S<sub>j</sub>)</div>
             <!--xorEnc operators-->
             <div id="xadEnc" class="block-trans arrow">&#10549;</div>
             <div id="xorEnc" class="block-trans">&nbsp&nbsp&nbsp⊕</div>
@@ -99,7 +99,7 @@
             <button id="SjButton" type="button">generate</button>
         </div>
         <div class="cell textContainer" id="FjContainer">
-            <p>F<sub>k<sub>j</sub></sub>(S<sub>j</sub>)</p>
+            <p>P<sub>j</sub></p>
             <textarea id="FjArea" disabled>the F-encrypted pseudorandom blocks</textarea>
             <button id="FjButton" type="button" disabled>compute</button>
         </div>
@@ -114,7 +114,8 @@
             <button id="fnEncButton" type="button">compute</button>
         </div>
         <!--footer row: next-->
-        <button class="cell" id="next2">Next -></button>
+<!--        <button class="cell" id="back2"><- Back</button>-->
+        <button class="cell" id="next2" disabled>Next -></button>
         <!--animation related-->
         <div id="coverAll">
             <div id="aliceText">Alice (you)</div>

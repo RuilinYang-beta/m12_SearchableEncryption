@@ -47,7 +47,7 @@ let writeFileArea3 = (plains) => {
 
 // pop up help page
 $('#titleLine .help').click(function() {
-    window.open(songHelp, null, 'minimizable=false')
+    window.open(songHelp3, null, 'minimizable=false')
 })
 
 // -------- hover effects of primitives and files --------

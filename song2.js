@@ -62,7 +62,7 @@ writeFileArea2(Xjs);
 
 // pop up help page
 $('#titleLine .help').click(function() {
-    window.open(songHelp, null, 'minimizable=false')
+    window.open(songHelp2, null, 'minimizable=false')
 })
 
 // -------- hover effects of primitives and files --------
@@ -153,4 +153,9 @@ $('#next2').click(function() {
     } else {
         $('#outmost2').replaceWith(song3);
     }
+})
+
+$('#back2').click(function() {
+    $('#outmost2').replaceWith(song1);
+    $('#animation1').prop('checked', true);
 })
