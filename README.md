@@ -1,5 +1,5 @@
 # About
-This app is part of [my Bachelor Thesis](https://ruilinyang-beta.github.io/pdf/m12_thesis.pdf) at University of Twente. 
+This app is part of [my Bachelor Thesis](https://ruilinyang-beta.github.io/pdf/m12_thesis.pdf) at University of Twente. For a quick view of the research, the [presentation slides](https://ruilinyang-beta.github.io/pdf/m12_slides.pdf) can be helpful.
 
 This app is for visualization of Searchable Encryption schemes to make it easier to understand the working mechanism of them. 
 It is intended for interested students and researchers. 
